@@ -1,6 +1,9 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Habitaciones</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Habitaciones</ion-title> 
   </ion-toolbar>
 </ion-header>
 
@@ -8,7 +11,7 @@
   <ion-header collapse="condense">
     <ion-header>
       <ion-toolbar>
-        <ion-title>Habitaciones</ion-title>
+        <ion-title >Habitaciones</ion-title>
       </ion-toolbar>
       <ion-toolbar>
         <ion-searchbar></ion-searchbar>
@@ -17,11 +20,11 @@
   </ion-header>
   
   <ion-card>
-    <img src="assets/icon/images.jpeg" alt="Habitación 1"/>
+    <img class="img1" src="assets/icon/images.jpeg" alt="Habitación 1"/>
     <ion-card-header>
       <ion-card-title>Habitación Deluxe</ion-card-title>
     </ion-card-header>
-    <ion-card-content>
+    <ion-card-content class="lbl1">
       Amplia y lujosa habitación con vistas al mar, equipada con una cama king size y baño privado.
     </ion-card-content>
   </ion-card>

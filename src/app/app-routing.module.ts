@@ -18,7 +18,11 @@ const routes: Routes = [
   {
     path: 'habitaciones',
     loadChildren: () => import('./pages/habitaciones/habitaciones.module').then( m => m.HabitacionesPageModule)
+  },  {
+    path: 'reserva',
+    loadChildren: () => import('./pages/reserva/reserva.module').then( m => m.ReservaPageModule)
   },
+
 
 ];
 

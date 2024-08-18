@@ -9,7 +9,7 @@
     <ion-item>
       <ion-button expand="full" [routerLink]="['/habitaciones']">Habitaciones</ion-button>
     </ion-item>
-    <ion-item>
+    <ion-item >
       <ion-button expand="full" [routerLink]="['/registro']">Registro</ion-button>
     </ion-item>
   </ion-content>
@@ -48,6 +48,10 @@
                 </ion-item>
                 <ion-button expand="full" type="submit" color="primary" class="ion-margin-top" [routerLink]="['/habitaciones']">Acceder</ion-button>
               </form>
+              <ion-item class="registro">
+                <ion-label>¿No tienes cuenta?</ion-label>
+                <ion-button fill="clear" [routerLink]="['/registro']">Crear cuenta</ion-button>
+              </ion-item>
             </ion-card-content>
           </ion-card>
         </ion-col>
@@ -55,3 +59,4 @@
     </ion-grid>
   </ion-content>
 </div>
+  

@@ -5,7 +5,7 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-button expand="full" [routerLink]="['/login']">Login</ion-button>
+  <ion-button expand="full" [routerLink]="['/login']" (click="cerrarMenu()")>Login</ion-button>
   <ion-button expand="full" [routerLink]="['/habitaciones']">Habitaciones</ion-button>
   <ion-content class="ion-padding">Este es el contenido del menu</ion-content>
 </ion-menu>

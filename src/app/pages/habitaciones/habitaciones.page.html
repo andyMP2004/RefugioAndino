@@ -1,26 +1,19 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Habitaciones</ion-title> 
+    <ion-title>Habitaciones</ion-title>
+  </ion-toolbar>
+
+  <ion-toolbar color="primary">
+    <ion-searchbar color="light" placeholder="Buscar"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-header>
-      <ion-toolbar>
-        <ion-title >Habitaciones</ion-title>
-      </ion-toolbar>
-      <ion-toolbar>
-        <ion-searchbar></ion-searchbar>
-      </ion-toolbar>
-    </ion-header>
-  </ion-header>
-  
+<ion-content class="content" [fullscreen]="true">
   <ion-card>
-    <img class="img1" src="assets/icon/images.jpeg" alt="Habitación 1"/>
+    <img class="img1" src="assets/icon/9-5.web" alt="Habitación Deluxe"/>
     <ion-card-header>
       <ion-card-title>Habitación Deluxe</ion-card-title>
     </ion-card-header>
@@ -30,7 +23,7 @@
   </ion-card>
 
   <ion-card>
-    <img src="assets/icon/familiar.jpg" alt="Habitación 2"/>
+    <img src="assets/icon/familiar.jpg" alt="Habitación Familiar"/>
     <ion-card-header>
       <ion-card-title>Habitación Familiar</ion-card-title>
     </ion-card-header>
@@ -40,7 +33,7 @@
   </ion-card>
 
   <ion-card>
-    <img src="assets/icon/precidencial.webp" alt="Habitación 3"/>
+    <img src="assets/icon/precidencial.webp" alt="Suite Presidencial"/>
     <ion-card-header>
       <ion-card-title>Suite Presidencial</ion-card-title>
     </ion-card-header>
@@ -48,5 +41,25 @@
       Suite de lujo con sala de estar, comedor, jacuzzi y vistas panorámicas a la ciudad.
     </ion-card-content>
   </ion-card>
-  
+
+  <ion-tabs>
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button tab="home">
+        <ion-icon name="play-circle"></ion-icon>
+        Familiar
+      </ion-tab-button>
+      <ion-tab-button tab="radio">
+        <ion-icon name="radio"></ion-icon>
+        Suite
+      </ion-tab-button>
+      <ion-tab-button tab="library">
+        <ion-icon name="library"></ion-icon>
+        suite precidencial
+      </ion-tab-button>
+      <ion-tab-button tab="search">
+        <ion-icon name="search"></ion-icon>
+        Search
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
 </ion-content>

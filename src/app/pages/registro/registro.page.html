@@ -1,0 +1,57 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start"[routerLink]="['/login']">
+      <ion-back-button>
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>registro</ion-title>
+    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">registro</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-md="8">
+        <ion-card>
+          <ion-card-content class="cuerpo">
+            <ion-card-title class="titulo" >Registro de Refugio Andino</ion-card-title>
+            <form class="registro">
+              <ion-item>
+                <ion-input placeholder="nombre completo" type="text"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-avatar slot="start">
+                  <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+                </ion-avatar>
+                <ion-input placeholder="Usuario" type="text"></ion-input>
+              </ion-item>
+            
+              <ion-item>
+                <ion-icon name="key" slot="start"></ion-icon>
+                <ion-input type="password" placeholder="Contraseña">
+                  <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+                </ion-input>
+              </ion-item>
+              
+              <ion-item>
+                <ion-icon name="key" slot="start"></ion-icon>
+                <ion-input type="password" placeholder="Confirmar Contraseña">
+                  <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+                </ion-input>
+              </ion-item>
+              <ion-button expand="full" type="submit" color="primary" class="ion-margin-top" [routerLink]="['/login']">Acceder</ion-button>
+            </form>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+</ion-content>

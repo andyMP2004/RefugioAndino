@@ -1,25 +1,16 @@
 <div class="ion-page" id="main-content">
   <ion-header>
-    <ion-toolbar color="primary">
-      <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
-      </ion-buttons>
-      <ion-title>Inicio</ion-title>
-    </ion-toolbar>
   </ion-header>
 
   <ion-content class="ion-padding">
     <ion-grid>
       <ion-row class="ion-justify-content-center">
         <ion-col size="12" size-md="8">
-          <ion-card>
             <ion-card-content class="cuerpo">
               <ion-card-title class="titulo">Bienvenido a Refugio Andino</ion-card-title>
               <form class="login">
                 <ion-item>
-                  <ion-avatar slot="start">
-                    <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-                  </ion-avatar>
+                  <ion-icon name="person" slot="start"></ion-icon>      
                   <ion-input placeholder="Usuario" type="text"></ion-input>
                 </ion-item>
               
@@ -36,10 +27,8 @@
                 <ion-button fill="clear" [routerLink]="['/registro']">Crear cuenta</ion-button>
               </ion-item>
             </ion-card-content>
-          </ion-card>
         </ion-col>
       </ion-row>
     </ion-grid>
   </ion-content>
-</div>
   

@@ -1,15 +1,14 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>reserva</ion-title>
+    <ion-title>Reserva {{habitacion}}</ion-title>
+    <ion-buttons slot="start" [routerLink]="['/habitaciones']">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">reserva</ion-title>
-    </ion-toolbar>
-  </ion-header>
   
-  <ion-button></ion-button>
+  
+  
 </ion-content>

@@ -34,6 +34,10 @@ const routes: Routes = [
     path: 'hpresidencial',
     loadChildren: () => import('./pages/hpresidencial/hpresidencial.module').then( m => m.HpresidencialPageModule)
   },
+  {
+    path: 'miperfil',
+    loadChildren: () => import('./pages/miperfil/miperfil.module').then( m => m.MiperfilPageModule)
+  },
 
 
 ];

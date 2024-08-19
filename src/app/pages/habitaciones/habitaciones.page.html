@@ -4,7 +4,6 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>Habitaciones</ion-title>
-    <ion-button expand="full" [routerLink]="['/reserva']">Reserva</ion-button>
   </ion-toolbar>
 
   <ion-toolbar color="primary">
@@ -14,36 +13,43 @@
 
 <ion-content class="content" [fullscreen]="true">
   <ion-card>
-    <img class="img1" src="assets/icon/9-5.web" alt="Habitación Deluxe"/>
+    <img class="room-image" src="assets/icon/9-5.webp" alt="Habitación Deluxe"/>
     <ion-card-header>
       <ion-card-title>Habitación Deluxe</ion-card-title>
     </ion-card-header>
-    <ion-card-content class="lbl1">
-      Amplia y lujosa habitación con vistas al mar, equipada con una cama king size y baño privado.
-    </ion-card-content>
+    <ion-button class="vermas" expand="block" color="primary" (click)="mostrarInfo('Habitación Deluxe')">
+      Ver mas
+    </ion-button>
+    <ion-button class="vermas" color="warning" expand="full" [routerLink]="['/reserva']">Reserva</ion-button>
   </ion-card>
 
   <ion-card>
-    <img src="assets/icon/familiar.jpg" alt="Habitación Familiar"/>
+    <img class="room-image" src="assets/icon/familiar.jpg" alt="Habitación Familiar"/>
     <ion-card-header>
       <ion-card-title>Habitación Familiar</ion-card-title>
     </ion-card-header>
-    <ion-card-content>
-      Espaciosa habitación perfecta para familias, con dos camas dobles y un área de estar.
-    </ion-card-content>
+    <ion-button class="vermas" expand="block" color="primary" (click)="mostrarInfo('Habitación Familiar')">
+      Ver mas
+    </ion-button>
+    <ion-button class="vermas" color="warning" expand="full"  [routerLink]="['/reserva']">Reserva</ion-button>
   </ion-card>
 
   <ion-card>
-    <img src="assets/icon/precidencial.webp" alt="Suite Presidencial"/>
+    <img class="room-image" src="assets/icon/precidencial.webp" alt="Suite Presidencial"/>
     <ion-card-header>
       <ion-card-title>Suite Presidencial</ion-card-title>
     </ion-card-header>
-    <ion-card-content>
-      Suite de lujo con sala de estar, comedor, jacuzzi y vistas panorámicas a la ciudad.
-    </ion-card-content>
+      <ion-button class="vermas" expand="block" color="primary" (click)="mostrarInfo('Suite Presidencial')">
+        Ver más
+      </ion-button>
+      <ion-button class="vermas" expand="block" color="warning" [routerLink]="['/reserva']">
+        Reserva
+      </ion-button>
   </ion-card>
+  
 </ion-content>
 
+        #Menu para poder filtrar
 <ion-footer>
   <ion-tab-bar slot="bottom" color="primary">
     <ion-tab-button tab="home" [routerLink]="['/hfamiliar']">
@@ -54,9 +60,13 @@
       <ion-icon name="star-outline"></ion-icon>
       Suite
     </ion-tab-button>
-    <ion-tab-button tab="library" [routerLink]="['/hpresidencial']" >
+    <ion-tab-button tab="library" [routerLink]="['/hpresidencial']">
       <ion-icon name="diamond-outline"></ion-icon>
       Suite Presidencial
+    </ion-tab-button>
+    <ion-tab-button tab="library" [routerLink]="['/miperfil']">
+      <ion-icon name="person"></ion-icon>
+      Mi perfil
     </ion-tab-button>
   </ion-tab-bar>
 </ion-footer>

@@ -1,0 +1,21 @@
+ion-content {
+    --background: linear-gradient(15deg, #00c6ff, #0072ff);
+  }
+.room-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 150px;
+    margin-top: 4px;
+  }
+.fondo {
+    background-color: #00c6ff;
+}
+.titulo{
+    font-weight: bold;
+    font-size: 25px;
+}
+.acordion{
+    margin: auto;
+    width: 50%;
+}

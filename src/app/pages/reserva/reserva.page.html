@@ -1,14 +1,32 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Reserva {{habitacion}}</ion-title>
-    <ion-buttons slot="start" [routerLink]="['/habitaciones']">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+
 
 <ion-content [fullscreen]="true">
   
+ 
+  <ion-title class="titulo ion-text-center">Reserva {{habitacion}}</ion-title>
+ 
+    <img class="room-image" src="assets/icon/9-5.webp" alt="Habitación Deluxe"/>
+  
+    <ion-accordion-group class="acordion">
+      <ion-accordion  value="first">
+        <ion-item slot="header" color="light">
+          <ion-label>Cuantos dias se Hospedaran</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">2 Noches</div>
+        <div class="ion-padding" slot="content">3 Noches</div>
+        <div class="ion-padding" slot="content">4 Noches</div>
+        <div class="ion-padding" slot="content">5 Noches</div>
+        <div class="ion-padding" slot="content">6 Noches</div>
+      </ion-accordion>
+      <ion-accordion value="second">
+        <ion-item slot="header" color="light">
+          <ion-label>Cuantos se Hospedaran</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">1</div>
+        <div class="ion-padding" slot="content">2</div>
+        <div class="ion-padding" slot="content">3</div>
+      </ion-accordion>
+    </ion-accordion-group>
   
   
 </ion-content>

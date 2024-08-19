@@ -1,21 +1,16 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons slot="start" [routerLink]="['/home']">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
 
 <ion-content [fullscreen]="true">
+  
   <ion-header collapse="condense">
     <ion-toolbar>
+      
       <ion-title size="large">registro</ion-title>
     </ion-toolbar>
   </ion-header>
   <ion-grid>
     <ion-row class="ion-justify-content-center">
       <ion-col size="12" size-md="8">
-        <ion-card>
+        
           <ion-card-content class="cuerpo">
             <ion-card-title class="titulo" >Registro de Refugio Andino</ion-card-title>
             <form class="registro">
@@ -42,9 +37,10 @@
               
               
               <ion-button expand="full" type="submit" color="primary" class="ion-margin-top" [routerLink]="['/home']">Acceder</ion-button>
+              <ion-button expand="full" type="submit" color="primary" class="ion-margin-top" [routerLink]="['/home']">Volver</ion-button>
             </form>
           </ion-card-content>
-        </ion-card>
+        
       </ion-col>
     </ion-row>
   </ion-grid>

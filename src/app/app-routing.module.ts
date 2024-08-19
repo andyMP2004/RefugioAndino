@@ -22,6 +22,18 @@ const routes: Routes = [
     path: 'reserva',
     loadChildren: () => import('./pages/reserva/reserva.module').then( m => m.ReservaPageModule)
   },
+  {
+    path: 'hfamiliar',
+    loadChildren: () => import('./pages/hfamiliar/hfamiliar.module').then( m => m.HfamiliarPageModule)
+  },
+  {
+    path: 'hsuite',
+    loadChildren: () => import('./pages/hsuite/hsuite.module').then( m => m.HsuitePageModule)
+  },
+  {
+    path: 'hpresidencial',
+    loadChildren: () => import('./pages/hpresidencial/hpresidencial.module').then( m => m.HpresidencialPageModule)
+  },
 
 
 ];

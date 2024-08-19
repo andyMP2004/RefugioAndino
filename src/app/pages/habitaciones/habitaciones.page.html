@@ -3,8 +3,8 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-button expand="full" [routerLink]="['/reserva']">reserva</ion-button>
     <ion-title>Habitaciones</ion-title>
+    <ion-button expand="full" [routerLink]="['/reserva']">Reserva</ion-button>
   </ion-toolbar>
 
   <ion-toolbar color="primary">
@@ -14,7 +14,6 @@
 
 <ion-content class="content" [fullscreen]="true">
   <ion-card>
-
     <img class="img1" src="assets/icon/9-5.web" alt="Habitación Deluxe"/>
     <ion-card-header>
       <ion-card-title>Habitación Deluxe</ion-card-title>
@@ -43,25 +42,21 @@
       Suite de lujo con sala de estar, comedor, jacuzzi y vistas panorámicas a la ciudad.
     </ion-card-content>
   </ion-card>
-
-  <ion-tabs>
-    <ion-tab-bar slot="bottom">
-      <ion-tab-button tab="home">
-        <ion-icon name="play-circle"></ion-icon>
-        Familiar
-      </ion-tab-button>
-      <ion-tab-button tab="radio">
-        <ion-icon name="radio"></ion-icon>
-        Suite
-      </ion-tab-button>
-      <ion-tab-button tab="library">
-        <ion-icon name="library"></ion-icon>
-        suite precidencial
-      </ion-tab-button>
-      <ion-tab-button tab="search">
-        <ion-icon name="search"></ion-icon>
-        Search
-      </ion-tab-button>
-    </ion-tab-bar>
-  </ion-tabs>
 </ion-content>
+
+<ion-footer>
+  <ion-tab-bar slot="bottom" color="primary">
+    <ion-tab-button tab="home" [routerLink]="['/hfamiliar']">
+      <ion-icon name="bed"></ion-icon>
+      Familiar
+    </ion-tab-button>
+    <ion-tab-button tab="radio" [routerLink]="['/hsuite']">
+      <ion-icon name="star-outline"></ion-icon>
+      Suite
+    </ion-tab-button>
+    <ion-tab-button tab="library" [routerLink]="['/hpresidencial']" >
+      <ion-icon name="diamond-outline"></ion-icon>
+      Suite Presidencial
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-footer>

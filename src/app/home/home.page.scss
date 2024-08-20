@@ -12,7 +12,7 @@ ion-content {
   background: linear-gradient(135deg, #00c6ff, #0072ff);
   padding: 30px;
   border-radius: 12px;
-  margin-top: 2.4rem;
+  margin-top: 0.4rem;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
   width: 100%;
   max-width: 400px;
@@ -109,5 +109,6 @@ ion-button:hover {
 
   .registro ion-label {
     margin-bottom: 8px;
+    
   }
 }

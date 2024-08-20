@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>hsuite</ion-title>
+    <ion-title>Habitaciones Suite</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -14,3 +14,25 @@
     </ion-toolbar>
   </ion-header>
 </ion-content>
+
+<ion-footer>
+  <ion-tab-bar slot="bottom" color="primary">
+    <ion-tab-button tab="home" [routerLink]="['/hfamiliar']">
+      <ion-icon name="bed"></ion-icon>
+      Familiar
+    </ion-tab-button>
+    <ion-tab-button tab="radio" [routerLink]="['/hsuite']">
+      <ion-icon name="star-outline"></ion-icon>
+      Suite
+    </ion-tab-button>
+    <ion-tab-button tab="library" [routerLink]="['/hpresidencial']">
+      <ion-icon name="diamond-outline"></ion-icon>
+      Suite Presidencial
+    </ion-tab-button>
+    <ion-tab-button tab="library" [routerLink]="['/miperfil']">
+      <ion-icon name="person"></ion-icon>
+      Mi perfil
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-footer>
+

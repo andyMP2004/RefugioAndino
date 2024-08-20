@@ -38,6 +38,10 @@ const routes: Routes = [
     path: 'miperfil',
     loadChildren: () => import('./pages/miperfil/miperfil.module').then( m => m.MiperfilPageModule)
   },
+  {
+    path: 'restablecer',
+    loadChildren: () => import('./pages/restablecer/restablecer.module').then( m => m.RestablecerPageModule)
+  },
 
 
 ];

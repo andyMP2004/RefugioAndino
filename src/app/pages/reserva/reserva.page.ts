@@ -9,6 +9,9 @@ export class ReservaPage implements OnInit {
 
   habitacion: string = "Habitacion Deluxe"
 
+  
+
+
 
   constructor() { }
 

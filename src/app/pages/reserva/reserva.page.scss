@@ -15,7 +15,23 @@ ion-content {
     font-weight: bold;
     font-size: 25px;
 }
-.acordion{
-    margin: auto;
-    width: 50%;
+.accordion-container {
+  display: flex;
+  gap: 20px; /* Espacio entre los acordeones */
+}
+.accordion-container ion-accordion-group {
+  flex: 1;
+}
+
+.titulo1{
+  font-weight: bold;
+  font-size: 25px;
+  
+}
+ion-item{
+  border-radius: 20px;
+}
+.subtotal{
+  width: 50%;
+  margin: auto;
 }

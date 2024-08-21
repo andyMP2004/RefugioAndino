@@ -1,0 +1,38 @@
+ion-content {
+    --background: linear-gradient(5deg, #00c6ff, #0072ff);
+}
+
+.custom-content {
+    background: rgba(255, 255, 255, 0.8);
+    overflow: hidden;
+}
+
+ion-card {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4);
+}
+
+ion-item {
+    --background: transparent;
+}
+
+ion-card-title {
+    font-size: x-large;
+    top: 2.3rem;
+    color: #000000;
+    font-weight: bold;
+}
+
+.room {
+    position: relative;
+    left: 110px;
+    top: -20px;
+    width: 100%;
+    max-width: 110px;
+    height: auto;
+    border-radius: 10px;
+    margin: 0 auto;
+    display: block;
+}
+

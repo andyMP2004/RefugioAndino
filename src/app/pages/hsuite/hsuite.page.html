@@ -1,6 +1,6 @@
 <!-- hsuite.page.html -->
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
@@ -13,19 +13,25 @@
     <img class="room-image" src="assets/icon/9-5.webp" alt="Habitación Deluxe"/>
     <ion-card-header>
       <ion-card-title>Suite</ion-card-title>
+      <img class="room" src="assets/icon/logo.png" alt="Logo Refugio Andino"/>
+      <ion-alert
+      trigger="present-alert"
+      header="Please enter your info"
+      [buttons]="alertButtons"
+      [inputs]="alertInputs"></ion-alert>
+      <ion-button expand="block" color="primary" (click)="mostrarInfo('Habitación Familiar')">
+        Ver más
+      </ion-button>
+      <ion-button class="vermas" color="warning" expand="full"  [routerLink]="['/reserva']">Reserva</ion-button>
     </ion-card-header>
-    <ion-button class="vermas" expand="block" color="primary" (click)="mostrarInfo('Habitación Deluxe')">
-      Ver mas
-    </ion-button>
-    <ion-button class="vermas" color="success" expand="full" [routerLink]="['/reserva']">Reserva</ion-button>
   </ion-card>
 </ion-content>
 
 <ion-footer>
   <ion-tab-bar slot="bottom" color="primary">
-    <ion-tab-button tab="home" [routerLink]="['/hfamiliar']">
-      <ion-icon name="bed"></ion-icon>
-      Familiar
+    <ion-tab-button tab="home" [routerLink]="['/habitaciones']">
+      <ion-icon name="home"></ion-icon>
+      Habitaciones
     </ion-tab-button>
     <ion-tab-button tab="radio" [routerLink]="['/hsuite']">
       <ion-icon name="star-outline"></ion-icon>

@@ -1,48 +1,29 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-title>Habitaciones</ion-title>
+    <ion-title>Bienvenido</ion-title>
   </ion-toolbar>
-  
 </ion-header>
-<ion-content class="content" [fullscreen]="true">
-  <ion-card>
-    <img class="room-image" src="assets/icon/9-5.webp" alt="Habitación Deluxe"/>
-    <ion-card-header>
-      <ion-card-title>Habitación Deluxe</ion-card-title>
-    </ion-card-header>
-    <ion-button class="vermas" expand="block" color="primary" (click)="mostrarInfo('Habitación Deluxe')">
-      Ver mas
-    </ion-button>
-    <ion-button class="vermas" color="success" expand="full" [routerLink]="['/reserva']">Reserva</ion-button>
-  </ion-card>
 
+<ion-content [fullscreen]="true" class="ion-padding">
   <ion-card>
-    <img class="room-image" src="assets/icon/familiar.jpg" alt="Habitación Familiar"/>
     <ion-card-header>
-      <ion-card-title>Habitación Familiar</ion-card-title>
+      <ion-card-title>Encuesta de Satisfacción</ion-card-title>
     </ion-card-header>
-    <ion-button class="vermas" expand="block" color="primary" (click)="mostrarInfo('Habitación Familiar')">
-      Ver mas
-    </ion-button>
-    <ion-button class="vermas" color="warning" expand="full"  [routerLink]="['/reserva']">Reserva</ion-button>
+    <ion-card-content>
+      <p>Nos gustaría saber tu opinión sobre tu experiencia con nosotros.</p>
+      <ion-item>
+        <ion-label>Calificación:</ion-label>
+        <ion-select [(ngModel)]="rating">
+          <ion-select-option value="1">1 - Muy malo</ion-select-option>
+          <ion-select-option value="2">2 - Malo</ion-select-option>
+          <ion-select-option value="3">3 - Aceptable</ion-select-option>
+          <ion-select-option value="4">4 - Bueno</ion-select-option>
+          <ion-select-option value="5">5 - Excelente</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-button expand="full" color="secondary" (click)="submitFeedback()">Enviar Feedback</ion-button>
+    </ion-card-content>
   </ion-card>
-
-  <ion-card>
-    <img class="room-image" src="assets/icon/precidencial.webp" alt="Suite Presidencial"/>
-    <ion-card-header>
-      <ion-card-title>Suite Presidencial</ion-card-title>
-    </ion-card-header>
-      <ion-button class="vermas" expand="block" color="primary" (click)="mostrarInfo('Suite Presidencial')">
-        Ver más
-      </ion-button>
-      <ion-button class="vermas" expand="block" color="warning" [routerLink]="['/reserva']">
-        Reserva
-      </ion-button>
-  </ion-card>
-  
 </ion-content>
 
 
@@ -52,17 +33,17 @@
       <ion-icon name="bed"></ion-icon>
       Familiar
     </ion-tab-button>
-    <ion-tab-button tab="radio" [routerLink]="['/hsuite']">
+    <ion-tab-button tab="suite" [routerLink]="['/hsuite']">
       <ion-icon name="star-outline"></ion-icon>
       Suite
     </ion-tab-button>
-    <ion-tab-button tab="library" [routerLink]="['/hpresidencial']">
+    <ion-tab-button tab="presidencial" [routerLink]="['/hpresidencial']">
       <ion-icon name="diamond-outline"></ion-icon>
       Suite Presidencial
     </ion-tab-button>
-    <ion-tab-button tab="library" [routerLink]="['/miperfil']">
+    <ion-tab-button tab="profile" [routerLink]="['/miperfil']">
       <ion-icon name="person"></ion-icon>
-      Mi perfil
+      Mi Perfil
     </ion-tab-button>
   </ion-tab-bar>
 </ion-footer>

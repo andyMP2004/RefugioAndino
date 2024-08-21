@@ -7,30 +7,56 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./hsuite.page.scss'],
 })
 export class HsuitePage implements OnInit {
+  public alertButtons = [
+    {
+      text: 'Cancel',
+      role: 'cancel',
+      handler: () => {
+        console.log('Alert canceled');
+      },
+    },
+    {
+      text: 'OK',
+      role: 'confirm',
+      handler: () => {
+        console.log('Alert confirmed');
+      },
+    },
+  ];
+
+  public alertInputs = [
+    {
+      name: 'camas',
+      type: 'text',
+      placeholder: 'Camas',
+      value: 'Camas: 2',
+      attributes: { readonly: true },
+    },
+    {
+      name: 'banos',
+      type: 'text', 
+      placeholder: 'Baños',
+      value: 'Baños: 2',
+      attributes: { readonly: true },
+    },
+  ];
 
   constructor(private alertController: AlertController) {}
 
-  mostrarInfo(tipoHabitacion: string) {
-    let mensaje = '';
+  ngOnInit() {}
 
-    if (tipoHabitacion === 'Habitación Deluxe') {
-      mensaje = 'Amplia y lujosa habitación con vistas al mar, equipada con una cama king size y baño privado.';
-    } else if (tipoHabitacion === 'Habitación Familiar') {
-      mensaje = 'Espaciosa habitación perfecta para familias, con dos camas dobles y un área de estar.';
-    } else if (tipoHabitacion === 'Suite Presidencial') {
-      mensaje = 'Suite de lujo con sala de estar, comedor, jacuzzi y vistas panorámicas a la ciudad.';
-    }
-
-    this.alertController.create({
-      header: tipoHabitacion,
-      message: mensaje,
-      buttons: ['OK']
-    }).then(alert => {
-      alert.present();
+  async mostrarInfo(info: string) {
+    const alert = await this.alertController.create({
+      header: 'Información de la Habitación',
+      message: 'Aquí puedes ver los detalles sobre la habitación seleccionada.',
+      inputs: this.alertInputs.map(input => ({
+        ...input,
+        type: input.type as 'text' | 'textarea' | 'password' | 'number' | 'email', 
+      })),
+      buttons: this.alertButtons,
+      cssClass: 'alerta',
     });
-  }
 
-  ngOnInit() {
+    await alert.present();
   }
-
 }

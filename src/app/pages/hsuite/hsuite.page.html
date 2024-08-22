@@ -12,7 +12,21 @@
   <ion-card *ngFor="let habitaciones of habitaciones">
     <img class="room-image" [src]="habitaciones.image" alt="Habitación suite"/>
     <ion-card-header>
+<<<<<<< HEAD
       <ion-card-title>{{ habitaciones.title }}</ion-card-title>
+=======
+      <ion-card-title>Suite</ion-card-title>
+      <img class="room" src="assets/icon/logo.png" alt="Logo Refugio Andino"/>
+      <ion-alert
+      trigger="present-alert"
+      header="Please enter your info"
+      [buttons]="alertButtons"
+      [inputs]="alertInputs"></ion-alert>
+      <ion-button expand="block" color="primary" (click)="mostrarInfo('Habitación Familiar')">
+        Ver más
+      </ion-button>
+      <ion-button class="vermas" color="warning" expand="full"  [routerLink]="['/reserva-suite']">Reserva</ion-button>
+>>>>>>> 9e4021f801748d4a2554c3b7bb1dacfa6c656d6f
     </ion-card-header>
     <ion-card-content>
       <ion-button expand="block" (click)="openModal(habitaciones)">Ver más</ion-button>

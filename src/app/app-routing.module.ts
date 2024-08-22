@@ -42,6 +42,14 @@ const routes: Routes = [
     path: 'restablecer',
     loadChildren: () => import('./pages/restablecer/restablecer.module').then( m => m.RestablecerPageModule)
   },
+  {
+    path: 'reserva-suite',
+    loadChildren: () => import('./pages/reserva-suite/reserva-suite.module').then( m => m.ReservaSuitePageModule)
+  },
+  {
+    path: 'reserva-presidencial',
+    loadChildren: () => import('./pages/reserva-presidencial/reserva-presidencial.module').then( m => m.ReservaPresidencialPageModule)
+  },
 
 
 ];

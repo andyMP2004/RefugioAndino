@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import {ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-hfamiliar',
@@ -7,13 +7,48 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./hfamiliar.page.scss'],
 })
 export class HfamiliarPage implements OnInit {
-
-  isModalOpen = false;
-  constructor(private alertController: AlertController) {}
   
-  setOpen(isOpen: boolean) {
-    this.isModalOpen = isOpen;
+  constructor(private modalController: ModalController) {}
+  isModalOpen = false;
+  modalContent:any={};
+
+  habitaciones = [
+    {
+      image: 'assets/icon/familiar.jpg',
+      title: 'Habitación Familiar',
+      camas: '1 cama matrimonial y 1 cama individual',
+      banos: 'Baño más grande con bañera y ducha',
+      estar: 'Espacio adicional con sofás o sillones'
+    },
+    {
+      image: 'assets/icon/familiar.1.jpg',
+      title: 'Habitación Familiar',
+      camas: '1 cama matrimonial y 1 cama individual',
+      banos: 'Baño más grande con bañera y ducha',
+      estar: 'Espacio adicional con sofás o sillones'
+    },
+    {
+      image: 'assets/icon/familiar.3.jpg',
+      title: 'Habitación Familiar',
+      camas: '1 cama matrimonial y 1 cama individual',
+      banos: 'Baño más grande con bañera y ducha',
+      estar: 'Espacio adicional con sofás o sillones'
+    },
+    {
+      image: 'assets/icon/familiar.4.jpg',
+      title: 'Habitación Familiar',
+      camas: '1 cama matrimonial y 1 cama individual',
+      banos: 'Baño más grande con bañera y ducha',
+      estar: 'Espacio adicional con sofás o sillones'
+    }
+  ];
+
+  openModal(habitaciones: any) {
+    this.modalContent = habitaciones;
+    this.isModalOpen = true;
   }
+  
+
   ngOnInit() {}
 
 }

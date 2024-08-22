@@ -1,32 +1,14 @@
-<!-- hpresidencial.page.html -->
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-title>Habitaciones Presidenciales</ion-title>
+    <ion-title>Reserva Tu Estancia Perfecta</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="custom-content">
   <ion-card *ngFor="let habitaciones of habitaciones">
-    <img class="room-image" [src]="habitaciones.image" alt="Habitación suite"/>
+    <img class="room-image" [src]="habitaciones.image" alt="Habitación Familiar"/>
     <ion-card-header>
-<<<<<<< HEAD
       <ion-card-title>{{ habitaciones.title }}</ion-card-title>
-=======
-      <ion-card-title>Suite Presidencial</ion-card-title>
-      <img class="room" src="assets/icon/logo.png" alt="Logo Refugio Andino"/>
-      <ion-alert
-      trigger="present-alert"
-      header="Please enter your info"
-      [buttons]="alertButtons"
-      [inputs]="alertInputs"></ion-alert>
-      <ion-button expand="block" color="primary" (click)="mostrarInfo('Habitación Familiar')">
-        Ver más
-      </ion-button>
-      <ion-button class="vermas" color="warning" expand="full"  [routerLink]="['/reserva-presidencial']">Reserva</ion-button>
->>>>>>> 9e4021f801748d4a2554c3b7bb1dacfa6c656d6f
     </ion-card-header>
     <ion-card-content>
       <ion-button expand="block" (click)="openModal(habitaciones)">Ver más</ion-button>
@@ -64,21 +46,21 @@
 
 <ion-footer>
   <ion-tab-bar slot="bottom" color="primary">
-    <ion-tab-button tab="home" [routerLink]="['/habitaciones']">
-      <ion-icon name="home"></ion-icon>
-      Habitaciones
+    <ion-tab-button tab="home" [routerLink]="['/hfamiliar']">
+      <ion-icon name="bed"></ion-icon>
+      Familiar
     </ion-tab-button>
-    <ion-tab-button tab="radio" [routerLink]="['/hsuite']">
+    <ion-tab-button tab="suite" [routerLink]="['/hsuite']">
       <ion-icon name="star-outline"></ion-icon>
       Suite
     </ion-tab-button>
-    <ion-tab-button tab="library" [routerLink]="['/hpresidencial']">
+    <ion-tab-button tab="presidencial" [routerLink]="['/hpresidencial']">
       <ion-icon name="diamond-outline"></ion-icon>
       Suite Presidencial
     </ion-tab-button>
-    <ion-tab-button tab="library" [routerLink]="['/miperfil']">
+    <ion-tab-button tab="profile" [routerLink]="['/miperfil']">
       <ion-icon name="person"></ion-icon>
-      Mi perfil
+      Mi Perfil
     </ion-tab-button>
   </ion-tab-bar>
 </ion-footer>

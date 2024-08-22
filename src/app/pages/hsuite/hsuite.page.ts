@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-hsuite',
@@ -7,56 +7,47 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./hsuite.page.scss'],
 })
 export class HsuitePage implements OnInit {
-  public alertButtons = [
+  constructor(private modalController: ModalController) {}
+  isModalOpen = false;
+  modalContent:any={};
+
+  habitaciones = [
     {
-      text: 'Cancel',
-      role: 'cancel',
-      handler: () => {
-        console.log('Alert canceled');
-      },
+      image: 'assets/suite/suite1.jpg',
+      title: 'Habitación Suite',
+      camas: '1 cama king-size, con opciones adicionales como sofás-camas',
+      banos: 'Baño grande con bañera',
+      estar: 'Televisión de pantalla plana'
     },
     {
-      text: 'OK',
-      role: 'confirm',
-      handler: () => {
-        console.log('Alert confirmed');
-      },
+      image: 'assets/suite/suite2.jpg',
+      title: 'Habitación Suite',
+      camas: '1 cama king-size, con opciones adicionales como sofás-camas',
+      banos: 'Baño grande con bañera',
+      estar: 'Televisión de pantalla plana'
     },
+    {
+      image: 'assets/suite/suite3.jpeg',
+      title: 'Habitación Suite',
+      camas: '1 cama king-size, con opciones adicionales como sofás-camas',
+      banos: 'Baño grande con bañera',
+      estar: 'Televisión de pantalla plana'
+    },
+    {
+      image: 'assets/suite/suite4.webp',
+      title: 'Habitación Suite',
+      camas: '1 cama king-size, con opciones adicionales como sofás-camas',
+      banos: 'Baño grande con bañera',
+      estar: 'Televisión de pantalla plana'
+    }
   ];
 
-  public alertInputs = [
-    {
-      name: 'camas',
-      type: 'text',
-      placeholder: 'Camas',
-      value: 'Camas: 2',
-      attributes: { readonly: true },
-    },
-    {
-      name: 'banos',
-      type: 'text', 
-      placeholder: 'Baños',
-      value: 'Baños: 2',
-      attributes: { readonly: true },
-    },
-  ];
-
-  constructor(private alertController: AlertController) {}
+  openModal(habitaciones: any) {
+    this.modalContent = habitaciones;
+    this.isModalOpen = true;
+  }
+  
 
   ngOnInit() {}
 
-  async mostrarInfo(info: string) {
-    const alert = await this.alertController.create({
-      header: 'Información de la Habitación',
-      message: 'Aquí puedes ver los detalles sobre la habitación seleccionada.',
-      inputs: this.alertInputs.map(input => ({
-        ...input,
-        type: input.type as 'text' | 'textarea' | 'password' | 'number' | 'email', 
-      })),
-      buttons: this.alertButtons,
-      cssClass: 'alerta',
-    });
-
-    await alert.present();
-  }
 }

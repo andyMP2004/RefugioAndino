@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-hpresidencial',
@@ -7,58 +7,47 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./hpresidencial.page.scss'],
 })
 export class HpresidencialPage implements OnInit {
+  constructor(private modalController: ModalController) {}
+  isModalOpen = false;
+  modalContent:any={};
 
-  public alertButtons = [
+  habitaciones = [
     {
-      text: 'Cancel',
-      role: 'cancel',
-      handler: () => {
-        console.log('Alert canceled');
-      },
+      image: 'assets/precidencial/precidencial1.jpg',
+      title: 'Habitación Precidencial',
+      camas: 'King-size con ropa de cama de alta calidad',
+      banos: 'Lujoso, con jacuzzi, ducha separada y doble lavabo',
+      estar: 'Amplia, con sofás y área de entretenimiento'
     },
     {
-      text: 'OK',
-      role: 'confirm',
-      handler: () => {
-        console.log('Alert confirmed');
-      },
+      image: 'assets/precidencial/precidencial2.jpg',
+      title: 'Habitación Precidencial',
+      camas: 'King-size con ropa de cama de alta calidad',
+      banos: 'Lujoso, con jacuzzi, ducha separada y doble lavabo',
+      estar: 'Amplia, con sofás y área de entretenimiento'
     },
+    {
+      image: 'assets/precidencial/precidencial3.jpg',
+      title: 'Habitación Precidencial',
+      camas: 'King-size con ropa de cama de alta calidad',
+      banos: 'Lujoso, con jacuzzi, ducha separada y doble lavabo',
+      estar: 'Amplia, con sofás y área de entretenimiento'
+    },
+    {
+      image: 'assets/precidencial/precidencial4.jpg',
+      title: 'Habitación Precidencial ',
+      camas: 'King-size con ropa de cama de alta calidad',
+      banos: 'Lujoso, con jacuzzi, ducha separada y doble lavabo',
+      estar: 'Amplia, con sofás y área de entretenimiento'
+    }
   ];
 
-  public alertInputs = [
-    {
-      name: 'camas',
-      type: 'text',
-      placeholder: 'Camas',
-      value: 'Camas: 2',
-      attributes: { readonly: true },
-    },
-    {
-      name: 'banos',
-      type: 'text', 
-      placeholder: 'Baños',
-      value: 'Baños: 2',
-      attributes: { readonly: true },
-    },
-  ];
-
-  constructor(private alertController: AlertController) {}
+  openModal(habitaciones: any) {
+    this.modalContent = habitaciones;
+    this.isModalOpen = true;
+  }
+  
 
   ngOnInit() {}
-
-  async mostrarInfo(info: string) {
-    const alert = await this.alertController.create({
-      header: 'Información de la Habitación',
-      message: 'Aquí puedes ver los detalles sobre la habitación seleccionada.',
-      inputs: this.alertInputs.map(input => ({
-        ...input,
-        type: input.type as 'text' | 'textarea' | 'password' | 'number' | 'email', 
-      })),
-      buttons: this.alertButtons,
-      cssClass: 'alerta',
-    });
-
-    await alert.present();
-  }
 
 }

@@ -1,31 +1,43 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
-    <ion-title>Bienvenido</ion-title>
+    <ion-title><span> Reserva Tu Estancia Perfecta</span></ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
   <ion-card>
+    <img src="assets/familiar/familiar.3.jpg" alt="Habitación Familiar"/>
     <ion-card-header>
-      <ion-card-title>Encuesta de Satisfacción</ion-card-title>
+      <ion-card-title>Habitación Familiar</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <p>Nos gustaría saber tu opinión sobre tu experiencia con nosotros.</p>
-      <ion-item>
-        <ion-label>Calificación:</ion-label>
-        <ion-select [(ngModel)]="rating">
-          <ion-select-option value="1">1 - Muy malo</ion-select-option>
-          <ion-select-option value="2">2 - Malo</ion-select-option>
-          <ion-select-option value="3">3 - Aceptable</ion-select-option>
-          <ion-select-option value="4">4 - Bueno</ion-select-option>
-          <ion-select-option value="5">5 - Excelente</ion-select-option>
-        </ion-select>
-      </ion-item>
-      <ion-button expand="full" color="secondary" (click)="submitFeedback()">Enviar Feedback</ion-button>
+      <p>Perfecta para toda la familia. Disfruta de un ambiente acogedor con todas las comodidades que necesitas.</p>
+      <ion-button expand="full" color="secondary" [routerLink]="['/hfamiliar']">Reservar Ahora</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <img src="assets/suite/suite3.jpeg" alt="Suite de Lujo"/>
+    <ion-card-header>
+      <ion-card-title>Suite de Lujo</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Experiencia de lujo y confort. Nuestra suite de lujo te ofrece el máximo nivel de elegancia y comodidad.</p>
+      <ion-button expand="full" color="secondary" [routerLink]="['/hsuite']">Reservar Ahora</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <img src="assets/precidencial/precidencial1.jpg" alt="Suite Presidencial"/>
+    <ion-card-header>
+      <ion-card-title>Suite Presidencial</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Vive como un rey en nuestra suite presidencial, con vistas panorámicas y servicios exclusivos.</p>
+      <ion-button expand="full" color="secondary" [routerLink]="['/hpresidencial']">Reservar Ahora</ion-button>
     </ion-card-content>
   </ion-card>
 </ion-content>
-
 
 <ion-footer>
   <ion-tab-bar slot="bottom" color="primary">

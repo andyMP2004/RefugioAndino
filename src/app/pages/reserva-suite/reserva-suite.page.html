@@ -1,69 +1,60 @@
-
-
 <ion-content [fullscreen]="true">
-  
- 
-  <ion-title class="titulo ion-text-center">Reserva Suite</ion-title>
- 
-  <img class="room-image" src="assets/icon/9-5.webp" alt="Habitación Deluxe"/>
-  
 
-    <h1 class="titulo1 ion-text-center">Tu Reserva</h1>
+  <ion-title class="titulo ion-text-center fade-in">Reserva Suite</ion-title>
 
-    <ion-item>
-      <div class="1">
-        Reservando por la web obtienes un 20% de descuento.
-        <br>
+  <img class="room-image slide-up" src="assets/icon/9-5.webp" alt="Habitación Deluxe"/>
 
-        nuestro refugio esta de oferta ya que estamos celebrando la apertura de nuestra
-      </div>
-    </ion-item>
+  <h1 class="titulo1 ion-text-center fade-in">Tu Reserva</h1>
 
-    <h1 class="ion-text-center">Tus huespedes</h1>
-    <div class="accordion-container">
-      <ion-accordion-group>
-        <ion-accordion class="first" value="first">
-          <ion-item slot="header" color="light">
-            <ion-label>Cuántos días se hospedarán</ion-label>
-          </ion-item>
-          <div class="ion-padding" slot="content">2 Noches</div>
-          <div class="ion-padding" slot="content">3 Noches</div>
-          <div class="ion-padding" slot="content">4 Noches</div>
-          <div class="ion-padding" slot="content">5 Noches</div>
-          <div class="ion-padding" slot="content">6 Noches</div>
-        </ion-accordion>
-      </ion-accordion-group>
-    
-      <ion-accordion-group>
-        <ion-accordion class="second" value="second">
-          <ion-item slot="header" color="light">
-            <ion-label>personas que se hospedarán</ion-label>
-          </ion-item>
-          <div class="ion-padding" slot="content">1</div>
-          <div class="ion-padding" slot="content">2</div>
-          <div class="ion-padding" slot="content">3</div>
-        </ion-accordion>
-      </ion-accordion-group>
+  <ion-item>
+    <div class="info fade-in">
+      Reservando por la web obtienes un 20% de descuento.
+      <br>
+      nuestro refugio está de oferta ya que estamos celebrando la apertura de nuestra
     </div>
+  </ion-item>
 
-    <h1 class="ion-text-center">informacion del precio</h1>
+  <h1 class="ion-text-center fade-in">Tus huéspedes</h1>
+  <div class="accordion-container slide-up">
+    <ion-accordion-group>
+      <ion-accordion class="first" value="first">
+        <ion-item slot="header" color="light">
+          <ion-label>Cuántos días se hospedarán</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">2 Noches</div>
+        <div class="ion-padding" slot="content">3 Noches</div>
+        <div class="ion-padding" slot="content">4 Noches</div>
+        <div class="ion-padding" slot="content">5 Noches</div>
+        <div class="ion-padding" slot="content">6 Noches</div>
+      </ion-accordion>
+    </ion-accordion-group>
 
-    <ion-item  class="subtotal" >
-      <div class="3">
-        $50000 x 2 noches
-        <br>
-        subtotal = $100000
-      </div>
-    </ion-item>
-  
-  <div class="ion-text-center">
-    <ion-button id="trigger-button" [routerLink]="['/habitaciones']">reservar</ion-button>
-    <br>
-    <ion-button id="trigger-button" [routerLink]="['/hsuite']"> Volver</ion-button>
-
+    <ion-accordion-group>
+      <ion-accordion class="second" value="second">
+        <ion-item slot="header" color="light">
+          <ion-label>personas que se hospedarán</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">1</div>
+        <div class="ion-padding" slot="content">2</div>
+        <div class="ion-padding" slot="content">3</div>
+      </ion-accordion>
+    </ion-accordion-group>
   </div>
-    
 
-  
-  
+  <h1 class="ion-text-center fade-in">información del precio</h1>
+
+  <ion-item class="subtotal fade-in">
+    <div class="price-info">
+      $50000 x 2 noches
+      <br>
+      subtotal = $100000
+    </div>
+  </ion-item>
+
+  <div class="ion-text-center">
+    <ion-button id="trigger-button" [routerLink]="['/habitaciones']" class="slide-up">Reservar</ion-button>
+    <br>
+    <ion-button id="trigger-button" [routerLink]="['/hsuite']" class="slide-up">Volver</ion-button>
+  </div>
+
 </ion-content>

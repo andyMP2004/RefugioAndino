@@ -1,0 +1,27 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary" class="slide-down">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title class="fade-in">Reserva Realizada</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-md="8">
+        <ion-card class="perfil slide-up">
+          <ion-card-content class="cuerpo">
+            <h1 class="fade-in">Su reserva seleccionada es la siguiente</h1>
+            <ion-datetime class="cal fade-in" presentation="date" [multiple]="true" [value]="[]"></ion-datetime>
+            <br>
+
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

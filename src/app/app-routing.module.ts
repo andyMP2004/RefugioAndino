@@ -50,6 +50,10 @@ const routes: Routes = [
     path: 'reserva-presidencial',
     loadChildren: () => import('./pages/reserva-presidencial/reserva-presidencial.module').then( m => m.ReservaPresidencialPageModule)
   },
+  {
+    path: 'reserva-perfil',
+    loadChildren: () => import('./pages/reserva-perfil/reserva-perfil.module').then( m => m.ReservaPerfilPageModule)
+  },
 
 
 ];

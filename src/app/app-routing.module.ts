@@ -75,6 +75,10 @@ const routes: Routes = [
     path: '**',
     loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
   },
+  {
+    path: 'administrador',
+    loadChildren: () => import('./pages/admin/administrador/administrador.module').then( m => m.AdministradorPageModule)
+  },
 
 ];
 

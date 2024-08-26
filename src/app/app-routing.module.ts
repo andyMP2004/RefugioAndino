@@ -18,7 +18,8 @@ const routes: Routes = [
   {
     path: 'habitaciones',
     loadChildren: () => import('./pages/habitaciones/habitaciones.module').then( m => m.HabitacionesPageModule)
-  },  {
+  },
+  {
     path: 'reserva',
     loadChildren: () => import('./pages/reserva/reserva.module').then( m => m.ReservaPageModule)
   },
@@ -58,7 +59,22 @@ const routes: Routes = [
     path: 'reservas',
     loadChildren: () => import('./pages/reservas/reservas.module').then( m => m.ReservasPageModule)
   },
-
+  {
+    path: 'login',
+    loadChildren: () => import('./pages/admin/login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'restablecer',
+    loadChildren: () => import('./pages/admin/restablecer/restablecer.module').then( m => m.RestablecerPageModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./pages/admin/login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: '**',
+    loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
+  },
 
 ];
 

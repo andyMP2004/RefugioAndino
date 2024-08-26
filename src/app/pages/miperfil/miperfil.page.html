@@ -25,28 +25,23 @@
               </ion-avatar>
             </div>
             
-            <ion-card-title class="titulo">{{ usuario }}</ion-card-title>
+            <ion-card-title class="titulo">{{ nombre }}</ion-card-title>
             <p>Chile, Santiago</p>
   
             <form class="profile-form">
               <ion-item>
                 <ion-icon name="person" slot="start"></ion-icon>      
-                <ion-input [value]="usuario" type="text" readonly></ion-input>
+                <ion-input [value]="nombre" type="text" readonly></ion-input>
               </ion-item>
-              
-              <ion-item>
-                <ion-icon name="lock-closed" slot="start">{{ contrasena }}</ion-icon>      
-                <ion-input [value]="contrasena" type="text" readonly></ion-input>
-              </ion-item>
-  
+               
               <ion-item>
                 <ion-icon name="mail" slot="start"></ion-icon>      
-                <ion-input placeholder="Correo" type="text">{{ usuario }}</ion-input>
+                <ion-input [value]="usuario"  type="text" readonly ></ion-input>
               </ion-item>
 
               <ion-button expand="full" [routerLink]="['/reservas']">
                 <ion-icon name="calendar" slot="start"></ion-icon>
-                Reserva
+                Mis Reservas
               </ion-button>
               
               <ion-button expand="full" [routerLink]="['/home']">

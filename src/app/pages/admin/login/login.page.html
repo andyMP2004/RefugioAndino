@@ -5,16 +5,16 @@
         <ion-card-content class="cuerpo">
           <ion-card-title class="titulo">Bienvenido a Refugio Andino</ion-card-title>
           <img class="room" src="assets/icon/logo.png" alt="Logo Refugio Andino"/>
-          <form class="login" (ngSubmit)="irPagina()">
+          <form class="login">
             
             <ion-item>
               <ion-icon name="person" slot="start"></ion-icon>      
-              <ion-input placeholder="Usuario" type="text" [(ngModel)]="usuario" name="usuario"></ion-input>
+              <ion-input placeholder="Usuario" type="text"></ion-input>
             </ion-item>
             
             <ion-item>
               <ion-icon name="lock-closed" slot="start"></ion-icon>
-              <ion-input class="pass" type="password" placeholder="Contraseña" [(ngModel)]="contrasena" name="contrasena">
+              <ion-input class="pass" type="password" placeholder="Contraseña">
                 <ion-input-password-toggle slot="end"></ion-input-password-toggle>
               </ion-input>
             </ion-item>

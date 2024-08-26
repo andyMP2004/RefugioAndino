@@ -7,9 +7,8 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./miperfil.page.scss'],
 })
 export class MiperfilPage implements OnInit {
-
+  nombre: string ="Esteban Toledo";
   usuario: string = "";
-  contrasena: string = "";
 
   constructor(private router: Router, private activedrouter: ActivatedRoute) { }
 
@@ -18,7 +17,6 @@ export class MiperfilPage implements OnInit {
       const navigation = this.router.getCurrentNavigation();
       if (navigation?.extras.state) {
         this.usuario = navigation.extras.state['usu'] || '';
-        this.contrasena = navigation.extras.state['con'] || '';
       }
     });
   }

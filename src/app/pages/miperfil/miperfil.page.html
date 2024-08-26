@@ -6,6 +6,7 @@
     <ion-title>MiPerfil</ion-title>
   </ion-toolbar>
 </ion-header>
+
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
@@ -24,36 +25,40 @@
               </ion-avatar>
             </div>
             
-            <ion-card-title class="titulo">Aaron Vasquez</ion-card-title>
+            <ion-card-title class="titulo">{{ usuario }}</ion-card-title>
             <p>Chile, Santiago</p>
   
             <form class="profile-form">
               <ion-item>
                 <ion-icon name="person" slot="start"></ion-icon>      
-                <ion-input placeholder="Nombre" type="text"></ion-input>
+                <ion-input [value]="usuario" type="text" readonly></ion-input>
               </ion-item>
               
               <ion-item>
-                <ion-icon name="person" slot="start"></ion-icon>      
-                <ion-input placeholder="Apellido" type="text"></ion-input>
+                <ion-icon name="lock-closed" slot="start">{{ contrasena }}</ion-icon>      
+                <ion-input [value]="contrasena" type="text" readonly></ion-input>
               </ion-item>
   
               <ion-item>
-                <ion-icon name="person" slot="start"></ion-icon>      
-                <ion-input placeholder="Correo" type="text"></ion-input>
+                <ion-icon name="mail" slot="start"></ion-icon>      
+                <ion-input placeholder="Correo" type="text">{{ usuario }}</ion-input>
               </ion-item>
 
-              <ion-item>
-                <ion-icon name="calendar" slot="start"></ion-icon>      
-                <ion-button [routerLink]="['/reserva-perfil']">Reserva</ion-button>
-              </ion-item>
+              <ion-button expand="full" [routerLink]="['/reservas']">
+                <ion-icon name="calendar" slot="start"></ion-icon>
+                Reserva
+              </ion-button>
+              
+              <ion-button expand="full" [routerLink]="['/home']">
+                <ion-icon name="log-out-outline" slot="start"></ion-icon>
+                Cerrar Sesión
+              </ion-button>
             </form>
           </ion-card-content>
         </ion-card>
       </ion-col>
     </ion-row>
   </ion-grid>
-  
 </ion-content>
 
 <ion-footer>

@@ -1,17 +1,25 @@
 import { Component } from '@angular/core';
-import { MenuController } from '@ionic/angular';
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  templateUrl: './home.page.html',
+  styleUrls: ['./home.page.scss'],
 })
 export class HomePage {
+  usuario: string = "";
+  contrasena: string = "";
 
-  constructor(private menu: MenuController) {}
+  constructor(private router: Router) {}
 
-  cerrarMenu(){
-    this.menu.close();
+  irPagina() {
+    let navigationExtras: NavigationExtras = {
+      state: {
+        usu: this.usuario,
+        con: this.contrasena,
+      }
+    };
+    this.router.navigate(['/miperfil'], navigationExtras);
   }
 
 }

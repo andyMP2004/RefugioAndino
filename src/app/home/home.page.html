@@ -1,41 +1,36 @@
-<div class="ion-page" id="main-content">
-  <ion-header>
-  </ion-header>
+<ion-content class="ion-padding">
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-md="8">
+        <ion-card-content class="cuerpo">
+          <ion-card-title class="titulo">Bienvenido a Refugio Andino</ion-card-title>
+          <img class="room" src="assets/icon/logo.png" alt="Logo Refugio Andino"/>
+          <form class="login" (ngSubmit)="irPagina()">
+            <ion-item>
+              <ion-icon name="person" slot="start"></ion-icon>      
+              <ion-input placeholder="Usuario" type="text" [(ngModel)]="usuario" name="usuario"></ion-input>
+            </ion-item>
+          
+            <ion-item>
+              <ion-icon name="lock-closed" slot="start"></ion-icon>
+              <ion-input class="pass" type="password" placeholder="Contraseña" [(ngModel)]="contrasena" name="contrasena">
+                <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+              </ion-input>
+            </ion-item>
+            
+            <ion-item class="forgot-password">
+              <ion-button fill="clear" [routerLink]="['/restablecer']">¿Olvidaste tu contraseña?</ion-button>
+            </ion-item>
 
-  <ion-content class="ion-padding">
-    <ion-grid>
-      <ion-row class="ion-justify-content-center">
-        <ion-col size="12" size-md="8">
-            <ion-card-content class="cuerpo">
-              <ion-card-title class="titulo">Bienvenido a Refugio Andino</ion-card-title>
-              <img class="room" src="assets/icon/logo.png" alt="Logo Refugio Andino"/>
-              <form class="login">
-                <ion-item>
-                  <ion-icon name="person" slot="start"></ion-icon>      
-                  <ion-input placeholder="Usuario" type="text"></ion-input>
-                </ion-item>
-              
-                <ion-item>
-                  <ion-icon name="lock-closed" slot="start"></ion-icon>
-                  <ion-input class="pass" type="password" placeholder="Contraseña">
-                    <ion-input-password-toggle slot="end"></ion-input-password-toggle>
-                  </ion-input>
-                </ion-item>
-                
-                <ion-item class="forgot-password">
-                  <ion-button fill="clear" [routerLink]="['/restablecer']">¿Olvidaste tu contraseña?</ion-button>
-                </ion-item>
-
-                <ion-button expand="full" type="submit" color="primary" class="ion-margin-top" [routerLink]="['/habitaciones']">Acceder</ion-button>
-              </form>
-              
-              <ion-item class="registro">
-                <ion-label>¿No tienes cuenta?</ion-label>
-                <ion-button fill="clear" [routerLink]="['/registro']">Crear cuenta</ion-button>
-              </ion-item>
-            </ion-card-content>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-content>
-</div>
+            <ion-button expand="full" type="submit" color="primary" class="ion-margin-top" [routerLink]="['/habitaciones']">Acceder</ion-button>
+          </form>
+          
+          <ion-item class="registro">
+            <ion-label>¿No tienes cuenta?</ion-label>
+            <ion-button fill="clear" [routerLink]="['/registro']">Crear cuenta</ion-button>
+          </ion-item>
+        </ion-card-content>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

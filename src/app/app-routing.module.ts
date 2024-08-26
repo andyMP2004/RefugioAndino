@@ -60,25 +60,14 @@ const routes: Routes = [
     loadChildren: () => import('./pages/reservas/reservas.module').then( m => m.ReservasPageModule)
   },
   {
-    path: 'login',
-    loadChildren: () => import('./pages/admin/login/login.module').then( m => m.LoginPageModule)
-  },
-  {
-    path: 'restablecer',
-    loadChildren: () => import('./pages/admin/restablecer/restablecer.module').then( m => m.RestablecerPageModule)
-  },
-  {
-    path: 'login',
-    loadChildren: () => import('./pages/admin/login/login.module').then( m => m.LoginPageModule)
+    path: 'administrador',
+    loadChildren: () => import('./pages/admin/administrador/administrador.module').then( m => m.AdministradorPageModule)
   },
   {
     path: '**',
     loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
   },
-  {
-    path: 'administrador',
-    loadChildren: () => import('./pages/admin/administrador/administrador.module').then( m => m.AdministradorPageModule)
-  },
+
 
 ];
 

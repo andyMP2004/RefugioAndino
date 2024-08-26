@@ -19,7 +19,10 @@ export class HomePage {
         con: this.contrasena,
       }
     };
-    this.router.navigate(['/miperfil'], navigationExtras);
+    if (this.usuario === "admin") {
+      this.router.navigate(['/administrador'], navigationExtras);
+    } else {
+      this.router.navigate(['/miperfil'], navigationExtras);
+    }
   }
-
 }

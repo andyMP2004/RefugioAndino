@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdministradorPage implements OnInit {
 
+  seleccion: string ="";
+
   constructor() { }
 
   ngOnInit() {

@@ -1,13 +1,95 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>administrador</ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-segment  [(ngModel)] = "seleccion">
+      <ion-segment-button value="gestion1">
+        <ion-label>reservas</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="gestion2">
+        <ion-label>habitaciones</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="gestion3">
+        <ion-label>usuraios</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="gestion4">
+        <ion-label>informes</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">administrador</ion-title>
-    </ion-toolbar>
-  </ion-header>
+
+<ion-content class="gestion">
+  <div  *ngIf="seleccion == 'gestion1'">
+    
+      <ion-list class="reserva" [inset]="true">
+        <ion-title>lista de reservas</ion-title>
+        <ion-item>
+          <ion-label>reserva 1</ion-label> <ion-button ></ion-button><ion-button ></ion-button>
+        </ion-item>
+        <ion-item>
+          <ion-label>reserva 2</ion-label> <ion-button ></ion-button><ion-button ></ion-button>
+        </ion-item>
+        <ion-item>
+          <ion-label>reserva 3</ion-label> <ion-button ></ion-button><ion-button ></ion-button>
+        </ion-item>
+        <ion-item>
+          <ion-label>reserva 4</ion-label><ion-button ></ion-button><ion-button ></ion-button>
+        </ion-item>
+        <ion-item>
+          <ion-label>reserva 5</ion-label><ion-button ></ion-button><ion-button ></ion-button>
+        </ion-item>
+      </ion-list>
+    
+  </div>
+
+  <div *ngIf="seleccion == 'gestion2'">
+    <ion-list class="reserva" [inset]="true">
+      <ion-title>lista de habitacionies</ion-title>
+      <ion-item>
+        <ion-label>Habitacion 1</ion-label> <ion-button ></ion-button><ion-button ></ion-button>
+      </ion-item>
+      <ion-item>
+        <ion-label>Habitacion 2</ion-label> <ion-button ></ion-button><ion-button ></ion-button>
+      </ion-item>
+      <ion-item>
+        <ion-label>Habitacion 3</ion-label> <ion-button ></ion-button><ion-button ></ion-button>
+      </ion-item>
+      <ion-item>
+        <ion-label>Habitacion 4</ion-label><ion-button ></ion-button><ion-button ></ion-button>
+      </ion-item>
+      <ion-item>
+        <ion-label>Habitacion 5</ion-label><ion-button ></ion-button><ion-button ></ion-button>
+      </ion-item>
+    </ion-list>
+  
+  </div>
+  <div *ngIf="seleccion == 'gestion3'">
+    <ion-list class="reserva" [inset]="true">
+      <ion-title>lista de usuarios</ion-title>
+      <ion-item>
+        <ion-label>usuario 1</ion-label> <ion-button ></ion-button><ion-button ></ion-button>
+      </ion-item>
+      <ion-item>
+        <ion-label>usuario 2</ion-label> <ion-button ></ion-button><ion-button ></ion-button>
+      </ion-item>
+      <ion-item>
+        <ion-label>usuario 3</ion-label> <ion-button ></ion-button><ion-button ></ion-button>
+      </ion-item>
+      <ion-item>
+        <ion-label>usuario 4</ion-label><ion-button ></ion-button><ion-button ></ion-button>
+      </ion-item>
+      <ion-item>
+        <ion-label>usuario 5</ion-label><ion-button ></ion-button><ion-button ></ion-button>
+      </ion-item>
+    </ion-list>
+  
+  </div>
+  <div *ngIf="seleccion == 'gestion4'">
+    <p>informacion</p>
+  </div>
+
 </ion-content>

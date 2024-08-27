@@ -48,6 +48,10 @@
 
 <ion-footer>
   <ion-tab-bar slot="bottom" color="primary">
+    <ion-tab-button tab="home" [routerLink]="['/habitaciones']">
+      <ion-icon name="home"></ion-icon>
+      Inicio
+    </ion-tab-button>
     <ion-tab-button tab="home" [routerLink]="['/hfamiliar']">
       <ion-icon name="bed"></ion-icon>
       Familiar
@@ -55,10 +59,6 @@
     <ion-tab-button tab="suite" [routerLink]="['/hsuite']">
       <ion-icon name="star-outline"></ion-icon>
       Suite
-    </ion-tab-button>
-    <ion-tab-button tab="presidencial" [routerLink]="['/hpresidencial']">
-      <ion-icon name="diamond-outline"></ion-icon>
-      Suite Presidencial
     </ion-tab-button>
     <ion-tab-button tab="profile" [routerLink]="['/miperfil']">
       <ion-icon name="person"></ion-icon>

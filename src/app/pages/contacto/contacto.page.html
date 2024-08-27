@@ -1,0 +1,51 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>Contacto</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Contacto</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-md="8">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Envianos tu Mensaje</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <form class="contact-form">
+              <ion-item>
+                <ion-label position="floating">Nombre</ion-label>
+                <ion-input type="text"></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label position="floating">Correo Electrónico</ion-label>
+                <ion-input type="email"></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label position="floating">Mensaje</ion-label>
+                <ion-textarea rows="6"></ion-textarea>
+              </ion-item>
+
+              <ion-item>
+                <ion-icon name="call" slot="start"></ion-icon>
+                <input type="tel" name="" id="">
+              </ion-item>
+              <ion-button expand="full" color="primary" type="submit">
+                Enviar
+              </ion-button>
+            </form>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

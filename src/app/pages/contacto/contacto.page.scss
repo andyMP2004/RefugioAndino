@@ -1,0 +1,30 @@
+ion-content {
+    --background: linear-gradient(1deg, #00c6ff, #003dd8);
+}
+
+ion-card {
+    margin: 16px;
+    padding: 16px;
+    height: 90%;
+    --background: linear-gradient(15deg, #00c6ff, #0072ff);
+    color: white;
+    text-align: center;
+    padding-top: 20px;
+    border-radius: 15px;
+    margin-top: 5rem;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+ion-item {
+    --background: white;
+    --border-radius: 8px;
+}
+
+ion-button {
+    --border-radius: 8px;
+}

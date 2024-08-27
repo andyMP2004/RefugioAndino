@@ -42,6 +42,8 @@ ion-content {
 }
 
 ion-item {
+    margin: 0 auto;
+    width: 15rem;
     --background: white;
     --border-radius: 8px;
     margin-bottom: 15px;
@@ -50,6 +52,17 @@ ion-item {
 ion-label {
     color: #0072ff;
     font-weight: 600;
+}
+
+.buttons-row {
+    margin: auto;
+    display: flex; 
+    gap: 1px; 
+ 
+}
+
+ion-button {
+    margin: auto;   
 }
 
 ion-input {

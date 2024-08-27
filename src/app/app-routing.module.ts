@@ -52,10 +52,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/reserva-presidencial/reserva-presidencial.module').then( m => m.ReservaPresidencialPageModule)
   },
   {
-    path: 'reserva-perfil',
-    loadChildren: () => import('./pages/reserva-perfil/reserva-perfil.module').then( m => m.ReservaPerfilPageModule)
-  },
-  {
     path: 'reservas',
     loadChildren: () => import('./pages/reservas/reservas.module').then( m => m.ReservasPageModule)
   },
@@ -64,10 +60,13 @@ const routes: Routes = [
     loadChildren: () => import('./pages/admin/administrador/administrador.module').then( m => m.AdministradorPageModule)
   },
   {
+    path: 'contacto',
+    loadChildren: () => import('./pages/contacto/contacto.module').then( m => m.ContactoPageModule)
+  },
+  {
     path: '**',
     loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
   },
-
 
 ];
 

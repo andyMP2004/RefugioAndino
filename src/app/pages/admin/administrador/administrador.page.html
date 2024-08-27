@@ -25,46 +25,51 @@
 <ion-content class="gestion">
   <div  *ngIf="seleccion == 'gestion1'">
     
-      <ion-list class="reserva" [inset]="true">
-        <ion-title>lista de reservas</ion-title>
-        <ion-item>
-          <ion-label>reserva 1</ion-label> <ion-button ></ion-button><ion-button ></ion-button>
-        </ion-item>
-        <ion-item>
-          <ion-label>reserva 2</ion-label> <ion-button ></ion-button><ion-button ></ion-button>
-        </ion-item>
-        <ion-item>
-          <ion-label>reserva 3</ion-label> <ion-button ></ion-button><ion-button ></ion-button>
-        </ion-item>
-        <ion-item>
-          <ion-label>reserva 4</ion-label><ion-button ></ion-button><ion-button ></ion-button>
-        </ion-item>
-        <ion-item>
-          <ion-label>reserva 5</ion-label><ion-button ></ion-button><ion-button ></ion-button>
-        </ion-item>
-      </ion-list>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <table class="reservas-table">
+            <thead>
+              <tr>
+                <th>Habitación</th>
+                <th>Fecha</th>
+              </tr>
+            </thead>
+            <tbody >
+              <tr *ngFor="let reserva of reservas">
+                <td>{{ reserva.habitacion }}</td>
+                <td>{{ reserva.fecha }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
     
   </div>
 
   <div *ngIf="seleccion == 'gestion2'">
-    <ion-list class="reserva" [inset]="true">
-      <ion-title>lista de habitacionies</ion-title>
-      <ion-item>
-        <ion-label>Habitacion 1</ion-label> <ion-button ></ion-button><ion-button ></ion-button>
-      </ion-item>
-      <ion-item>
-        <ion-label>Habitacion 2</ion-label> <ion-button ></ion-button><ion-button ></ion-button>
-      </ion-item>
-      <ion-item>
-        <ion-label>Habitacion 3</ion-label> <ion-button ></ion-button><ion-button ></ion-button>
-      </ion-item>
-      <ion-item>
-        <ion-label>Habitacion 4</ion-label><ion-button ></ion-button><ion-button ></ion-button>
-      </ion-item>
-      <ion-item>
-        <ion-label>Habitacion 5</ion-label><ion-button ></ion-button><ion-button ></ion-button>
-      </ion-item>
-    </ion-list>
+    <ion-grid >
+      <ion-row >
+        <ion-col >
+          <table class="habitaciones-table">
+            <thead>
+              <th>habitaciones</th>
+              <th>Nº habitacion</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let habitacion of habitaciones">
+                <td>{{ habitacion.habitacion}}</td>
+                <td>{{habitacion.numero}}</td>
+              </tr>
+
+
+            </tbody>
+
+          </table>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   
   </div>
   <div *ngIf="seleccion == 'gestion3'">

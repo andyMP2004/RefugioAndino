@@ -10,10 +10,7 @@
       <ion-segment-button value="gestion3">
         <ion-label>usuraios</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="gestion4">
-        <ion-label>informes</ion-label>
-      </ion-segment-button>
-    </ion-segment>
+
 
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
@@ -73,24 +70,26 @@
   
   </div>
   <div *ngIf="seleccion == 'gestion3'">
-    <ion-list class="reserva" [inset]="true">
-      <ion-title>lista de usuarios</ion-title>
-      <ion-item>
-        <ion-label>usuario 1</ion-label> <ion-button ></ion-button><ion-button ></ion-button>
-      </ion-item>
-      <ion-item>
-        <ion-label>usuario 2</ion-label> <ion-button ></ion-button><ion-button ></ion-button>
-      </ion-item>
-      <ion-item>
-        <ion-label>usuario 3</ion-label> <ion-button ></ion-button><ion-button ></ion-button>
-      </ion-item>
-      <ion-item>
-        <ion-label>usuario 4</ion-label><ion-button ></ion-button><ion-button ></ion-button>
-      </ion-item>
-      <ion-item>
-        <ion-label>usuario 5</ion-label><ion-button ></ion-button><ion-button ></ion-button>
-      </ion-item>
-    </ion-list>
+    <ion-grid >
+      <ion-row>
+        <ion-col>
+          <table class="usuarios-table">
+            <thead>
+              <th>Nombre</th>
+              <th>Rut</th>
+            
+            </thead>
+            <tbody>
+              <tr *ngFor="let usuario of usuarios">
+                <td>{{usuario.nombre}}</td>
+                <td>{{usuario.rut}}</td>
+                
+              </tr>
+            </tbody>
+
+
+
+
   
   </div>
   <div *ngIf="seleccion == 'gestion4'">

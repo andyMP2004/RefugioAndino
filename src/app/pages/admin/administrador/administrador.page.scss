@@ -66,3 +66,27 @@ ion-content {
     color: #002060; 
     border-bottom: 1px solid #7f7f7f; 
   }
+  .usuarios-table{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #f0f8ff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .usuarios-table th, .usuarios-table td {
+    padding: 12px 15px;
+    text-align: left;
+  }
+  .usuarios-table th{
+    background-color: #004080;
+    color: #ffffff; 
+    font-weight: bold;
+    font-size: 14px;
+  }
+  .usuarios-table td {
+    font-size: 14px;
+    color: #002060; 
+    border-bottom: 1px solid #7f7f7f; 
+  }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertButton, AlertController } from '@ionic/angular';
+import { NavigationExtras, Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-restablecer',
@@ -7,28 +8,40 @@ import { AlertButton, AlertController } from '@ionic/angular';
   styleUrls: ['./restablecer.page.scss'],
 })
 export class RestablecerPage implements OnInit {
-  public alertButtons: AlertButton[] = [
-    {
-      text: '',
-      role: 'cancel',
-      handler: () => {
-        console.log('Alert canceled');
-      },
-    },
-    {
-      text: 'OK',
-      role: 'confirm',
-      handler: () => {
-        console.log('Alert confirmed');
-      },
-    },
-  ];
+  usuario: string = "";
+  contrasena: string = "";
 
-  setResult(ev: any) {
-    console.log(`Dismissed with role: ${ev.detail.role}`);
+  constructor(private router: Router, private alertController: AlertController) {}
+ 
+  async irPagina() {
+    let navigationExtras: NavigationExtras = {
+      state: {
+        usu: this.usuario,
+        con: this.contrasena,
+      }
+    };
+    if (this.usuario == "david@gmail.com" && this.contrasena == "1234") {
+      const alert = await this.alertController.create({
+        header: 'Contraseña igual que la anterior ',
+        message: 'Intente nuevamente',
+        buttons: ['Aceptar'],
+      });
+      await alert.present();
+    }else if(this.usuario != "david@gmail.com"){
+      const alert = await this.alertController.create({
+        header: 'Correo invalido ',
+        message: 'Intente Nuevamente',
+        buttons: ['Aceptar'],
+      });
+      await alert.present();
+    }else{
+      const alert = await this.alertController.create({
+        header: 'Contraseña Actualizada',
+        buttons: ['Aceptar'],
+      });
+      await alert.present();
+    }
   }
-
-  constructor(private alertController: AlertController) { }
 
   ngOnInit() {
   }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -10,19 +11,29 @@ export class HomePage {
   usuario: string = "";
   contrasena: string = "";
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private alertController: AlertController) {}
 
-  irPagina() {
+  async irPagina() {
     let navigationExtras: NavigationExtras = {
       state: {
         usu: this.usuario,
         con: this.contrasena,
       }
     };
-    if (this.usuario === "admin") {
+    if (this.usuario == "admin" && this.contrasena == "1234") {
       this.router.navigate(['/administrador'], navigationExtras);
-    } else {
+    } else if (this.usuario == "david@gmail.com" && this.contrasena == "1234") {
       this.router.navigate(['/miperfil'], navigationExtras);
+    } else {
+      const alert = await this.alertController.create({
+        header: 'No se puede iniciar sesión',
+        subHeader: 'Datos incorrectos',
+        message: 'Intente nuevamente',
+        buttons: ['Aceptar'],
+      });
+      await alert.present();
     }
+  }
+  ngOnInit() {
   }
 }

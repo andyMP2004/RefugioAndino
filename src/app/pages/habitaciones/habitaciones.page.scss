@@ -1,26 +1,36 @@
-ion-card {
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-  border-radius: 15px;
-  overflow: hidden;
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-  margin-bottom: 25px;
-  background: linear-gradient(145deg, #f3f4f6, #e2e4e8);
+ion-card-content {
+  padding: 20px;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #555;
+  text-align: justify;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Asegura que el contenido del card esté centrado */
 }
 
-ion-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+ion-button {
+  background: linear-gradient(135deg, #3880ff, #4c8dff);
+  color: #fff;
+  font-size: 1.2rem;
+  border-radius: 10px;
+  padding: 12px 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+  margin-top: 20px; /* Espacio encima del botón */
 }
+
+ion-button:hover {
+  background: linear-gradient(135deg, #4c8dff, #6aa2ff);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
 
 ion-card img {
   width: 100%;
   height: auto;
   border-bottom: 4px solid #dedede;
-  transition: transform 0.3s ease-in-out;
-}
-
-ion-card img:hover {
-  transform: scale(1.1);
 }
 
 ion-card-header {
@@ -46,22 +56,6 @@ ion-card-content {
   text-align: justify;
 }
 
-ion-button {
-  background: linear-gradient(135deg, #3880ff, #4c8dff);
-  color: #fff;
-  font-size: 1.2rem;
-  border-radius: 10px;
-  margin-top: 20px;
-  padding: 12px 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
-}
-
-ion-button:hover {
-  background: linear-gradient(135deg, #4c8dff, #6aa2ff);
-  transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-}
 
 ion-tab-bar {
   background: linear-gradient(145deg, #ffffff, #e6e8ea);
@@ -70,7 +64,6 @@ ion-tab-bar {
 }
 
 ion-tab-button {
-
   transition: color 0.3s ease-in-out;
 }
 
@@ -96,25 +89,10 @@ ion-content {
   --background: linear-gradient(5deg, #00c6ff, #0072ff);
 }
 
-ion-title {
+.titulo {
+  text-align: center;
   font-size: 1.8rem;
   color: #fff;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
   letter-spacing: 1.5px;
-}
-
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-ion-card {
-  animation: fadeIn 0.6s ease-in-out;
 }

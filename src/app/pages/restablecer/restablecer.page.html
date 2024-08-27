@@ -6,36 +6,30 @@
     <ion-grid>
       <ion-row class="ion-justify-content-center">
         <ion-col size="12" size-md="8">
-            <ion-card-content class="cuerpo">
-              <ion-card-title class="titulo">Cambiar Contraseña</ion-card-title>
-              <img class="room" src="assets/icon/logo.png" alt="Logo Refugio Andino"/>
-              
-              <form class="login">
-                <ion-item>
-                  <ion-icon name="person" slot="start"></ion-icon>      
-                  <ion-input placeholder="Usuario" type="text"></ion-input>
-                </ion-item>
-
-                <ion-item>
-                  <ion-icon name="lock-closed" slot="start"></ion-icon>
-                  <ion-input class="pass" type="password" placeholder="Contraseña">
-                    <ion-input-password-toggle slot="end"></ion-input-password-toggle>
-                  </ion-input>
-                </ion-item>
-
-                <ion-button class="alerta" id="present-alert">Actualizar Contraseña</ion-button>
-                <ion-alert
-                  trigger="present-alert"
-                  header="Contraseña Actualizada!"
-                  [buttons]="alertButtons"
-                  (didDismiss)="setResult($event)"
-                ></ion-alert>              
-              </form>
-
-              <ion-item class="back-to-login">
-                <ion-button fill="clear" [routerLink]="['/home']">Volver al inicio de sesión</ion-button>
+          <ion-card-content class="cuerpo">
+            <ion-card-title class="titulo">Cambiar Contraseña</ion-card-title>
+            <img class="room" src="assets/icon/logo.png" alt="Logo Refugio Andino"/>
+            
+            <form class="login">
+              <ion-item>
+                <ion-icon name="person" slot="start"></ion-icon>      
+                <ion-input placeholder="Usuario" type="text" [(ngModel)]="usuario" name="usuario"></ion-input>
               </ion-item>
-            </ion-card-content>
+
+              <ion-item>
+                <ion-icon name="lock-closed" slot="start"></ion-icon>
+                <ion-input class="pass" type="password" placeholder="Contraseña" [(ngModel)]="contrasena" name="contrasena">
+                  <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+                </ion-input>
+              </ion-item>
+
+              <ion-button class="alerta" expand="full" (click)="irPagina()">Actualizar Contraseña</ion-button>
+            </form>
+
+            <ion-item class="back-to-login">
+              <ion-button fill="clear" [routerLink]="['/home']">Volver al inicio de sesión</ion-button>
+            </ion-item>
+          </ion-card-content>
         </ion-col>
       </ion-row>
     </ion-grid>

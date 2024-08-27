@@ -1,6 +1,9 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
-    <ion-title>Reserva Tu Estancia Perfecta</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Suite precidencial</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -16,7 +19,6 @@
     </ion-card-content>
   </ion-card>  
 
-  <!-- Modal -->
   <ion-modal [isOpen]="isModalOpen" (didDismiss)="isModalOpen = false">
     <ng-template>
       <ion-header>

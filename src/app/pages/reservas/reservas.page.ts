@@ -8,10 +8,11 @@ import { MenuController } from '@ionic/angular';
 })
 export class ReservasPage implements OnInit {
   reservas = [
-    {habitacion: 'Suite Familiar', fecha: '2024-08-25', hora: '14:00' },
-    {habitacion: 'Suite Presidencial', fecha: '2024-08-26', hora: '16:00' },
-    {habitacion: 'Suite', fecha: '2024-08-27', hora: '10:00' }
+    {habitacion: 'Suite Familiar', fecha: '2024-08-25',huespedes:'4' },
+    {habitacion: 'Suite Presidencial', fecha: '2024-08-26',huespedes:'2' },
+    {habitacion: 'Suite', fecha: '2024-08-27',huespedes: '3' } 
   ];
+
 
   constructor(private menu: MenuController) { }
 

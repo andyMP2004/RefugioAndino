@@ -14,35 +14,35 @@ export class RestablecerPage implements OnInit {
   constructor(private router: Router, private alertController: AlertController ,private menu:MenuController) {}
  
   async irPagina() {
-    let navigationExtras: NavigationExtras = {
-      state: {
-        usu: this.usuario,
-        con: this.contrasena,
-      }
-    };
-    if (this.usuario == "david@gmail.com" && this.contrasena == "1234") {
+    if (!this.usuario || !this.contrasena) {
       const alert = await this.alertController.create({
-        header: 'Contraseña igual que la anterior ',
-        message: 'Intente nuevamente',
+        header: 'Los datos no pueden estar vacíos',
+        message: 'Por favor, complete todos los datos',
         buttons: ['Aceptar'],
       });
       await alert.present();
-    }else if(this.usuario != "david@gmail.com"){
+    } else if (this.usuario.length < 6 || this.usuario.length > 20 || !this.usuario.includes('@')) {
       const alert = await this.alertController.create({
-        header: 'Correo invalido ',
-        message: 'Intente Nuevamente',
+        header: 'Por favor complete correctamente los datos',
+        message: 'Por favor, ingrese los datos correctamente',
         buttons: ['Aceptar'],
       });
       await alert.present();
-    }else{
+    } else {
       const alert = await this.alertController.create({
         header: 'Contraseña Actualizada',
         buttons: ['Aceptar'],
       });
       await alert.present();
+      let navigationExtras: NavigationExtras = {
+        state: {
+          usu: this.usuario,
+          con: this.contrasena,
+        }
+      };
+        this.router.navigate(['/home'], navigationExtras);   
     }
   }
-
   ngOnInit() {this.menu.enable(false);
   }
 

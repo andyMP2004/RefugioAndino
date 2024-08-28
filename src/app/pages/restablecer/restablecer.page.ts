@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-restablecer',
@@ -11,7 +11,7 @@ export class RestablecerPage implements OnInit {
   usuario: string = "";
   contrasena: string = "";
 
-  constructor(private router: Router, private alertController: AlertController) {}
+  constructor(private router: Router, private alertController: AlertController ,private menu:MenuController) {}
  
   async irPagina() {
     let navigationExtras: NavigationExtras = {
@@ -43,7 +43,7 @@ export class RestablecerPage implements OnInit {
     }
   }
 
-  ngOnInit() {
+  ngOnInit() {this.menu.enable(false);
   }
 
 }

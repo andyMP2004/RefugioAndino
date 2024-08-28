@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-administrador',
@@ -29,9 +30,9 @@ export class AdministradorPage implements OnInit {
     
   ]
 
-  constructor() { }
+  constructor(private menu: MenuController) { }
 
-  ngOnInit() {
+  ngOnInit() {this.menu.enable(false);
   }
 
 }

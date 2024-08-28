@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { MenuController, ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-hpresidencial',
@@ -7,7 +7,7 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./hpresidencial.page.scss'],
 })
 export class HpresidencialPage implements OnInit {
-  constructor(private modalController: ModalController) {}
+  constructor(private modalController: ModalController, private menu:MenuController) {}
   isModalOpen = false;
   modalContent:any={};
 
@@ -48,6 +48,6 @@ export class HpresidencialPage implements OnInit {
   }
   
 
-  ngOnInit() {}
+  ngOnInit() {this.menu.enable(false);}
 
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-reserva',
@@ -13,9 +14,8 @@ export class ReservaPage implements OnInit {
 
 
 
-  constructor() { }
+  constructor(private menu: MenuController) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {this.menu.enable(false);}
 
 }

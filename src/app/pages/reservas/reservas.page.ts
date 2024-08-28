@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-reservas',
@@ -12,9 +13,9 @@ export class ReservasPage implements OnInit {
     {habitacion: 'Suite', fecha: '2024-08-27', hora: '10:00' }
   ];
 
-  constructor() { }
+  constructor(private menu: MenuController) { }
 
-  ngOnInit() {
+  ngOnInit() {this.menu.enable(false);
   }
 
 }

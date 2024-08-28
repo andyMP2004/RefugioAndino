@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ModalController } from '@ionic/angular';
+import {MenuController, ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-hfamiliar',
@@ -8,7 +8,7 @@ import {ModalController } from '@ionic/angular';
 })
 export class HfamiliarPage implements OnInit {
 
-  constructor(private modalController: ModalController) {}
+  constructor(private menu: MenuController,private modalController: ModalController) {}
   isModalOpen = false;
   modalContent:any={};
 
@@ -49,6 +49,8 @@ export class HfamiliarPage implements OnInit {
   }
   
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.menu.enable(false);
+  }
 
 }

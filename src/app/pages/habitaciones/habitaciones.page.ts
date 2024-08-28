@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-habitaciones',
@@ -9,7 +9,7 @@ import { AlertController } from '@ionic/angular';
 export class HabitacionesPage {
   rating: number | undefined;
 
-  constructor(private alertController: AlertController) {}
+  constructor(private alertController: AlertController,private menu:MenuController) {}
 
   async submitFeedback() {
     // Aquí podrías enviar el feedback a un servidor o almacenarlo
@@ -20,5 +20,11 @@ export class HabitacionesPage {
     });
 
     await alert.present();
+  }
+  ngOnInit() {
+    this.menu.enable(true);
+  }
+  ionViewWillEnter() {
+    this.menu.enable(true);
   }
 }

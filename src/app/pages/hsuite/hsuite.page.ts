@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, ModalController } from '@ionic/angular';
+import { AlertController, MenuController, ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-hsuite',
@@ -7,7 +7,7 @@ import { AlertController, ModalController } from '@ionic/angular';
   styleUrls: ['./hsuite.page.scss'],
 })
 export class HsuitePage implements OnInit {
-  constructor(private modalController: ModalController) {}
+  constructor(private modalController: ModalController, private menu: MenuController) {}
   isModalOpen = false;
   modalContent:any={};
 
@@ -48,6 +48,6 @@ export class HsuitePage implements OnInit {
   }
   
 
-  ngOnInit() {}
+  ngOnInit() {this.menu.enable(false);}
 
 }

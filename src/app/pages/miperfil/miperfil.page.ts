@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-miperfil',
@@ -10,7 +11,7 @@ export class MiperfilPage implements OnInit {
   nombre: string ="Esteban Toledo";
   usuario: string = "";
 
-  constructor(private router: Router, private activedrouter: ActivatedRoute) { }
+  constructor(private router: Router, private activedrouter: ActivatedRoute, private menu: MenuController) { }
 
   ngOnInit() {
     this.activedrouter.paramMap.subscribe(paramMap => {
@@ -19,5 +20,6 @@ export class MiperfilPage implements OnInit {
         this.usuario = navigation.extras.state['usu'] || '';
       }
     });
+    this.menu.enable(false);
   }
 }

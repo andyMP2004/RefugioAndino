@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +11,7 @@ export class HomePage {
   usuario: string = "";
   contrasena: string = "";
 
-  constructor(private router: Router, private alertController: AlertController) {}
+  constructor(private router: Router, private alertController: AlertController, private menu:MenuController) {}
 
   async irPagina() {
     let navigationExtras: NavigationExtras = {
@@ -34,6 +34,6 @@ export class HomePage {
       await alert.present();
     }
   }
-  ngOnInit() {
+  ngOnInit() {this.menu.enable(false);
   }
 }

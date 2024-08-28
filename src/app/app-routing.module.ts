@@ -67,15 +67,48 @@ const routes: Routes = [
     path: 'ayuda',
     loadChildren: () => import('./pages/ayuda/ayuda.module').then( m => m.AyudaPageModule)
   },
- {
-    path: 'ayuda',
-    loadChildren: () => import('./pages/ayuda/ayuda.module').then( m => m.AyudaPageModule)
+
+  {
+    path: 'habitacionf2',
+    loadChildren: () => import('./pages/reserva/habitacionf2/habitacionf2.module').then( m => m.Habitacionf2PageModule)
+  },
+  {
+    path: 'habitacionf3',
+    loadChildren: () => import('./pages/reserva/habitacionf3/habitacionf3.module').then( m => m.Habitacionf3PageModule)
+  },
+  {
+    path: 'habitacionf4',
+    loadChildren: () => import('./pages/reserva/habitacionf4/habitacionf4.module').then( m => m.Habitacionf4PageModule)
+  },
+  {
+    path: 'suite2',
+    loadChildren: () => import('./pages/reserva-suite/suite2/suite2.module').then( m => m.Suite2PageModule)
+  },
+  {
+    path: 'suite3',
+    loadChildren: () => import('./pages/reserva-suite/suite3/suite3.module').then( m => m.Suite3PageModule)
+  },
+  {
+    path: 'suite4',
+    loadChildren: () => import('./pages/reserva-suite/suite4/suite4.module').then( m => m.Suite4PageModule)
+  },
+  {
+    path: 'suite-p2',
+    loadChildren: () => import('./pages/reserva-presidencial/suite-p2/suite-p2.module').then( m => m.SuiteP2PageModule)
+  },
+  {
+    path: 'suite-p3',
+    loadChildren: () => import('./pages/reserva-presidencial/suite-p3/suite-p3.module').then( m => m.SuiteP3PageModule)
+  },
+  {
+    path: 'suite-p4',
+    loadChildren: () => import('./pages/reserva-presidencial/suite-p4/suite-p4.module').then( m => m.SuiteP4PageModule)
   },
 
   {
     path: '**',
     loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
-  },
+  }
  
  
 

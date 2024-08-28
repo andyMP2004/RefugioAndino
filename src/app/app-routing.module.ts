@@ -63,7 +63,11 @@ const routes: Routes = [
     path: 'contacto',
     loadChildren: () => import('./pages/contacto/contacto.module').then( m => m.ContactoPageModule)
   },
-  {
+   {
+    path: 'ayuda',
+    loadChildren: () => import('./pages/ayuda/ayuda.module').then( m => m.AyudaPageModule)
+  },
+ {
     path: 'ayuda',
     loadChildren: () => import('./pages/ayuda/ayuda.module').then( m => m.AyudaPageModule)
   },
@@ -72,7 +76,8 @@ const routes: Routes = [
     path: '**',
     loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
   },
-  
+ 
+ 
 
 ];
 

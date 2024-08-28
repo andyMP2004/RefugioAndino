@@ -22,10 +22,10 @@ export class AdministradorPage implements OnInit {
   ];
 
   usuarios = [
-    {usu:'andy madrid',rut:'21687221-5',id:'1'},
-    {usu:'esteban toledo',rut:'21836167-2',id:'2'},
-    {usu:'aaron vazques',rut:'22432672-2',id:'3'},
-    {usu:'basthian bascuñan ',rut:'22932723-4',id:'4'}
+    {nombre:'andy madrid',rut:'21687221-5',id:'1'},
+    {nombre:'esteban toledo',rut:'21836167-2',id:'2'},
+    {nombre:'aaron vazques',rut:'22432672-2',id:'3'},
+    {nombre:'basthian bascuñan ',rut:'22932723-4',id:'4'}
     
   ]
 

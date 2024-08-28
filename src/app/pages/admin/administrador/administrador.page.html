@@ -1,6 +1,7 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-segment  [(ngModel)] = "seleccion">
+
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="seleccion">
       <ion-segment-button value="gestion1">
         <ion-label>reservas</ion-label>
       </ion-segment-button>
@@ -8,15 +9,15 @@
         <ion-label>habitaciones</ion-label>
       </ion-segment-button>
       <ion-segment-button value="gestion3">
-        <ion-label>usuraios</ion-label>
+        <ion-label>usuarios</ion-label>
       </ion-segment-button>
-
-
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
+      
+    </ion-segment>
   </ion-toolbar>
-</ion-header>
+  
+  </ion-header>
+  
+
 
 
 <ion-content class="gestion">
@@ -86,14 +87,12 @@
                 
               </tr>
             </tbody>
-
-
-
-
-  
+          </table>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </div>
-  <div *ngIf="seleccion == 'gestion4'">
-    <p>informacion</p>
-  </div>
+
+
 
 </ion-content>

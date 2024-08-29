@@ -17,28 +17,32 @@ export class HpresidencialPage implements OnInit {
       title: 'Habitación Precidencial',
       camas: 'King-size con ropa de cama de alta calidad',
       banos: 'Lujoso, con jacuzzi, ducha separada y doble lavabo',
-      estar: 'Amplia, con sofás y área de entretenimiento'
+      estar: 'Amplia, con sofás y área de entretenimiento',
+      reservaRuta: '/reserva-presidencial'
     },
     {
       image: 'assets/precidencial/precidencial2.jpg',
       title: 'Habitación Precidencial',
       camas: 'King-size con ropa de cama de alta calidad',
       banos: 'Lujoso, con jacuzzi, ducha separada y doble lavabo',
-      estar: 'Amplia, con sofás y área de entretenimiento'
+      estar: 'Amplia, con sofás y área de entretenimiento',
+      reservaRuta: '/suite-p2'
     },
     {
       image: 'assets/precidencial/precidencial3.jpg',
       title: 'Habitación Precidencial',
       camas: 'King-size con ropa de cama de alta calidad',
       banos: 'Lujoso, con jacuzzi, ducha separada y doble lavabo',
-      estar: 'Amplia, con sofás y área de entretenimiento'
+      estar: 'Amplia, con sofás y área de entretenimiento',
+      reservaRuta: '/suite-p3'
     },
     {
       image: 'assets/precidencial/precidencial4.jpg',
       title: 'Habitación Precidencial ',
       camas: 'King-size con ropa de cama de alta calidad',
       banos: 'Lujoso, con jacuzzi, ducha separada y doble lavabo',
-      estar: 'Amplia, con sofás y área de entretenimiento'
+      estar: 'Amplia, con sofás y área de entretenimiento',
+      reservaRuta: '/suite-p4'
     }
   ];
 

@@ -17,28 +17,33 @@ export class HsuitePage implements OnInit {
       title: 'Habitación Suite',
       camas: '1 cama king-size, con opciones adicionales como sofás-camas',
       banos: 'Baño grande con bañera',
-      estar: 'Televisión de pantalla plana'
+      estar: 'Televisión de pantalla plana',
+      reservaRuta: '/reserva-suite'
+
     },
     {
       image: 'assets/suite/suite2.jpg',
       title: 'Habitación Suite',
       camas: '1 cama king-size, con opciones adicionales como sofás-camas',
       banos: 'Baño grande con bañera',
-      estar: 'Televisión de pantalla plana'
+      estar: 'Televisión de pantalla plana',
+      reservaRuta: '/suite2'
     },
     {
       image: 'assets/suite/suite3.jpeg',
       title: 'Habitación Suite',
       camas: '1 cama king-size, con opciones adicionales como sofás-camas',
       banos: 'Baño grande con bañera',
-      estar: 'Televisión de pantalla plana'
+      estar: 'Televisión de pantalla plana',
+      reservaRuta: '/suite3'
     },
     {
       image: 'assets/suite/suite4.webp',
       title: 'Habitación Suite',
       camas: '1 cama king-size, con opciones adicionales como sofás-camas',
       banos: 'Baño grande con bañera',
-      estar: 'Televisión de pantalla plana'
+      estar: 'Televisión de pantalla plana',
+      reservaRuta: '/suite4'
     }
   ];
 

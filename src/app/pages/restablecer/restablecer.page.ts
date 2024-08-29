@@ -21,7 +21,7 @@ export class RestablecerPage implements OnInit {
         buttons: ['Aceptar'],
       });
       await alert.present();
-    } else if (this.usuario.length < 6 || this.usuario.length > 20 || !this.usuario.includes('@')) {
+    } else if (this.usuario.length < 6 || this.usuario.length > 20 || !this.usuario.includes('@gmail.com')) {
       const alert = await this.alertController.create({
         header: 'Por favor complete correctamente los datos',
         message: 'Por favor, ingrese los datos correctamente',

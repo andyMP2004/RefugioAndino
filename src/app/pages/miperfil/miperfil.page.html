@@ -39,19 +39,11 @@
                 <ion-input [value]="usuario" type="text" readonly></ion-input>
               </ion-item>
                     
-              <div class="buttons-row">
-                <ion-button expand="full" [routerLink]="['/reservas']">
-                  <ion-icon name="calendar" slot="start"></ion-icon>
-                  Mis Reservas
-                </ion-button>
-                
+              <div class="buttons-row">             
                 <ion-button class="log" color="danger" expand="full" [routerLink]="['/home']">
                   <ion-icon name="log-out-outline" slot="start"></ion-icon>
                   Cerrar Sesión
                 </ion-button>
-                
-               
-
               </div><br>
                <ion-button [routerLink] = "['/ayuda']">
                   <ion-icon name="information-circle-outline"></ion-icon>
@@ -77,7 +69,7 @@
     </ion-tab-button>
     <ion-tab-button tab="library" [routerLink]="['/hpresidencial']">
       <ion-icon name="diamond-outline"></ion-icon>
-      Suite Presidencial
+      Presidencial
     </ion-tab-button>
     <ion-tab-button tab="library" [routerLink]="['/miperfil']">
       <ion-icon name="person"></ion-icon>

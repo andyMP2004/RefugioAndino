@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController, MenuController } from '@ionic/angular';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-habitaciones',
@@ -9,7 +9,7 @@ import { AlertController, MenuController } from '@ionic/angular';
 export class HabitacionesPage {
   rating: number | undefined;
 
-  constructor(private alertController: AlertController,private menu:MenuController) {}  
+  constructor(private menu:MenuController) {}  
 
   ngOnInit() {
     this.menu.enable(true);

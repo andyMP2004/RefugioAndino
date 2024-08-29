@@ -1,92 +1,114 @@
-.gestion{
-    --background: linear-gradient(5deg, #0072ff,#00c6ff );
+.gestion {
+  --background: linear-gradient(5deg, #0072ff, #00c6ff);
 }
-.reserva{
-    border-radius: 15px;
-}
-ion-content {
-    --background: linear-gradient(11deg, #00c6ff, #0072ff);
-  }
-  .reservas-titulo {
-    text-align: center;
-    margin-top: 30px;
-    color: #ffffff;
-    font-size: 5rem;
-    font-weight: bold;
-  }  
-  .reservas-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    background-color: #f0f8ff; /* Azul muy claro */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    overflow: hidden;
-  }
-  
-  .reservas-table th, .reservas-table td {
-    padding: 12px 15px;
-    text-align: left;
-  }
-  
-  .reservas-table th {
-    background-color: #004080;
-    color: #ffffff; 
-    font-weight: bold;
-    font-size: 14px;
-  }
-  
-  .reservas-table td {
-    font-size: 14px;
-    color: #002060; 
-    border-bottom: 1px solid #7f7f7f; 
-  }
 
-  .habitaciones-table{
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    background-color: #f0f8ff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    overflow: hidden;
-  }
-  .habitaciones-table th, .habitaciones-table td {
-    padding: 12px 15px;
-    text-align: left;
-  }
-  .habitaciones-table th{
-    background-color: #004080;
-    color: #ffffff; 
-    font-weight: bold;
-    font-size: 14px;
-  }
-  .habitaciones-table td {
-    font-size: 14px;
-    color: #002060; 
-    border-bottom: 1px solid #7f7f7f; 
-  }
-  .usuarios-table{
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    background-color: #f0f8ff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    overflow: hidden;
-  }
-  .usuarios-table th, .usuarios-table td {
-    padding: 12px 15px;
-    text-align: left;
-  }
-  .usuarios-table th{
-    background-color: #004080;
-    color: #ffffff; 
-    font-weight: bold;
-    font-size: 14px;
-  }
-  .usuarios-table td {
-    font-size: 14px;
-    color: #002060; 
-    border-bottom: 1px solid #7f7f7f; 
-  }
+.reserva {
+  border-radius: 15px;
+}
+
+ion-content {
+  --background: linear-gradient(11deg, #00c6ff, #0072ff);
+}
+
+.reservas-titulo {
+  text-align: center;
+  margin-top: 30px;
+  color: #ffffff;
+  font-size: 5rem;
+  font-weight: bold;
+}
+.room {
+  display: block;
+  margin:auto;
+  padding-top: 50px; 
+  max-width: 100%; 
+  height: auto; 
+}
+
+
+.reservas-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: #f0f8ff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.reservas-table th,
+.reservas-table td {
+  padding: 12px 15px;
+  text-align: left;
+}
+
+.reservas-table th {
+  background-color: #004080;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.reservas-table td {
+  font-size: 14px;
+  color: #002060;
+  border-bottom: 1px solid #7f7f7f;
+}
+
+.habitaciones-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: #f0f8ff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.habitaciones-table th,
+.habitaciones-table td {
+  padding: 12px 15px;
+  text-align: left;
+}
+
+.habitaciones-table th {
+  background-color: #004080;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.habitaciones-table td {
+  font-size: 14px;
+  color: #002060;
+  border-bottom: 1px solid #7f7f7f;
+}
+
+.usuarios-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: #f0f8ff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.usuarios-table th,
+.usuarios-table td {
+  padding: 12px 15px;
+  text-align: left;
+}
+
+.usuarios-table th {
+  background-color: #004080;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.usuarios-table td {
+  font-size: 14px;
+  color: #002060;
+  border-bottom: 1px solid #7f7f7f;
+}

@@ -1,5 +1,4 @@
 <ion-header>
-
   <ion-toolbar>
     <ion-segment [(ngModel)]="seleccion">
       <ion-segment-button value="gestion1">
@@ -11,18 +10,14 @@
       <ion-segment-button value="gestion3">
         <ion-label>usuarios</ion-label>
       </ion-segment-button>
-      
     </ion-segment>
   </ion-toolbar>
-  
-  </ion-header>
-  
-
-
+</ion-header>
 
 <ion-content class="gestion">
-  <div  *ngIf="seleccion == 'gestion1'">
-    
+  <img class="room" src="assets/icon/logo.png" alt="Logo Refugio Andino"/>
+
+  <div *ngIf="seleccion == 'gestion1'">    
     <ion-grid>
       <ion-row>
         <ion-col>
@@ -33,7 +28,7 @@
                 <th>Fecha</th>
               </tr>
             </thead>
-            <tbody >
+            <tbody>
               <tr *ngFor="let reserva of reservas">
                 <td>{{ reserva.habitacion }}</td>
                 <td>{{ reserva.fecha }}</td>
@@ -43,13 +38,12 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-    
   </div>
 
   <div *ngIf="seleccion == 'gestion2'">
-    <ion-grid >
-      <ion-row >
-        <ion-col >
+    <ion-grid>
+      <ion-row>
+        <ion-col>
           <table class="habitaciones-table">
             <thead>
               <th>habitaciones</th>
@@ -57,34 +51,29 @@
             </thead>
             <tbody>
               <tr *ngFor="let habitacion of habitaciones">
-                <td>{{ habitacion.habitacion}}</td>
-                <td>{{habitacion.numero}}</td>
+                <td>{{ habitacion.habitacion }}</td>
+                <td>{{ habitacion.numero }}</td>
               </tr>
-
-
             </tbody>
-
           </table>
         </ion-col>
       </ion-row>
     </ion-grid>
-  
   </div>
+
   <div *ngIf="seleccion == 'gestion3'">
-    <ion-grid >
+    <ion-grid>
       <ion-row>
         <ion-col>
           <table class="usuarios-table">
             <thead>
               <th>Nombre</th>
               <th>Rut</th>
-            
             </thead>
             <tbody>
               <tr *ngFor="let usuario of usuarios">
-                <td>{{usuario.nombre}}</td>
-                <td>{{usuario.rut}}</td>
-                
+                <td>{{ usuario.nombre }}</td>
+                <td>{{ usuario.rut }}</td>
               </tr>
             </tbody>
           </table>
@@ -92,7 +81,4 @@
       </ion-row>
     </ion-grid>
   </div>
-
-
-
 </ion-content>

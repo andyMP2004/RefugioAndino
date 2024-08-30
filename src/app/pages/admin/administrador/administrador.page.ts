@@ -9,24 +9,25 @@ import { MenuController } from '@ionic/angular';
 export class AdministradorPage implements OnInit {
 
   seleccion: string ="";
+  habitacioness: string[] = ['habitacion', 'fecha', 'huespedes', 'acciones'];
   reservas = [
-    {habitacion: 'Suite Familiar', fecha: '2024-08-25', hora: '14:00' },
-    {habitacion: 'Suite Presidencial', fecha: '2024-08-26', hora: '16:00' },
-    {habitacion: 'Suite', fecha: '2024-08-27', hora: '10:00' }
+    { habitacion: 'Suite Familiar', fecha: '2024-08-25', huespedes: '4' },
+    { habitacion: 'Suite Presidencial', fecha: '2024-08-26', huespedes: '2'},
+    { habitacion: 'Suite', fecha: '2024-08-27', huespedes: '3'} 
   ];
-
+  habi: string[] = ['habitacion', 'nhabitacion'];
   habitaciones = [
-    {habitacion:'Habitacion Familiar', numero: 15, id:1},
-    {habitacion:'Suite de lujo', numero: 30, id:12},
-    {habitacion:'Suite precidencial', numero: 50, id:30}
+    { habitacion: 'Suite Familiar', nhabitacion: '15' },
+    { habitacion: 'Suite', nhabitacion: '30' },
+    { habitacion: 'Suite Precidencial', nhabitacion: '50' },
 
   ];
-
+  usuarioss:string[] = ['nombre','rut']
   usuarios = [
-    {nombre:'andy madrid',rut:'21687221-5',id:'1'},
-    {nombre:'esteban toledo',rut:'21836167-2',id:'2'},
-    {nombre:'aaron vazques',rut:'22432672-2',id:'3'},
-    {nombre:'basthian bascuñan ',rut:'22932723-4',id:'4'}
+    {nombre:'andy madrid',rut:'21687221-5'},
+    {nombre:'esteban toledo',rut:'21836167-2'},
+    {nombre:'aaron vazques',rut:'22432672-2'},
+    {nombre:'basthian bascuñan ',rut:'22932723-4'}
     
   ]
 

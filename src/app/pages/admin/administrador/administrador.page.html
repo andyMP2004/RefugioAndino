@@ -41,44 +41,77 @@
   </div>
 
   <div *ngIf="seleccion == 'gestion2'">
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <table class="habitaciones-table">
-            <thead>
-              <th>habitaciones</th>
-              <th>Nº habitacion</th>
-            </thead>
-            <tbody>
-              <tr *ngFor="let habitacion of habitaciones">
-                <td>{{ habitacion.habitacion }}</td>
-                <td>{{ habitacion.numero }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+    <div class="mat-elevation-z23">
+      <table mat-table [dataSource]="habitaciones">
+  
+        <!-- Position Column -->
+        <ng-container matColumnDef="habitacion">
+          <th mat-header-cell *matHeaderCellDef> Habitacion </th>
+          <td mat-cell *matCellDef="let element"> {{element.habitacion}} </td>
+        </ng-container>
+  
+        <!-- Name Column -->
+        <ng-container matColumnDef="nhabitacion">
+          <th mat-header-cell *matHeaderCellDef> N° Habitacion </th>
+          <td mat-cell *matCellDef="let element"> {{element.nhabitacion}} </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="habi"></tr>
+        <tr mat-row *matRowDef="let row; columns: habi;"></tr>
+      </table>
+  
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+      showFirstLastButtons
+      aria-label="Select page of periodic elements">
+      </mat-paginator>
+  
+    </div>
   </div>
 
   <div *ngIf="seleccion == 'gestion3'">
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <table class="usuarios-table">
-            <thead>
-              <th>Nombre</th>
-              <th>Rut</th>
-            </thead>
-            <tbody>
-              <tr *ngFor="let usuario of usuarios">
-                <td>{{ usuario.nombre }}</td>
-                <td>{{ usuario.rut }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+    <div class="mat-elevation-z23">
+      <table mat-table [dataSource]="reservas">
+  
+        <!-- Position Column -->
+        <ng-container matColumnDef="habitacion">
+          <th mat-header-cell *matHeaderCellDef> Habitacion </th>
+          <td mat-cell *matCellDef="let element"> {{element.habitacion}} </td>
+        </ng-container>
+  
+        <!-- Name Column -->
+        <ng-container matColumnDef="fecha">
+          <th mat-header-cell *matHeaderCellDef> Fecha </th>
+          <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
+        </ng-container>
+  
+        <!-- Weight Column -->
+        <ng-container matColumnDef="huespedes">
+          <th mat-header-cell *matHeaderCellDef> Huespedes </th>
+          <td mat-cell *matCellDef="let element"> {{element.huespedes}} </td>
+        </ng-container>
+  
+        <!-- Symbol Column -->
+      <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef> Acciones </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button color="accent">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="habitacioness"></tr>
+        <tr mat-row *matRowDef="let row; columns: habitacioness;"></tr>
+      </table>
+  
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+      showFirstLastButtons
+      aria-label="Select page of periodic elements">
+      </mat-paginator>
+  
+    </div>
   </div>
 </ion-content>

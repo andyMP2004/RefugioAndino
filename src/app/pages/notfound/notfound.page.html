@@ -1,13 +1,21 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>notfound</ion-title>
+    <ion-title>Not Found</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">notfound</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="not-found-content">
+  <ion-grid>
+        <ion-card class="not-found-card ion-justify-content-center ion-align-items-center">
+          <ion-card-header>
+            <ion-card-title class="title">404</ion-card-title>
+          </ion-card-header>
+          <ion-card-content class="content">
+            <p>Lo sentimos, la pagina que estas buscando no existe.</p>
+            <ion-button [routerLink]="['/home']" expand="full" class="back-button">
+              Volver al Inicio
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+  </ion-grid>
 </ion-content>

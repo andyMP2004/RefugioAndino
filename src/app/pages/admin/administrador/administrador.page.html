@@ -1,77 +1,32 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-segment [(ngModel)]="seleccion">
-      <ion-segment-button value="gestion1">
-        <ion-label>reservas</ion-label>
+  <ion-toolbar color="primary">
+    <ion-segment [(ngModel)]="seleccion" class="full-width-segment">
+      <ion-segment-button value="gestion1" class="left-align">
+        <ion-label class="small-text">Reservas</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="gestion2">
-        <ion-label>habitaciones</ion-label>
+      <ion-segment-button value="gestion2" class="left-align">
+        <ion-label class="small-text">Habitaciones</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="gestion3">
-        <ion-label>usuarios</ion-label>
+      <ion-segment-button value="gestion3" class="left-align">
+        <ion-label class="small-text">Usuarios</ion-label>
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
 </ion-header>
 
+
 <ion-content class="gestion">
+  <div class="header-right">
+    <ion-button class="log" color="danger" [routerLink]="['/home']">
+      <ion-icon name="log-out-outline" slot="start"></ion-icon>
+      Cerrar Sesión
+    </ion-button>
+  </div>
   <img class="room" src="assets/icon/logo.png" alt="Logo Refugio Andino"/>
 
-  <div *ngIf="seleccion == 'gestion1'">    
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <table class="reservas-table">
-            <thead>
-              <tr>
-                <th>Habitación</th>
-                <th>Fecha</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let reserva of reservas">
-                <td>{{ reserva.habitacion }}</td>
-                <td>{{ reserva.fecha }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </div>
-
-  <div *ngIf="seleccion == 'gestion2'">
-    <div class="mat-elevation-z23">
-      <table mat-table [dataSource]="habitaciones">
-  
-        <!-- Position Column -->
-        <ng-container matColumnDef="habitacion">
-          <th mat-header-cell *matHeaderCellDef> Habitacion </th>
-          <td mat-cell *matCellDef="let element"> {{element.habitacion}} </td>
-        </ng-container>
-  
-        <!-- Name Column -->
-        <ng-container matColumnDef="nhabitacion">
-          <th mat-header-cell *matHeaderCellDef> N° Habitacion </th>
-          <td mat-cell *matCellDef="let element"> {{element.nhabitacion}} </td>
-        </ng-container>
-  
-        <tr mat-header-row *matHeaderRowDef="habi"></tr>
-        <tr mat-row *matRowDef="let row; columns: habi;"></tr>
-      </table>
-  
-      <mat-paginator [pageSizeOptions]="[5, 10, 20]"
-      showFirstLastButtons
-      aria-label="Select page of periodic elements">
-      </mat-paginator>
-  
-    </div>
-  </div>
-
-  <div *ngIf="seleccion == 'gestion3'">
+  <div *ngIf="seleccion === 'gestion1'">
     <div class="mat-elevation-z23">
       <table mat-table [dataSource]="reservas">
-  
         <!-- Position Column -->
         <ng-container matColumnDef="habitacion">
           <th mat-header-cell *matHeaderCellDef> Habitacion </th>
@@ -89,9 +44,9 @@
           <th mat-header-cell *matHeaderCellDef> Huespedes </th>
           <td mat-cell *matCellDef="let element"> {{element.huespedes}} </td>
         </ng-container>
-  
+
         <!-- Symbol Column -->
-      <ng-container matColumnDef="acciones">
+        <ng-container matColumnDef="acciones">
           <th mat-header-cell *matHeaderCellDef> Acciones </th>
           <td mat-cell *matCellDef="let element">
             <button mat-icon-button color="accent">
@@ -112,6 +67,68 @@
       aria-label="Select page of periodic elements">
       </mat-paginator>
   
+    </div>
+  </div>
+
+  <div *ngIf="seleccion === 'gestion2'">
+    <div class="mat-elevation-z23">
+      <table mat-table [dataSource]="habitaciones">
+        <ng-container matColumnDef="habitacion">
+          <th mat-header-cell *matHeaderCellDef>Habitación</th>
+          <td mat-cell *matCellDef="let element">{{element.habitacion}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="nhabitacion">
+          <th mat-header-cell *matHeaderCellDef>N° Habitaciones</th>
+          <td mat-cell *matCellDef="let element">{{element.nhabitacion}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef>Acciones</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button color="accent">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn">
+              <mat-icon>add</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        
+        <tr mat-header-row *matHeaderRowDef="habi"></tr>
+        <tr mat-row *matRowDef="let row; columns: habi;"></tr>
+      </table>
+    </div>
+  </div>
+
+  <div *ngIf="seleccion === 'gestion3'">
+    <div class="mat-elevation-z23">
+      <table mat-table [dataSource]="usuarios">
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef>Nombre</th>
+          <td mat-cell *matCellDef="let element">{{element.nombre}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="rut">
+          <th mat-header-cell *matHeaderCellDef>RUT</th>
+          <td mat-cell *matCellDef="let element">{{element.rut}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef>Acciones</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button color="accent">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="usuarioss"></tr>
+        <tr mat-row *matRowDef="let row; columns: usuarioss;"></tr>
+      </table>
     </div>
   </div>
 </ion-content>

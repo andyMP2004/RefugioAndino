@@ -38,7 +38,7 @@ export class HomePage {
   
       if (this.usuario == "admin@gmail.com" && this.contrasena == "1234") {
         this.router.navigate(['/administrador'], navigationExtras);
-      }else if (this.contrasena.length<=6 || this.contrasena.length>=12){
+      }else if (this.contrasena.length<6 || this.contrasena.length>12){
         const alert = await this.alertController.create({
           header: 'contraseña invalida',
           message: 'la contraseña debe tener entre 6 y 12 caracteres',

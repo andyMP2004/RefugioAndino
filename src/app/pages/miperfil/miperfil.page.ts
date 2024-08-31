@@ -10,7 +10,7 @@ import { MenuController } from '@ionic/angular';
 export class MiperfilPage implements OnInit {
   nombre: string ="Esteban Toledo";
   usuario: string = "";
-
+  rut: string ="21.231.321-5"
   constructor(private router: Router, private activedrouter: ActivatedRoute, private menu: MenuController) { }
 
   ngOnInit() {

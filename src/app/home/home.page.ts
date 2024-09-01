@@ -52,7 +52,6 @@ export class HomePage {
     }
   }
   
-  
   ngOnInit() {this.menu.enable(false);
   }
 }

@@ -1,48 +1,31 @@
 <ion-header [translucent]="true">
-  <ion-toolbar color=primary>
-    <ion-title>agregar</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title>Agregar</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" >
-  <div class="contenedor-img">
-    Habitacion Familiar<br>
-    <img  src="assets/familiar/familiar.3.jpg" alt="Habitación Familiar"/>
-    <br>
-    Suite
-     <br>
-    <img  src="assets/suite/suite3.jpeg" alt="Suite de Lujo"/>
-   <br>
-    Suite Precidencial
-    <br>
-  <img class="a" src="assets/precidencial/precidencial1.jpg" alt="Suite Presidencial"/>
-  
-  
-  </div>
-  <ion-item>
-    <ion-select label="habitaciones" placeholder="seleccione">
-      <ion-select-option value="familiar"> habitacion familiar</ion-select-option>
-      <ion-select-option value="suite">suite de Lujo</ion-select-option>
-      <ion-select-option value="suite presidencial">suite presidencial</ion-select-option>
+<ion-content [fullscreen]="true">
+  <ion-card-content class="cuerpo">
+    <ion-card-title class="titulo">Añada La habitacion</ion-card-title>
+    <img class="room" src="assets/icon/logo.png" alt="Logo Refugio Andino"/>
+  <form class="agregar">
+    <div class="img">
+      <ion-item>
+        <ion-label>Seleccionar Imagen</ion-label>
+      </ion-item>
+    </div>
+      <ion-item>
+        <ion-icon name="bed" slot="start"></ion-icon> 
+        <ion-input label="Camas" labelPlacement="floating" placeholder="ingrese la descripcion"  [(ngModel)]="camas" name="camas"></ion-input>
+      </ion-item>
 
-    </ion-select>
-  </ion-item>
-  <ion-item>
-    <ion-select label="Personas Que Se Hospedan" placeholder="seleccione">
-      <ion-select-option value="1 huesped">1 huesped</ion-select-option>
-      <ion-select-option value="2 huespedes">2 huespedes</ion-select-option>
-      <ion-select-option value="3 huespedes">3 huespedes</ion-select-option>
-      <ion-select-option value="4 huespedes">4 huespedes</ion-select-option>
-      <ion-select-option value="5 huespedes">5 huespedes</ion-select-option>
-    </ion-select>
-  </ion-item>
-  <ion-item>
-    <ion-select label="Noches Que Se Hospedaran" placeholder="seleccione">
-      <ion-select-option value="2 noches">2 Noches</ion-select-option>
-      <ion-select-option value="3 noches">3 Noches</ion-select-option>
-      <ion-select-option value="4 noches">4 Noches</ion-select-option>
-      <ion-select-option value="5 noches">5 Noches</ion-select-option>
-      <ion-select-option value="6 noches">6 Noches</ion-select-option>
-    </ion-select>
-  </ion-item>
+      <ion-item>
+        <ion-icon name="water" slot="start"></ion-icon> 
+        <ion-input label="Baños" labelPlacement="floating" placeholder="ingrese la descripcion"  [(ngModel)]="banos" name="banos"></ion-input>
+      </ion-item>
+    <ion-button expand="full" color="primary" class="ion-margin-top boton" (click)="irPagina()">
+      Añadir
+    </ion-button>
+  </form>
+</ion-card-content>
 </ion-content>

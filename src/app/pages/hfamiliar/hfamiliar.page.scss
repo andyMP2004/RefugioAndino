@@ -12,7 +12,13 @@ ion-card {
     border-radius: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4);
 }
-
+.passed-info {
+    margin: 10px;
+    padding: 10px;
+    background-color:transparent;
+    border-radius: 5px;
+  }
+  
 ion-item {
     --background: transparent;
 }

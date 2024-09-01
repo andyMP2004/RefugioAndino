@@ -14,4 +14,7 @@ export class HabitacionesPage {
   ngOnInit() {
     this.menu.enable(true);
   }
+  ionViewWillEnter() {
+    this.menu.enable(true);
+  }
 }

@@ -104,11 +104,16 @@ const routes: Routes = [
     path: 'suite-p4',
     loadChildren: () => import('./pages/reserva-presidencial/suite-p4/suite-p4.module').then( m => m.SuiteP4PageModule)
   },
-
+{
+    path: 'agregar',
+    loadChildren: () => import('./pages/agregar/agregar.module').then( m => m.AgregarPageModule)
+  },
   {
     path: '**',
     loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
   }
+  
+
  
  
 

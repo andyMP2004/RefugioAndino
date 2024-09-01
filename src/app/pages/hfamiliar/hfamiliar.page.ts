@@ -57,5 +57,6 @@ export class HfamiliarPage implements OnInit {
   ngOnInit() {
     this.menu.enable(false);
   }
+  
 
 }

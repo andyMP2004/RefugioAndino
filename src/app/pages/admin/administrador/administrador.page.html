@@ -24,7 +24,7 @@
   </div>
   <img class="room" src="assets/icon/logo.png" alt="Logo Refugio Andino"/>
 
-  <div *ngIf="seleccion === 'gestion1'">
+  <div *ngIf="seleccion == 'gestion1'">
     <div class="mat-elevation-z23">
       <table mat-table [dataSource]="reservas">
         <!-- Position Column -->
@@ -70,7 +70,7 @@
     </div>
   </div>
 
-  <div *ngIf="seleccion === 'gestion2'">
+  <div *ngIf="seleccion == 'gestion2'">
     <div class="mat-elevation-z23">
       <table mat-table [dataSource]="habitaciones">
         <ng-container matColumnDef="habitacion">
@@ -101,7 +101,7 @@
     </div>
   </div>
 
-  <div *ngIf="seleccion === 'gestion3'">
+  <div *ngIf="seleccion == 'gestion3'">
     <div class="mat-elevation-z23">
       <table mat-table [dataSource]="usuarios">
         <ng-container matColumnDef="nombre">

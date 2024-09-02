@@ -16,7 +16,7 @@
   
   
     <ion-item>
-      <ion-select label="Personas Que Se Hospedan" placeholder="seleccione">
+      <ion-select [(ngModel)]="huesped" label="Personas Que Se Hospedan" placeholder="seleccione">
         <ion-select-option value="1 huesped">1 huesped</ion-select-option>
         <ion-select-option value="2 huespedes">2 huespedes</ion-select-option>
         <ion-select-option value="3 huespedes">3 huespedes</ion-select-option>
@@ -25,7 +25,7 @@
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-select label="Noches Que Se Hospedaran" placeholder="seleccione">
+      <ion-select [(ngModel)]="noche" label="Noches Que Se Hospedaran" placeholder="seleccione">
         <ion-select-option value="2 noches">2 Noches</ion-select-option>
         <ion-select-option value="3 noches">3 Noches</ion-select-option>
         <ion-select-option value="4 noches">4 Noches</ion-select-option>
@@ -44,7 +44,7 @@
   </ion-card>
 
   <div class="ion-text-center">
-    <ion-button id="trigger-button" [routerLink]="['/habitaciones']" class="slide-up">Reservar</ion-button>
+    <ion-button id="trigger-button" (click)="reservar()">Reservar</ion-button>
     <br>
     <ion-button color="danger" id="trigger-button" [routerLink]="['/hfamiliar']" class="slide-up">Volver</ion-button>
   </div>

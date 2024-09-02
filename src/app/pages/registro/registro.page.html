@@ -18,10 +18,8 @@
               <ion-input class="ion-text-center" placeholder="Nombre completo" type="text" [(ngModel)]="nombre" name="nombre" required></ion-input>
             </ion-item>
             <ion-item>
-              <ion-avatar slot="start">
-                <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-              </ion-avatar>
-              <ion-input placeholder="Usuario" type="text" [(ngModel)]="usuario" name="usuario" required></ion-input>
+              <ion-icon name="mail" slot="start"></ion-icon>   
+              <ion-input placeholder="Correo" type="text" [(ngModel)]="usuario" name="usuario" required></ion-input>
             </ion-item>
             <ion-item>
               <ion-icon name="lock-closed" slot="start"></ion-icon>

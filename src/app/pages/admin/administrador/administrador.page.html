@@ -27,25 +27,21 @@
   <div *ngIf="seleccion == 'gestion1'">
     <div class="mat-elevation-z23">
       <table mat-table [dataSource]="reservas">
-        <!-- Position Column -->
         <ng-container matColumnDef="habitacion">
           <th mat-header-cell *matHeaderCellDef> Habitacion </th>
           <td mat-cell *matCellDef="let element"> {{element.habitacion}} </td>
         </ng-container>
   
-        <!-- Name Column -->
         <ng-container matColumnDef="fecha">
           <th mat-header-cell *matHeaderCellDef> Fecha </th>
           <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
         </ng-container>
   
-        <!-- Weight Column -->
         <ng-container matColumnDef="huespedes">
           <th mat-header-cell *matHeaderCellDef> Huespedes </th>
           <td mat-cell *matCellDef="let element"> {{element.huespedes}} </td>
         </ng-container>
 
-        <!-- Symbol Column -->
         <ng-container matColumnDef="acciones">
           <th mat-header-cell *matHeaderCellDef> Acciones </th>
           <td mat-cell *matCellDef="let element">

@@ -16,7 +16,7 @@ export class HomePage {
   async irPagina() {
     if (!this.usuario || !this.contrasena) {
       const alert = await this.alertController.create({
-        header: 'Los datos no pueden estar vacíos',
+        header: 'Los datos no pueden estar vacios',
         message: 'Por favor, complete todos los datos',
         buttons: ['Aceptar'],
       });

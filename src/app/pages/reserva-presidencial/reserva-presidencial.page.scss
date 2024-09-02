@@ -33,7 +33,6 @@ ion-item{
 box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 border-radius: 15px;
 overflow: hidden;
-transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 margin-bottom: 25px;
 background: linear-gradient(145deg, #f3f4f6, #e2e4e8);
 }
@@ -62,23 +61,13 @@ ion-card {
 box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 border-radius: 15px;
 overflow: hidden;
-transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 margin-bottom: 25px;
 background: linear-gradient(145deg, #f3f4f6, #e2e4e8);
-}
-
-ion-card:hover {
-transform: scale(1.05);
-box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
 }
 
 ion-card img {
 width: 100%;
 height: auto;
 border-bottom: 4px solid #dedede;
-transition: transform 0.3s ease-in-out;
 }
 
-ion-card img:hover {
-transform: scale(1.1);
-}

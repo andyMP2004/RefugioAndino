@@ -14,7 +14,7 @@ export class HpresidencialPage implements OnInit {
   habitaciones = [
     {
       image: 'assets/precidencial/precidencial1.jpg',
-      title: 'Habitación Precidencial',
+      title: 'Habitación Presidencial',
       camas: 'King-size con ropa de cama de alta calidad',
       banos: 'Lujoso, con jacuzzi, ducha separada y doble lavabo',
       estar: 'Amplia, con sofás y área de entretenimiento',
@@ -22,7 +22,7 @@ export class HpresidencialPage implements OnInit {
     },
     {
       image: 'assets/precidencial/precidencial2.jpg',
-      title: 'Habitación Precidencial',
+      title: 'Habitación Presidencial',
       camas: 'King-size con ropa de cama de alta calidad',
       banos: 'Lujoso, con jacuzzi, ducha separada y doble lavabo',
       estar: 'Amplia, con sofás y área de entretenimiento',
@@ -30,7 +30,7 @@ export class HpresidencialPage implements OnInit {
     },
     {
       image: 'assets/precidencial/precidencial3.jpg',
-      title: 'Habitación Precidencial',
+      title: 'Habitación Presidencial',
       camas: 'King-size con ropa de cama de alta calidad',
       banos: 'Lujoso, con jacuzzi, ducha separada y doble lavabo',
       estar: 'Amplia, con sofás y área de entretenimiento',
@@ -38,7 +38,7 @@ export class HpresidencialPage implements OnInit {
     },
     {
       image: 'assets/precidencial/precidencial4.jpg',
-      title: 'Habitación Precidencial ',
+      title: 'Habitación Presidencial ',
       camas: 'King-size con ropa de cama de alta calidad',
       banos: 'Lujoso, con jacuzzi, ducha separada y doble lavabo',
       estar: 'Amplia, con sofás y área de entretenimiento',
@@ -55,3 +55,4 @@ export class HpresidencialPage implements OnInit {
   ngOnInit() {this.menu.enable(false);}
 
 }
+  

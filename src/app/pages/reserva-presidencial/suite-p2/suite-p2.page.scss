@@ -1,84 +1,73 @@
 ion-content {
-    --background: linear-gradient(15deg, #00c6ff, #0072ff);
-  }
-  .room-image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 15px;
-    margin-top: 4px;
-  }
-  .fondo {
-    background-color: #00c6ff;
-  }
-  .titulo{
-    font-weight: bold;
-    font-size: 25px;
-  }
-  .accordion-container {
-  display: flex;
-  gap: 20px; /* Espacio entre los acordeones */
-  }
-  .accordion-container ion-accordion-group {
-  flex: 1;
-  }
-  
-  .titulo1{
+  --background: linear-gradient(15deg, #00c6ff, #0072ff);
+}
+.room-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 15px;
+  margin-top: 4px;
+}
+.fondo {
+  background-color: #00c6ff;
+}
+.titulo{
   font-weight: bold;
   font-size: 25px;
-  
-  }
-  
-  ion-item{
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-  border-radius: 15px;
-  overflow: hidden;
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-  margin-bottom: 25px;
-  background: linear-gradient(145deg, #f3f4f6, #e2e4e8);
-  }
-  .subtotal{
-  width: 50%;
-  margin: auto;
-  }
-  .titulo, .titulo1, .info, .price-info {
-  margin-bottom: 15px;
-  }
-  
-  .accordion-container {
-  margin-top: 20px;
-  }
-  
-  
-  .titulo2{
-  padding: 20px;
-  font-size: 1.2rem;
-  line-height: 1.6;
-  color: #555;
-  text-align: justify;
-  }
-  ion-card {
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-  border-radius: 15px;
-  overflow: hidden;
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-  margin-bottom: 25px;
-  background: linear-gradient(145deg, #f3f4f6, #e2e4e8);
-  }
-  
-  ion-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-  }
-  
-  ion-card img {
-  width: 100%;
-  height: auto;
-  border-bottom: 4px solid #dedede;
-  transition: transform 0.3s ease-in-out;
-  }
-  
-  ion-card img:hover {
-  transform: scale(1.1);
-  }
-  
+}
+.accordion-container {
+display: flex;
+gap: 20px; /* Espacio entre los acordeones */
+}
+.accordion-container ion-accordion-group {
+flex: 1;
+}
+
+.titulo1{
+font-weight: bold;
+font-size: 25px;
+
+}
+
+ion-item{
+box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+border-radius: 15px;
+overflow: hidden;
+margin-bottom: 25px;
+background: linear-gradient(145deg, #f3f4f6, #e2e4e8);
+}
+.subtotal{
+width: 50%;
+margin: auto;
+}
+
+.titulo, .titulo1, .info, .price-info {
+margin-bottom: 15px;
+}
+
+.accordion-container {
+margin-top: 20px;
+}
+
+
+.titulo2{
+padding: 20px;
+font-size: 1.2rem;
+line-height: 1.6;
+color: #555;
+text-align: justify;
+}
+ion-card {
+box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+border-radius: 15px;
+overflow: hidden;
+margin-bottom: 25px;
+background: linear-gradient(145deg, #f3f4f6, #e2e4e8);
+}
+
+ion-card img {
+width: 100%;
+height: auto;
+border-bottom: 4px solid #dedede;
+}
+

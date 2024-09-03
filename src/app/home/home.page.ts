@@ -36,7 +36,7 @@ export class HomePage {
         }
       };
   
-      if (this.usuario == "admin@gmail.com" && this.contrasena == "1234") {
+      if (this.usuario == "admin@gmail.com" && this.contrasena == "1234567") {
         this.router.navigate(['/administrador'], navigationExtras);
       }else if (this.contrasena.length<6 || this.contrasena.length>12){
         const alert = await this.alertController.create({

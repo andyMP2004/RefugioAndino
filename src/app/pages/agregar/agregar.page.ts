@@ -10,19 +10,33 @@ import { AlertController, MenuController } from '@ionic/angular';
 export class AgregarPage implements OnInit {
   camas: string ="";
   banos: string ="";
-  estar: string ="";
   constructor(private menu: MenuController, private router: Router, private alertController: AlertController) { }
-  async irPagina() {
-      let navigationExtras: NavigationExtras = {
-        state: {
-          cam: this.camas,
-          ban: this.banos,
-          est: this.estar,
-        }
-      };
-      this.router.navigate(['/hfamiliar'], navigationExtras);
-  }
 
+
+  async agregar(){
+    if (!this.banos || !this.camas) {
+      const alert = await this.alertController.create({
+        header: 'Los datos no pueden estar vacíos',
+        message: 'Por favor, complete todos los datos',
+        buttons: ['añadir'],
+      });
+      await alert.present();
+  }else {
+    const alert = await this.alertController.create({
+      header: 'habitacion agregada',
+      buttons: ['añadir'],
+    });
+    await alert.present();
+  }
+    
+    let navigationExtras: NavigationExtras = {
+      state: {
+        cam: this.camas,
+        ban: this.banos,
+      }
+    }
+    this.router.navigate(['/hfamiliar'], navigationExtras) ;
+}
   ngOnInit() {this.menu.enable(false);
   }
 }

@@ -10,7 +10,7 @@ import { MenuController } from '@ionic/angular';
 export class HfamiliarPage implements OnInit {
   camas: string = "";
   banos: string = "";
-  estar: string = "";
+
   isModalOpen = false;
   modalContent: any = {};
 
@@ -62,7 +62,7 @@ export class HfamiliarPage implements OnInit {
       if (navigation?.extras.state) {
         this.camas = navigation.extras.state['cam'] || '';
         this.banos = navigation.extras.state['ban'] || '';
-        this.estar = navigation.extras.state['est'] || '';
+
       }
     });
     this.menu.enable(false);

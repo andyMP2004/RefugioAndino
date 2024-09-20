@@ -10,6 +10,7 @@ import { MenuController } from '@ionic/angular';
 export class HfamiliarPage implements OnInit {
   camas: string = "";
   banos: string = "";
+  selectedImage: string | ArrayBuffer | null = null;
 
   isModalOpen = false;
   modalContent: any = {};
@@ -62,7 +63,7 @@ export class HfamiliarPage implements OnInit {
       if (navigation?.extras.state) {
         this.camas = navigation.extras.state['cam'] || '';
         this.banos = navigation.extras.state['ban'] || '';
-
+        this.selectedImage = navigation.extras.state['img'] || null;
       }
     });
     this.menu.enable(false);

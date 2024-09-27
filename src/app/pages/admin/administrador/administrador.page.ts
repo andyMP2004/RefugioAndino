@@ -32,6 +32,7 @@ export class AdministradorPage implements OnInit {
     this.menu.enable(false);
   }
 
+  
   editar(elemento: { editar: boolean; }) {
     elemento.editar = true;
   }

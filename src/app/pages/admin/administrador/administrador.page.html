@@ -14,117 +14,193 @@
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content class="gestion">
   <div class="header-right">
     <ion-button class="log" color="danger" [routerLink]="['/home']">
-      <ion-icon name="log-out-outline" slot="start"></ion-icon>
       Cerrar Sesión
     </ion-button>
   </div>
-  <img class="room" src="assets/icon/logo.png" alt="Logo Refugio Andino"/>
 
-  <div *ngIf="seleccion == 'gestion1'">
-    <div class="mat-elevation-z23">
-      <table mat-table [dataSource]="reservas">
-        <ng-container matColumnDef="habitacion">
-          <th mat-header-cell *matHeaderCellDef> Habitacion </th>
-          <td mat-cell *matCellDef="let element"> {{element.habitacion}} </td>
-        </ng-container>
-  
-        <ng-container matColumnDef="fecha">
-          <th mat-header-cell *matHeaderCellDef> Fecha </th>
-          <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
-        </ng-container>
-  
-        <ng-container matColumnDef="huespedes">
-          <th mat-header-cell *matHeaderCellDef> Huespedes </th>
-          <td mat-cell *matCellDef="let element"> {{element.huespedes}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="acciones">
-          <th mat-header-cell *matHeaderCellDef> Acciones </th>
-          <td mat-cell *matCellDef="let element">
-            <button mat-icon-button color="accent">
-              <mat-icon>edit</mat-icon>
-            </button>
-            <button mat-icon-button color="warn">
-              <mat-icon>delete</mat-icon>
-            </button>
-          </td>
-        </ng-container>
-  
-        <tr mat-header-row *matHeaderRowDef="habitacioness"></tr>
-        <tr mat-row *matRowDef="let row; columns: habitacioness;"></tr>
-      </table>
-  
-      <mat-paginator [pageSizeOptions]="[5, 10, 20]"
-      showFirstLastButtons
-      aria-label="Select page of periodic elements">
-      </mat-paginator>
-  
-    </div>
-  </div>
-
-  <div *ngIf="seleccion == 'gestion2'">
-    <div class="mat-elevation-z23">
-      <table mat-table [dataSource]="habitaciones">
+  <!-- Tabla de Reservas -->
+  <div *ngIf="seleccion === 'gestion1'">
+    <div class="table-wrapper">
+      <table mat-table [dataSource]="reservas" class="responsive-table">
         <ng-container matColumnDef="habitacion">
           <th mat-header-cell *matHeaderCellDef>Habitación</th>
-          <td mat-cell *matCellDef="let element">{{element.habitacion}}</td>
+          <td mat-cell *matCellDef="let elemento">
+            <ng-container *ngIf="!elemento.editar">
+              {{ elemento.habitacion }}
+            </ng-container>
+            <ng-container *ngIf="elemento.editar">
+              <ion-input [(ngModel)]="elemento.habitacion"></ion-input>
+            </ng-container>
+          </td>
         </ng-container>
 
-        <ng-container matColumnDef="nhabitacion">
-          <th mat-header-cell *matHeaderCellDef>N° Habitaciones</th>
-          <td mat-cell *matCellDef="let element">{{element.nhabitacion}}</td>
+        <ng-container matColumnDef="fecha">
+          <th mat-header-cell *matHeaderCellDef>Fecha</th>
+          <td mat-cell *matCellDef="let elemento">
+            <ng-container *ngIf="!elemento.editar">
+              {{ elemento.fecha }}
+            </ng-container>
+            <ng-container *ngIf="elemento.editar">
+              <ion-input [(ngModel)]="elemento.fecha"></ion-input>
+            </ng-container>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="huespedes">
+          <th mat-header-cell *matHeaderCellDef>Huéspedes</th>
+          <td mat-cell *matCellDef="let elemento">
+            <ng-container *ngIf="!elemento.editar">
+              {{ elemento.huespedes }}
+            </ng-container>
+            <ng-container *ngIf="elemento.editar">
+              <ion-input [(ngModel)]="elemento.huespedes"></ion-input>
+            </ng-container>
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="acciones">
           <th mat-header-cell *matHeaderCellDef>Acciones</th>
-          <td mat-cell *matCellDef="let element">
-            <button mat-icon-button color="accent">
-              <mat-icon>edit</mat-icon>
-            </button>
-            <button [routerLink]="['/agregar']" mat-icon-button color="warn">
-              <mat-icon>add</mat-icon>
-            </button>
+          <td mat-cell *matCellDef="let elemento">
+            <ng-container *ngIf="!elemento.editar">
+              <button mat-icon-button color="accent" (click)="editar(elemento)">
+                <ion-icon name="create"></ion-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="eliminar(elemento)">
+                <ion-icon name="trash"></ion-icon>
+              </button>
+            </ng-container>
+            <ng-container *ngIf="elemento.editar">
+              <button mat-icon-button color="primary" (click)="guardar(elemento)">
+                <ion-icon name="checkmark"></ion-icon>
+              </button>
+              <button mat-icon-button color="light" (click)="cancelar(elemento)">
+                <ion-icon name="close"></ion-icon>
+              </button>
+            </ng-container>
           </td>
         </ng-container>
-        
-        <tr mat-header-row *matHeaderRowDef="habi"></tr>
-        <tr mat-row *matRowDef="let row; columns: habi;"></tr>
+
+        <tr mat-header-row *matHeaderRowDef="['habitacion', 'fecha', 'huespedes', 'acciones']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['habitacion', 'fecha', 'huespedes', 'acciones'];"></tr>
       </table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
     </div>
   </div>
 
-  <div *ngIf="seleccion == 'gestion3'">
-    <div class="mat-elevation-z23">
-      <table mat-table [dataSource]="usuarios">
+  <!-- Tabla de Habitaciones -->
+  <div *ngIf="seleccion === 'gestion2'">
+    <div class="table-wrapper">
+      <table mat-table [dataSource]="habitaciones" class="responsive-table">
+        <ng-container matColumnDef="habitacion">
+          <th mat-header-cell *matHeaderCellDef>Nombre</th>
+          <td mat-cell *matCellDef="let elemento">
+            <ng-container *ngIf="!elemento.editar">
+              {{ elemento.habitacion }}
+            </ng-container>
+            <ng-container *ngIf="elemento.editar">
+              <ion-input [(ngModel)]="elemento.habitacion"></ion-input>
+            </ng-container>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="nhabitacion">
+          <th mat-header-cell *matHeaderCellDef>Camas</th>
+          <td mat-cell *matCellDef="let elemento">
+            <ng-container *ngIf="!elemento.editar">
+              {{ elemento.nhabitacion }}
+            </ng-container>
+            <ng-container *ngIf="elemento.editar">
+              <ion-input [(ngModel)]="elemento.nhabitacion"></ion-input>
+            </ng-container>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef>Acciones</th>
+          <td mat-cell *matCellDef="let elemento">
+            <ng-container *ngIf="!elemento.editar">
+              <button mat-icon-button color="accent" (click)="editar(elemento)">
+                <ion-icon name="create"></ion-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="eliminar(elemento)">
+                <ion-icon name="trash"></ion-icon>
+              </button>
+            </ng-container>
+            <ng-container *ngIf="elemento.editar">
+              <button mat-icon-button color="primary" (click)="guardar(elemento)">
+                <ion-icon name="checkmark"></ion-icon>
+              </button>
+              <button mat-icon-button color="light" (click)="cancelar(elemento)">
+                <ion-icon name="close"></ion-icon>
+              </button>
+            </ng-container>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="['habitacion', 'nhabitacion', 'acciones']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['habitacion', 'nhabitacion', 'acciones'];"></tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
+
+  <!-- Tabla de Usuarios -->
+  <div *ngIf="seleccion === 'gestion3'">
+    <div class="table-wrapper">
+      <table mat-table [dataSource]="usuarios" class="responsive-table">
         <ng-container matColumnDef="nombre">
           <th mat-header-cell *matHeaderCellDef>Nombre</th>
-          <td mat-cell *matCellDef="let element">{{element.nombre}}</td>
+          <td mat-cell *matCellDef="let elemento">
+            <ng-container *ngIf="!elemento.editar">
+              {{ elemento.nombre }}
+            </ng-container>
+            <ng-container *ngIf="elemento.editar">
+              <ion-input [(ngModel)]="elemento.nombre"></ion-input>
+            </ng-container>
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="rut">
           <th mat-header-cell *matHeaderCellDef>RUT</th>
-          <td mat-cell *matCellDef="let element">{{element.rut}}</td>
+          <td mat-cell *matCellDef="let elemento">
+            <ng-container *ngIf="!elemento.editar">
+              {{ elemento.rut }}
+            </ng-container>
+            <ng-container *ngIf="elemento.editar">
+              <ion-input [(ngModel)]="elemento.rut"></ion-input>
+            </ng-container>
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="acciones">
           <th mat-header-cell *matHeaderCellDef>Acciones</th>
-          <td mat-cell *matCellDef="let element">
-            <button mat-icon-button color="accent">
-              <mat-icon>edit</mat-icon>
-            </button>
-            <button mat-icon-button color="warn">
-              <mat-icon>delete</mat-icon>
-            </button>
+          <td mat-cell *matCellDef="let elemento">
+            <ng-container *ngIf="!elemento.editar">
+              <button mat-icon-button color="accent" (click)="editar(elemento)">
+                <ion-icon name="create"></ion-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="eliminar(elemento)">
+                <ion-icon name="trash"></ion-icon>
+              </button>
+            </ng-container>
+            <ng-container *ngIf="elemento.editar">
+              <button mat-icon-button color="primary" (click)="guardar(elemento)">
+                <ion-icon name="checkmark"></ion-icon>
+              </button>
+              <button mat-icon-button color="light" (click)="cancelar(elemento)">
+                <ion-icon name="close"></ion-icon>
+              </button>
+            </ng-container>
           </td>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="usuarioss"></tr>
-        <tr mat-row *matRowDef="let row; columns: usuarioss;"></tr>
+        <tr mat-header-row *matHeaderRowDef="['nombre', 'rut', 'acciones']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['nombre', 'rut', 'acciones'];"></tr>
       </table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
     </div>
   </div>
 </ion-content>

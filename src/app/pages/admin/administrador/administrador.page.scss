@@ -1,3 +1,57 @@
+ion-content {
+  --background: linear-gradient(11deg, #00c6ff, #0072ff);
+}
+
+.reservas-titulo {
+  text-align: center;
+  margin-top: 30px;
+  color: #ffffff;
+  font-size: 5rem; /* Ajusta el tamaño de fuente si es necesario */
+  font-weight: bold;
+}
+
+.table-wrapper {
+  width: 100%; 
+  overflow-x: auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin-top: 20px; /* Espacio entre la tabla y los elementos superiores */
+}
+
+.responsive-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; /* Cambia a 'fixed' para evitar el redimensionamiento */
+  word-wrap: break-word;
+  background-color: #f0f8ff; /* Color de fondo de la tabla */
+}
+
+.responsive-table th, .responsive-table td {
+  padding: 14px 19px;
+  text-align: center;
+  white-space: normal; /* Permite saltos de línea en las celdas */
+  word-break: break-word; /* Previene el desbordamiento de texto largo */
+}
+
+.responsive-table th {
+  background-color: #004080;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.responsive-table td {
+  font-size: 15px;
+  color: #002060;
+  border-bottom: 1px solid #7f7f7f;
+}
+
+/* Añadir un ancho fijo a los campos de entrada */
+ion-input {
+  width: 100px; /* Asegura un ancho fijo para que no se redimensionen al editar */
+}
+
+/* Ajustes de la barra de herramientas y segmentación */
 ion-toolbar {
   width: 100%;
 }
@@ -20,30 +74,20 @@ ion-toolbar {
   --background: linear-gradient(5deg, #0072ff, #00c6ff);
 }
 
-ion-content {
-  --background: linear-gradient(11deg, #00c6ff, #0072ff);
-}
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+  .responsive-table th, .responsive-table td {
+    font-size: 14px;
+    padding: 10px;
+  }
 
-.reserva {
-  border-radius: 15px;
-}
+  .reservas-titulo {
+    font-size: 2rem;
+  }
 
-.buttons {
-  margin-top: 0rem;
-  margin: 20%;
-  top: 50rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 15rem;
-}
-
-.reservas-titulo {
-  text-align: center;
-  margin-top: 30px;
-  color: #ffffff;
-  font-size: 5rem;
-  font-weight: bold;
+  ion-button {
+    width: 90px;
+  }
 }
 
 .room {
@@ -54,25 +98,6 @@ ion-content {
   height: auto;
 }
 
-table {
+.mat-elevation-z23 {
   width: 100%;
-  margin-top: 20px;
-  background-color: #f0f8ff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-}
-
-table td {
-  padding: 14px 19px;
-  text-align: center;
-  font-size: 15px;
-  color: #002060;
-  border-bottom: 1px solid #7f7f7f;
-}
-
-table th {
-  background-color: #004080;
-  color: #ffffff;
-  font-weight: bold;
-  font-size: 17px;
 }

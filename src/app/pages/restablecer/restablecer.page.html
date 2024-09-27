@@ -14,7 +14,20 @@
 
             <ion-item>
               <ion-icon name="lock-closed" slot="start"></ion-icon>
-              <ion-input class="pass" type="password" placeholder="Contraseña" [(ngModel)]="contrasena" name="contrasena">
+              <ion-input class="pass" type="password" placeholder="Contraseña antigua" [(ngModel)]="contrasena" name="contrasena">
+                <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+              </ion-input>
+            </ion-item>
+            
+            <ion-item>
+              <ion-icon name="lock-closed" slot="start"></ion-icon>
+              <ion-input class="pass" type="password" placeholder="Nueva Contraseña" [(ngModel)]="contraNueva" name="contraNueva">
+                <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+              </ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-icon name="lock-closed" slot="start"></ion-icon>
+              <ion-input class="pass" type="password" placeholder="Repetir Contraseña" [(ngModel)]="contraNueva" name="contraNueva">
                 <ion-input-password-toggle slot="end"></ion-input-password-toggle>
               </ion-input>
             </ion-item>

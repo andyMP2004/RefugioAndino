@@ -64,17 +64,10 @@ export class HomePage {
       await alert.present();
     }
     else {
-      let navigationExtras: NavigationExtras = {
-        state: {
-          usu: this.usuario,
-          con: this.contrasena,
-        }
-      };
-
-      if (this.usuario == "admin@gmail.com" && this.contrasena == "1234567") {
-        this.router.navigate(['/administrador'], navigationExtras);
+      if (this.usuario == "admin@gmail.com" && this.contrasena == "Admin123") {
+        this.router.navigate(['/administrador']);
       } else {
-        this.router.navigate(['/miperfil'], navigationExtras);
+        this.router.navigate(['/miperfil']);
       }
     }
   }

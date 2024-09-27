@@ -41,13 +41,6 @@ export class RestablecerPage implements OnInit {
         buttons: ['Aceptar'],
       });
       await alert.present();
-      let navigationExtras: NavigationExtras = {
-        state: {
-          usu: this.usuario,
-          con: this.contrasena,
-        }
-      };
-        this.router.navigate(['/home'], navigationExtras);   
     }
   }
   ngOnInit() {this.menu.enable(false);

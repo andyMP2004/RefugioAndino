@@ -8,18 +8,12 @@ import { MenuController } from '@ionic/angular';
   styleUrls: ['./miperfil.page.scss'],
 })
 export class MiperfilPage implements OnInit {
-  nombre: string ="Daryen Fernandez";
+  nombre: string ="";
   usuario: string = "";
-  rut: string ="21.231.321-5"
+  rut: string =""
   constructor(private router: Router, private activedrouter: ActivatedRoute, private menu: MenuController) { }
 
   ngOnInit() {
-    this.activedrouter.paramMap.subscribe(paramMap => {
-      const navigation = this.router.getCurrentNavigation();
-      if (navigation?.extras.state) {
-        this.usuario = navigation.extras.state['usu'] || '';
-      }
-    });
     this.menu.enable(false);
   }
 }

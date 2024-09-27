@@ -22,33 +22,37 @@ export class ContactoPage implements OnInit {
   async enviar() {
     if (!this.nombre || !this.correo || !this.mensaje || !this.telefono) {
       const alert = await this.alertController.create({
-        header: 'Campos Vacios',
+        header: 'Campos Vacíos',
         message: 'Por favor, completa todos los campos.',
         buttons: ['Aceptar'],
       });
       await alert.present();
-    } else if (this.nombre.length < 6 || this.nombre.length > 20) {
+    } 
+    else if (this.nombre.length < 6 || this.nombre.length > 20) {
       const alert = await this.alertController.create({
-        header: 'Nombre Invalido',
+        header: 'Nombre Inválido',
         message: 'El nombre debe tener entre 6 y 20 caracteres.',
         buttons: ['Aceptar'],
       });
       await alert.present();
-    } else if (!this.correo.includes('@gmail.com')) {
+    } 
+    else if (!/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(this.correo)) {
       const alert = await this.alertController.create({
-        header: 'Correo Electronico Invalido',
-        message: 'Por favor, ingrese un correo electronico valido.',
+        header: 'Correo inválido',
+        message: 'Por favor, ingrese un correo electrónico válido que termine en @gmail.com.',
         buttons: ['Aceptar'],
       });
       await alert.present();
-    } else if (this.telefono.length != 9 || isNaN(Number(this.telefono))) {
+    } 
+    else if (this.telefono.length !== 9 || !/^\d+$/.test(this.telefono)) {
       const alert = await this.alertController.create({
-        header: 'Telefono Invalido',
-        message: 'El telefono debe tener 9 digitos numericos.',
+        header: 'Número Inválido',
+        message: 'El número de teléfono debe tener 9 dígitos y no contener caracteres no numéricos.',
         buttons: ['Aceptar'],
       });
       await alert.present();
-    } else {
+    } 
+    else {
       const alert = await this.alertController.create({
         header: 'Contacto Enviado',
         message: 'Tu mensaje ha sido enviado correctamente.',

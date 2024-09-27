@@ -43,15 +43,6 @@ export class AgregarPage implements OnInit {
         buttons: ['Aceptar'],
       });
       await alert.present();
-    } else {
-      let navigationExtras: NavigationExtras = {
-        state: {
-          cam: this.camas,
-          ban: this.banos,
-          img: this.selectedImage, // Incluye la imagen en la navegación
-        }
-      };
-      this.router.navigate(['/hfamiliar'], navigationExtras);
     }
   }
 
@@ -64,7 +55,7 @@ export class AgregarPage implements OnInit {
     const reader = new FileReader();
 
     reader.onload = () => {
-      this.selectedImage = reader.result; // Asegúrate de que esto sea el tipo correcto
+      this.selectedImage = reader.result;
     };
 
     if (file) {

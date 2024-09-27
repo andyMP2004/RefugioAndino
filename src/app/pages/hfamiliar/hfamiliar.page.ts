@@ -58,14 +58,6 @@ export class HfamiliarPage implements OnInit {
   }
 
   ngOnInit() {
-    this.activedrouter.paramMap.subscribe(paramMap => {
-      const navigation = this.router.getCurrentNavigation();
-      if (navigation?.extras.state) {
-        this.camas = navigation.extras.state['cam'] || '';
-        this.banos = navigation.extras.state['ban'] || '';
-        this.selectedImage = navigation.extras.state['img'] || null;
-      }
-    });
     this.menu.enable(false);
   }
 }

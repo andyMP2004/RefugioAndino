@@ -88,17 +88,10 @@ export class RegistroPage implements OnInit {
       });
       await alert.present();
 
-      let navigationExtras: NavigationExtras = {
-        state: {
-          usu: this.usuario,
-          con: this.contrasena,
-        }
-      };
-
-      if (this.usuario == "administrador@gmail.com" && this.contrasena == "12345") {
-        this.router.navigate(['/administrador'], navigationExtras);
+      if (this.usuario == "administrador@gmail.com" && this.contrasena == "Admin123") {
+        this.router.navigate(['/administrador']);
       } else {
-        this.router.navigate(['/home'], navigationExtras);
+        this.router.navigate(['/home']);
       }
     }
   }

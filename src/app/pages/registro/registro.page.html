@@ -27,6 +27,12 @@
                 <ion-input-password-toggle slot="end"></ion-input-password-toggle>
               </ion-input>
             </ion-item>
+            <ion-item>
+              <ion-icon name="lock-closed" slot="start"></ion-icon>
+              <ion-input type="password" placeholder="Contraseña" [(ngModel)]="contrasena" name="contrasena" required>
+                <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+              </ion-input>
+            </ion-item>
             <ion-button expand="full" color="primary" class="ion-margin-top" type="submit">Acceder</ion-button>
             <ion-button expand="full" color="primary" class="ion-margin-top" [routerLink]="['/home']" type="button">Volver</ion-button>
           </form>

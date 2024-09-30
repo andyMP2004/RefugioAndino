@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
+import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
 import { AlertController, MenuController } from '@ionic/angular';
 
 @Component({
@@ -13,7 +14,7 @@ export class RegistroPage implements OnInit {
   usuario: string = "";
   contrasena: string = "";
 
-  constructor(private router: Router, private menu: MenuController, private alertController: AlertController) {}
+  constructor(private router: Router, private menu: MenuController, private alertController: AlertController, private storage: NativeStorage ) {}
 
   async irPagina() {
     if (!this.usuario || !this.contrasena || !this.nombre || !this.rut) {
@@ -98,5 +99,21 @@ export class RegistroPage implements OnInit {
 
   ngOnInit() {
     this.menu.enable(false);
+  }
+
+  async crear() {
+    const usuarioData = {
+      rut: this.rut,
+      nombre: this.nombre,
+      usuario: this.usuario,
+      contrasena: this.contrasena
+    };
+  
+    this.storage.setItem('usuario', usuarioData)
+      const alert = await this.alertController.create({
+      header: 'Cuanta Creada Correctamente',
+      buttons: ['Aceptar'],
+    });
+      await alert.present();
   }
 }

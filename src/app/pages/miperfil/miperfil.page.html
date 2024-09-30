@@ -29,13 +29,12 @@
             <p class="location">Chile, Santiago</p>
   
             <form class="perfil-form">
-              <ion-item >
+              <ion-item>
                 <ion-icon name="person" slot="start"></ion-icon>      
-                <ion-input [value]="rut" type="text" readonly>
-                </ion-input>
+                <ion-input [value]="rut" type="text" readonly></ion-input>
               </ion-item>
 
-              <ion-item >
+              <ion-item>
                 <ion-icon name="person" slot="start"></ion-icon>      
                 <ion-input [value]="nombre" type="text" readonly></ion-input>
               </ion-item>
@@ -51,7 +50,7 @@
                   Cerrar Sesión
                 </ion-button>
               </div><br>
-               <ion-button [routerLink] = "['/ayuda']">
+               <ion-button [routerLink]="['/ayuda']">
                   <ion-icon name="information-circle-outline"></ion-icon>
                   ayuda
                 </ion-button>

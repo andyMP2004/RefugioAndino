@@ -67,7 +67,7 @@ export class HomePage {
       if (this.usuario == "admin@gmail.com" && this.contrasena == "Admin123") {
         this.router.navigate(['/administrador']);
       } else {
-        this.router.navigate(['/miperfil']);
+        this.router.navigate(['/habitaciones']);
       }
     }
   }

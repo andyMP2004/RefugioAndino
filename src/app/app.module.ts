@@ -11,7 +11,8 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-
+import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
+import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -25,7 +26,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatPaginatorModule,
   ],
   providers: [
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },NativeStorage,SQLite,
     provideAnimationsAsync()
   ],
   bootstrap: [AppComponent],

@@ -16,12 +16,29 @@ export class BdService {
   public database!:SQLiteObject;
 
 
-  TablaRol: string= "CREATE TABLE IF NOT EXISTS rol( idrol INTEGER PRIMARY KEY AUTOINCREMENT, nombrerol VARCHAR(30) NOT NULL)"
-  TablaUsuario: string="CREATE TABLE IF NOT EXISTS usuario(idusuario INTEGER PRIMARY KEY AUTOINCREMENT,nombreusuario VARCHAR(100) NOT NULL,correo VARCHAR(100) NOT NULL,idrol  INTEGER NOT NULL,rutusuario  VARCHAR(15) NOT NULL,contrasena VARCHAR(20) NOT NULL,rolidrol INTEGER NOT NULL);";
+  TablaRol: string= "CREATE TABLE IF NOT EXISTS rol( idrol INTEGER PRIMARY KEY AUTOINCREMENT, nombrerol VARCHAR(30) NOT NULL)";
+
+  registroRol: string = "INSERT or IGNORE INTO rol(idrol, nombrerol) VALUES ";
+
+  TablaUsuario: string="CREATE TABLE IF NOT EXISTS usuario(idusuario INTEGER PRIMARY KEY AUTOINCREMENT,nombreusuario VARCHAR(100) NOT NULL,correo VARCHAR(100) NOT NULL,FOREING KEY (rolidrol) REFERENCES rol(idrol)  INTEGER NOT NULL,rutusuario  VARCHAR(15) NOT NULL,contrasena VARCHAR(20) NOT NULL);";
+  
+  registroUsuario: string = "INSERT or IGNORE INTO usuario(idusuario, nombreusuario, correo , idrol, rutusuario, contrasena ) VALUES";
+  
   TablaReserva: string="CREATE TABLE IF NOT EXISTS reserva(idreserva INTEGER PRIMARY KEY AUTOINCREMENT, fechareserva DATE NOT NULL, horareserva DATE NOT NULL, FOREING KEY (usuarioidusuario) REFERENCES usuario(idusuario), FOREING KEY (habitacionidhabitacion) REFERENCES habitacion(idhabitacion) );";
-  TablaHabitacion: string="CREATE TABLE IF NOT EXISTS habitacion(idhabitacion INTEGER PRIMARY KEY AUTOINCREMENT,tipohabitacion VARCHAR(40) NOT NULL, descripcion VARCHAR(200) NOT NULL, precio INTEGER NOT NULL, FOREING KEY (imagenidimagen) REFERENCES imagen(idimagen)   )"
-  TablaImagen: string= "CREATE TABLE IF NOT EXISTS imagen( idimagen INTEGER PRIMARY KEY AUTOINCREMENT, urlimagen VARCHAR(500) NOT NULL)"
-  TablaContacto: string= "CREATE TABLE IF NOT EXISTS contacto(idcontacto INTEGER PRIMARY KEY AUTOINCREMENT, telefono INTEGER NOT NULL, nombre VARCHAR(60) NOT NULL, correousu VARCHAR(100) NOT NULL, mensaje VARCHAR(500)NOT NULL)"
+  
+  registroReserva: string = " INSERT or IGNORE INTO reserva(idreserva, fechareserva, horareserva, idusuario, idhabitacion)VALUES  ";
+  
+  TablaHabitacion: string="CREATE TABLE IF NOT EXISTS habitacion(idhabitacion INTEGER PRIMARY KEY AUTOINCREMENT,tipohabitacion VARCHAR(40) NOT NULL, descripcion VARCHAR(200) NOT NULL, precio INTEGER NOT NULL, FOREING KEY (imagenidimagen) REFERENCES imagen(idimagen))";
+  
+  registroHabitacion: string = "INSERT or IGNORE INTO habitacion(idhabitacion, tipo, descripcion, precio, idimagen) VALUES";
+  
+  TablaImagen: string= "CREATE TABLE IF NOT EXISTS imagen( idimagen INTEGER PRIMARY KEY AUTOINCREMENT, urlimagen VARCHAR(500) NOT NULL)";
+  
+  registroImagen: string = "INSERT or IGNORE INTO imagen(idimagen, urlimagen) VALUES";
+  
+  TablaContacto: string= "CREATE TABLE IF NOT EXISTS contacto(idcontacto INTEGER PRIMARY KEY AUTOINCREMENT, telefono INTEGER NOT NULL, nombre VARCHAR(60) NOT NULL, correousu VARCHAR(100) NOT NULL, mensaje VARCHAR(500)NOT NULL)";
+  
+  registroContacto: string = "INSERT or IGNORE INTO contacto(idcontacto, telefono, nombre, correousu,mensaje) VALUES";
   
   listadoRol = new BehaviorSubject([]);
   listadoUsuario = new BehaviorSubject([]);
@@ -100,6 +117,15 @@ export class BdService {
 
       //ejecuto los insert por defecto en el caso que existan
       //await this.database.executeSql(this.registroNoticia, []);
+      
+      await  this.database.executeSql(this.registroContacto,[]);
+      await  this.database.executeSql(this.registroHabitacion,[]);
+      await  this.database.executeSql(this.registroImagen,[]);
+      await  this.database.executeSql(this.registroReserva,[]);
+      await  this.database.executeSql(this.registroRol,[]);
+      await  this.database.executeSql(this.registroUsuario,[]);
+
+
 
       //modifico el estado de la Base de Datos
       this.isDBReady.next(true);

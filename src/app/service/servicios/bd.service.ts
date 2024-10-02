@@ -18,27 +18,27 @@ export class BdService {
 
   TablaRol: string= "CREATE TABLE IF NOT EXISTS rol( idrol INTEGER PRIMARY KEY AUTOINCREMENT, nombrerol VARCHAR(30) NOT NULL)";
 
-  registroRol: string = "INSERT or IGNORE INTO rol(idrol, nombrerol) VALUES ";
+  registroRol: string = "INSERT or IGNORE INTO rol(idrol, nombrerol) VALUES (1, admin)";
 
-  TablaUsuario: string="CREATE TABLE IF NOT EXISTS usuario(idusuario INTEGER PRIMARY KEY AUTOINCREMENT,nombreusuario VARCHAR(100) NOT NULL,correo VARCHAR(100) NOT NULL,FOREING KEY (rolidrol) REFERENCES rol(idrol)  INTEGER NOT NULL,rutusuario  VARCHAR(15) NOT NULL,contrasena VARCHAR(20) NOT NULL);";
+  TablaUsuario: string="CREATE TABLE IF NOT EXISTS usuario(idusuario INTEGER PRIMARY KEY AUTOINCREMENT,nombreusuario VARCHAR(100) NOT NULL,correo VARCHAR(100) NOT NULL,FOREIGN KEY (rolidrol) REFERENCES rol(idrol)  INTEGER NOT NULL,rutusuario  VARCHAR(15) NOT NULL,contrasena VARCHAR(20) NOT NULL);";
   
-  registroUsuario: string = "INSERT or IGNORE INTO usuario(idusuario, nombreusuario, correo , idrol, rutusuario, contrasena ) VALUES";
+  registroUsuario: string = "INSERT or IGNORE INTO usuario(idusuario, nombreusuario, correo , idrol, rutusuario, contrasena ) VALUES (1, andy madrid, madridpolancoa@gmail.com, 2, 21687221-5, Andymadrid12)";
   
-  TablaReserva: string="CREATE TABLE IF NOT EXISTS reserva(idreserva INTEGER PRIMARY KEY AUTOINCREMENT, fechareserva DATE NOT NULL, horareserva DATE NOT NULL, FOREING KEY (usuarioidusuario) REFERENCES usuario(idusuario), FOREING KEY (habitacionidhabitacion) REFERENCES habitacion(idhabitacion) );";
+  TablaReserva: string="CREATE TABLE IF NOT EXISTS reserva(idreserva INTEGER PRIMARY KEY AUTOINCREMENT, fechareserva DATE NOT NULL, horareserva DATE NOT NULL, FOREIGN KEY (usuarioidusuario) REFERENCES usuario(idusuario), FOREIGN KEY (habitacionidhabitacion) REFERENCES habitacion(idhabitacion) );";
   
-  registroReserva: string = " INSERT or IGNORE INTO reserva(idreserva, fechareserva, horareserva, idusuario, idhabitacion)VALUES  ";
+  registroReserva: string = " INSERT or IGNORE INTO reserva(idreserva, fechareserva, horareserva, idusuario, idhabitacion)VALUES (1, 06/10/2024, 02:35, 1, 1) ";
   
-  TablaHabitacion: string="CREATE TABLE IF NOT EXISTS habitacion(idhabitacion INTEGER PRIMARY KEY AUTOINCREMENT,tipohabitacion VARCHAR(40) NOT NULL, descripcion VARCHAR(200) NOT NULL, precio INTEGER NOT NULL, FOREING KEY (imagenidimagen) REFERENCES imagen(idimagen))";
+  TablaHabitacion: string="CREATE TABLE IF NOT EXISTS habitacion(idhabitacion INTEGER PRIMARY KEY AUTOINCREMENT,tipohabitacion VARCHAR(40) NOT NULL, descripcion VARCHAR(200) NOT NULL, precio INTEGER NOT NULL, FOREIGN KEY (imagenidimagen) REFERENCES imagen(idimagen))";
   
-  registroHabitacion: string = "INSERT or IGNORE INTO habitacion(idhabitacion, tipo, descripcion, precio, idimagen) VALUES";
+  registroHabitacion: string = "INSERT or IGNORE INTO habitacion(idhabitacion, tipo, descripcion, precio, idimagen) VALUES (1, hfamiliar, 2 camas 2 baños estupendas vistas, 35000, 1)";
   
   TablaImagen: string= "CREATE TABLE IF NOT EXISTS imagen( idimagen INTEGER PRIMARY KEY AUTOINCREMENT, urlimagen VARCHAR(500) NOT NULL)";
   
-  registroImagen: string = "INSERT or IGNORE INTO imagen(idimagen, urlimagen) VALUES";
+  registroImagen: string = "INSERT or IGNORE INTO imagen(idimagen, urlimagen) VALUES (1, http.i/imagen.com)";
   
   TablaContacto: string= "CREATE TABLE IF NOT EXISTS contacto(idcontacto INTEGER PRIMARY KEY AUTOINCREMENT, telefono INTEGER NOT NULL, nombre VARCHAR(60) NOT NULL, correousu VARCHAR(100) NOT NULL, mensaje VARCHAR(500)NOT NULL)";
   
-  registroContacto: string = "INSERT or IGNORE INTO contacto(idcontacto, telefono, nombre, correousu,mensaje) VALUES";
+  registroContacto: string = "INSERT or IGNORE INTO contacto(idcontacto, telefono, nombre, correousu,mensaje) VALUES (1, 983113301, andy madrid, madridpolanco@gmail.com, porfavor necesito un servicio)";
   
   listadoRol = new BehaviorSubject([]);
   listadoUsuario = new BehaviorSubject([]);
@@ -50,7 +50,7 @@ export class BdService {
   private isDBReady: BehaviorSubject<boolean> = new BehaviorSubject(false);
   
   constructor(private sqlite: SQLite, private platform: Platform, private alertController: AlertController) {
-    this.createBD();
+    this.createBD();1
    }
    async presentAlert(titulo: string, msj:string) {
     const alert = await this.alertController.create({
@@ -134,6 +134,9 @@ export class BdService {
       this.presentAlert('Creación de Tablas', 'Error en crear las tablas: ' + JSON.stringify(e));
     }
   }
+
+
+  
 
 
 }

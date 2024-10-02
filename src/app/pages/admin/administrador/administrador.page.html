@@ -154,27 +154,17 @@
   <div *ngIf="seleccion === 'gestion3'">
     <div class="table-wrapper">
       <table mat-table [dataSource]="usuarios" class="responsive-table">
-        <ng-container matColumnDef="nombre">
+        <ng-container matColumnDef="nombre" *ngFor="let x of arreglousuario">
           <th mat-header-cell *matHeaderCellDef>Nombre</th>
-          <td mat-cell *matCellDef="let elemento">
-            <ng-container *ngIf="!elemento.editar">
-              {{ elemento.nombre }}
-            </ng-container>
-            <ng-container *ngIf="elemento.editar">
-              <ion-input [(ngModel)]="elemento.nombre"></ion-input>
-            </ng-container>
+          <td mat-cell  >
+            {{x.nombreusuario}}
           </td>
         </ng-container>
 
-        <ng-container matColumnDef="rut">
+        <ng-container matColumnDef="rut" *ngFor="let x of arreglousuario">
           <th mat-header-cell *matHeaderCellDef>RUT</th>
-          <td mat-cell *matCellDef="let elemento">
-            <ng-container *ngIf="!elemento.editar">
-              {{ elemento.rut }}
-            </ng-container>
-            <ng-container *ngIf="elemento.editar">
-              <ion-input [(ngModel)]="elemento.rut"></ion-input>
-            </ng-container>
+          <td mat-cell >
+           {{x.rutusuario}}
           </td>
         </ng-container>
 

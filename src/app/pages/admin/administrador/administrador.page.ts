@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
-
+import { BdService} from 'src/app/service/servicios/bd.service';
 @Component({
   selector: 'app-administrador',
   templateUrl: './administrador.page.html',
   styleUrls: ['./administrador.page.scss'],
 })
 export class AdministradorPage implements OnInit {
+
+  nombreusuario: string= "";
+  rutusuario: string= "";
 
   seleccion: string = "";
   reservas = [
@@ -19,31 +22,27 @@ export class AdministradorPage implements OnInit {
     { habitacion: 'Suite', nhabitacion: '4' },
     { habitacion: 'Suite Presidencial', nhabitacion: '4' },
   ];
-  usuarios = [
-    { nombre: 'Andy Madrid', rut: '21687221-5' },
-    { nombre: 'Esteban Toledo', rut: '21836167-2' },
-    { nombre: 'Aaron Vazques', rut: '22432672-2' },
-    { nombre: 'Basthian Bascuñan', rut: '22932723-4' },
-  ];
 
-  constructor(private menu: MenuController) { }
+
+  arreglousuario: any =  [
+    { 
+      nombreusuario: '',
+      rutusuariuo: ''
+    }
+  ]
+  constructor(private menu: MenuController, private bd: BdService) { }
 
   ngOnInit() {
     this.menu.enable(false);
+    this.bd.dbState().subscribe(res=>{
+      this.arreglousuario = res;
+
+    })
+
   }
 
   
-  editar(elemento: { editar: boolean; }) {
-    elemento.editar = true;
-  }
 
-  guardar(elemento: { editar: boolean; }) {
-    elemento.editar = false;
-  }
-
-  cancelar(elemento: { editar: boolean; }) {
-    elemento.editar = false;
-  }
 
   eliminar(elemento: any) {
     // Implementar lógica para eliminar el elemento

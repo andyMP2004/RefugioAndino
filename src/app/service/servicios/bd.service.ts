@@ -90,7 +90,7 @@ export class BdService {
     this.platform.ready().then(()=>{
       //crear la Base de Datos
       this.sqlite.create({
-        name: 'RefugioAndino.db',
+        name: 'bd',
         location: 'default'
       }).then((db: SQLiteObject)=>{
         //capturar la conexion a la BD
@@ -126,7 +126,7 @@ export class BdService {
       await  this.database.executeSql(this.registroUsuario,[]);
 
 
-
+      this.seleccionarUsuarios();
       //modifico el estado de la Base de Datos
       this.isDBReady.next(true);
 
@@ -135,7 +135,32 @@ export class BdService {
     }
   }
 
+  seleccionarUsuarios(){
+    return this.database.executeSql('SELECT nombreusuario,rutusuario FROM usuario', []).then(res=>{
+       //variable para almacenar el resultado de la consulta
+       let items: Usuario[] = [];
+       //valido si trae al menos un registro
+       if(res.rows.length > 0){
+        //recorro mi resultado
+        for(var i=0; i < res.rows.length; i++){
+          //agrego los registros a mi lista
+          items.push({
+            
+            nombreusuario: res.rows.item(i).nombreusuario,
+            rutusuario: res.rows.item(i).rutusuario
 
+          })
+        }
+        
+       }
+       //actualizar el observable
+       this.listadoUsuario.next(items as any);
+
+    })
+  }
+
+    
+//idusuario, nombreusuario, correo , idrol, rutusuario, contrasena
   
 
 

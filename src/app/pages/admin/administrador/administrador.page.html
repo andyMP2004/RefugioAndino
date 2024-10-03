@@ -33,20 +33,20 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let elemento of reservas">
+        <tr >
           <td>
             <ng-container>
-              {{ elemento.habitacion }}
+              
             </ng-container>
           </td>
           <td>
             <ng-container>
-              {{ elemento.fecha }}
+              
             </ng-container>
           </td>
           <td>
             <ng-container >
-              {{ elemento.huespedes }}
+             
             </ng-container>
           </td>
           <td>
@@ -78,15 +78,15 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let elemento of habitaciones">
+        <tr *ngFor="let x of arreglohabitacion">
           <td>
             <ng-container>
-              {{ elemento.habitacion }}
+              {{ x.cantidad }}
             </ng-container>
           </td>
           <td>
             <ng-container>
-              {{ elemento.nhabitacion }}
+              {{ x.tipohabitacion }}
             </ng-container>
           </td>
           <td>

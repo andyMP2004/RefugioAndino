@@ -27,6 +27,9 @@ export class BdService {
 
   TablaHabitacion: string = "CREATE TABLE IF NOT EXISTS habitacion(idhabitacion INTEGER PRIMARY KEY AUTOINCREMENT, tipohabitacion VARCHAR(40) NOT NULL, descripcion VARCHAR(200) NOT NULL, precio INTEGER NOT NULL, imagenidimagen INTEGER, FOREIGN KEY (imagenidimagen) REFERENCES imagen(idimagen))";
   registroHabitacion: string = "INSERT or IGNORE INTO habitacion(idhabitacion, tipohabitacion, descripcion, precio, imagenidimagen) VALUES (1, 'hfamiliar', '2 camas 2 baños estupendas vistas', 35000, 1)";
+  registroHabitacion2: string = "INSERT or IGNORE INTO habitacion(idhabitacion, tipohabitacion, descripcion, precio, imagenidimagen) VALUES (2, 'hfamiliar', '2 camas 2 baños estupendas vistas', 35000, 1)";
+  registroHabitacion3: string = "INSERT or IGNORE INTO habitacion(idhabitacion, tipohabitacion, descripcion, precio, imagenidimagen) VALUES (3, 'hsuite', '2 camas 2 baños estupendas vistas', 35000, 1)";
+  registroHabitacion4: string = "INSERT or IGNORE INTO habitacion(idhabitacion, tipohabitacion, descripcion, precio, imagenidimagen) VALUES (4, 'hpresidencial', '2 camas 2 baños estupendas vistas', 35000, 1)";
 
   TablaImagen: string = "CREATE TABLE IF NOT EXISTS imagen(idimagen INTEGER PRIMARY KEY AUTOINCREMENT, urlimagen VARCHAR(500) NOT NULL)";
   registroImagen: string = "INSERT or IGNORE INTO imagen(idimagen, urlimagen) VALUES (1, 'http://imagen.com')";
@@ -111,18 +114,22 @@ export class BdService {
       // Ejecuto los insert por defecto en el caso que existan
       await this.database.executeSql(this.registroContacto, []);
       await this.database.executeSql(this.registroHabitacion, []);
+      await this.database.executeSql(this.registroHabitacion2, []);
+      await this.database.executeSql(this.registroHabitacion3, []);
+      await this.database.executeSql(this.registroHabitacion4, []);
       await this.database.executeSql(this.registroImagen, []);
       await this.database.executeSql(this.registroReserva, []);
       await this.database.executeSql(this.registroRol, []);
       await this.database.executeSql(this.registroUsuario, []);
 
       this.seleccionarUsuarios();
+      this.seleccionarHabitaciones();
       // Modifico el estado de la Base de Datos
       this.isDBReady.next(true);
 
     } catch (e) {
       this.presentAlert('Creación de Tablas', 'Error en crear las tablas: ' + JSON.stringify(e));
-    }
+    } 
   }
 
   seleccionarUsuarios() {
@@ -143,6 +150,26 @@ export class BdService {
       }
       // Actualizar el observable
       this.listadoUsuario.next(items as any);
+    });
+  }
+  seleccionarHabitaciones() {
+    return this.database.executeSql('SELECT COUNT(idhabitacion) AS cantidad, tipohabitacion FROM habitacion GROUP BY tipohabitacion', []).then(res => {
+      // Variable para almacenar el resultado de la consulta
+      let items: Habitacion[] = [];
+      // Valido si trae al menos un registro
+      if (res.rows.length > 0) {
+        // Recorro mi resultado
+        for (var i = 0; i < res.rows.length; i++) {
+          // Agrego los registros a mi lista
+          items.push({
+            cantidad: res.rows.item(i).cantidad,
+            tipohabitacion: res.rows.item(i).tipohabitacion
+            
+          });
+        }
+      }
+      // Actualizar el observable
+      this.listadoHabitacion.next(items as any);
     });
   }
 

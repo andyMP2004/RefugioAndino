@@ -12,17 +12,9 @@ export class AdministradorPage implements OnInit {
   rutusuario: string= "";
 
   seleccion: string = "";
-  reservas = [
-    { habitacion: 'Suite Familiar', fecha: '2024-08-25', huespedes: '4' },
-    { habitacion: 'Suite Presidencial', fecha: '2024-08-26', huespedes: '2'},
-    { habitacion: 'Suite', fecha: '2024-08-27', huespedes: '3'} 
-  ];
-  habitaciones = [
-    { habitacion: 'Suite Familiar', nhabitacion: '4' },
-    { habitacion: 'Suite', nhabitacion: '4' },
-    { habitacion: 'Suite Presidencial', nhabitacion: '4' },
-  ];
-
+ 
+  cantidad: string= "";
+  tipohabitacion: string="";
 
   arreglousuario: any =  [
     { 
@@ -31,6 +23,14 @@ export class AdministradorPage implements OnInit {
       rutusuario: ''
     }
   ]
+
+  arreglohabitacion: any = [
+    {
+      cantidad: '',
+      tipohabitacion: ''
+    }
+  ]
+
   constructor(private menu: MenuController, private bd: BdService) { }
 
   ngOnInit() {
@@ -43,8 +43,18 @@ export class AdministradorPage implements OnInit {
           this.arreglousuario = users;
         })
       }
+     
     })
+    this.bd.dbState().subscribe(res=>{
+      this.arreglohabitacion = res;
+      if(res){
+        this.bd.fetchHabitacion().subscribe(users => {
+          this.arreglohabitacion = users;
+        })
 
+      }
+
+    }) 
   }
 
   

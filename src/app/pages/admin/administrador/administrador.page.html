@@ -97,9 +97,6 @@
               <button mat-icon-button color="accent">
                 <ion-icon name="create"></ion-icon>
               </button>
-              <button mat-icon-button color="warn">
-                <ion-icon name="trash"></ion-icon>
-              </button>
             </ng-container>
           </td>
         </tr>
@@ -113,6 +110,7 @@
   <table class="responsive-table">
     <thead>
       <tr>
+        <th>Id</th>
         <th>RUT</th>
         <th>Nombre</th>
         <th>Acciones</th>
@@ -120,13 +118,14 @@
     </thead>
     <tbody>
       <tr *ngFor="let x of arreglousuario">
+        <td>{{ x.idusuario }}</td>
         <td>{{ x.rutusuario }}</td>
         <td>{{ x.nombreusuario }}</td>
         <td>
           <button mat-icon-button color="primary" >
             <ion-icon name="create"></ion-icon>
           </button>
-          <button mat-icon-button color="warm">
+          <button mat-icon-button color="warm" (click)="eliminar(x)">
             <ion-icon name="trash"></ion-icon>
           </button>
         </td>

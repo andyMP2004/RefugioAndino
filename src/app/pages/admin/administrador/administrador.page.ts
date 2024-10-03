@@ -7,7 +7,7 @@ import { BdService} from 'src/app/service/servicios/bd.service';
   styleUrls: ['./administrador.page.scss'],
 })
 export class AdministradorPage implements OnInit {
-
+  idusuario: string="";
   nombreusuario: string= "";
   rutusuario: string= "";
 
@@ -26,6 +26,7 @@ export class AdministradorPage implements OnInit {
 
   arreglousuario: any =  [
     { 
+      idusuario: '',
       nombreusuario: '',
       rutusuario: ''
     }
@@ -49,7 +50,8 @@ export class AdministradorPage implements OnInit {
   
 
 
-  eliminar(elemento: any) {
-    // Implementar lógica para eliminar el elemento
+  eliminar(x:any){
+    this.bd.eliminarUsuario(x.idusuario);
   }
+
 }

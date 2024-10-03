@@ -126,7 +126,7 @@ export class BdService {
   }
 
   seleccionarUsuarios() {
-    return this.database.executeSql('SELECT nombreusuario, rutusuario FROM usuario', []).then(res => {
+    return this.database.executeSql('SELECT idusuario, nombreusuario, rutusuario FROM usuario', []).then(res => {
       // Variable para almacenar el resultado de la consulta
       let items: Usuario[] = [];
       // Valido si trae al menos un registro
@@ -135,6 +135,7 @@ export class BdService {
         for (var i = 0; i < res.rows.length; i++) {
           // Agrego los registros a mi lista
           items.push({
+            idusuario: res.rows.item(i).idusuario,
             nombreusuario: res.rows.item(i).nombreusuario,
             rutusuario: res.rows.item(i).rutusuario
           });
@@ -144,4 +145,15 @@ export class BdService {
       this.listadoUsuario.next(items as any);
     });
   }
+
+  eliminarUsuario(idusuario:string){
+    return this.database.executeSql('DELETE FROM usuario WHERE idusuario = ?',[idusuario]).then(res=>{
+      this.presentAlert("Eliminar","USUARIO ELIMINADO");
+      this.seleccionarUsuarios();
+    }).catch(e=>{
+      this.presentAlert('Eliminar', 'Error: ' + JSON.stringify(e));
+    })
+  }
+
+
 }

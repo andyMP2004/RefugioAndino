@@ -27,7 +27,7 @@ export class AdministradorPage implements OnInit {
   arreglousuario: any =  [
     { 
       nombreusuario: '',
-      rutusuariuo: ''
+      rutusuario: ''
     }
   ]
   constructor(private menu: MenuController, private bd: BdService) { }
@@ -36,7 +36,12 @@ export class AdministradorPage implements OnInit {
     this.menu.enable(false);
     this.bd.dbState().subscribe(res=>{
       this.arreglousuario = res;
-
+      if(res){
+        //subscribir al observable de la listaNoticias
+        this.bd.fetchUsuario().subscribe(users => {
+          this.arreglousuario = users;
+        })
+      }
     })
 
   }

@@ -6,7 +6,7 @@ ion-content {
   text-align: center;
   margin-top: 30px;
   color: #ffffff;
-  font-size: 5rem; /* Ajusta el tamaño de fuente si es necesario */
+  font-size: 5rem; 
   font-weight: bold;
 }
 
@@ -15,22 +15,22 @@ ion-content {
   overflow-x: auto;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  margin-top: 20px; /* Espacio entre la tabla y los elementos superiores */
+  margin-top: 20px; 
 }
 
 .responsive-table {
   width: 100%;
   border-collapse: collapse;
-  table-layout: fixed; /* Cambia a 'fixed' para evitar el redimensionamiento */
+  table-layout: fixed; 
   word-wrap: break-word;
-  background-color: #f0f8ff; /* Color de fondo de la tabla */
+  background-color: #0088ff; 
 }
 
 .responsive-table th, .responsive-table td {
   padding: 14px 19px;
   text-align: center;
-  white-space: normal; /* Permite saltos de línea en las celdas */
-  word-break: break-word; /* Previene el desbordamiento de texto largo */
+  white-space: normal; 
+  word-break: break-word; 
 }
 
 .responsive-table th {
@@ -46,12 +46,11 @@ ion-content {
   border-bottom: 1px solid #7f7f7f;
 }
 
-/* Añadir un ancho fijo a los campos de entrada */
 ion-input {
-  width: 100px; /* Asegura un ancho fijo para que no se redimensionen al editar */
+  width: 100px;
 }
 
-/* Ajustes de la barra de herramientas y segmentación */
+
 ion-toolbar {
   width: 100%;
 }
@@ -74,7 +73,6 @@ ion-toolbar {
   --background: linear-gradient(5deg, #0072ff, #00c6ff);
 }
 
-/* Responsive adjustments */
 @media screen and (max-width: 768px) {
   .responsive-table th, .responsive-table td {
     font-size: 14px;
@@ -100,4 +98,54 @@ ion-toolbar {
 
 .mat-elevation-z23 {
   width: 100%;
+}
+ion-content {
+  --background: linear-gradient(11deg, #00c6ff, #0072ff);
+}
+
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin-top: 20px; 
+}
+
+.responsive-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  word-wrap: break-word;
+  background-color: #f0f8ff;
+}
+
+.responsive-table th, .responsive-table td {
+  padding: 14px 19px;
+  text-align: center;
+  white-space: normal; 
+  word-break: break-word; 
+}
+
+.responsive-table th {
+  background-color: #004080; 
+  color: #ffffff;
+  font-weight: bold; 
+  font-size: 17px; 
+}
+
+.responsive-table td {
+  font-size: 15px;
+  color: #002060;
+  border-bottom: 1px solid #7f7f7f;
+}
+
+button {
+  margin: 0 5px; 
+}
+
+@media screen and (max-width: 768px) {
+  .responsive-table th, .responsive-table td {
+    font-size: 14px;
+    padding: 10px;
+  }
 }

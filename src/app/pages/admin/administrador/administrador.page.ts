@@ -57,9 +57,6 @@ export class AdministradorPage implements OnInit {
     }) 
   }
 
-  
-
-
   eliminar(x:any){
     this.bd.eliminarUsuario(x.idusuario);
   }

@@ -18,49 +18,38 @@ import { Detalle } from './detalle';
 export class BdService {
   public database!: SQLiteObject;
 
-  TablaRol: string = "CREATE TABLE IF NOT EXISTS rol(idrol INTEGER PRIMARY KEY AUTOINCREMENT, nombrerol VARCHAR(30) NOT NULL)";
-  registroRol: string = "INSERT or IGNORE INTO rol(idrol, nombrerol) VALUES (1, 'admin')";
+  TablaUsuario: string = "CREATE TABLE IF NOT EXISTS usuario(idusuario INTEGER PRIMARY KEY AUTOINCREMENT, nombreusuario VARCHAR(100) NOT NULL, correo VARCHAR(100) NOT NULL, idrol INTEGER NOT NULL, rutusuario VARCHAR(15) NOT NULL, contrasena VARCHAR(20) NOT NULL, fechan VARCHAR(20) NOT NULL, telefono INTEGER NOT NULL, FOREIGN KEY (idrol) REFERENCES rol(idrol));";
+  registroUsuario: string = "INSERT or IGNORE INTO usuario (idusuario, nombreusuario, correo, rutusuario, contrasena, fechan, telefono, idrol) VALUES (1, 'andy madrid', 'madridpolancoa@gmail.com', '21687221-5', 'Andymadrid12', '02/12/2004', '954341221', 2);";
 
-  TablaUsuario: string = "CREATE TABLE IF NOT EXISTS usuario(idusuario INTEGER PRIMARY KEY AUTOINCREMENT, nombreusuario VARCHAR(100) NOT NULL, correo VARCHAR(100) NOT NULL, rutusuario VARCHAR(15) NOT NULL, contrasena VARCHAR(20) NOT NULL, fechanaci VARCHAR(50) NOT NULL, telefono INTEGER, rolidrol INTEGER, FOREIGN KEY (rolidrol) REFERENCES rol(idrol))";
-  registroUsuario: string = "INSERT or IGNORE INTO usuario(idusuario, nombreusuario, correo, rutusuario, contrasena, fechanaci, telefono, rolidrol) VALUES (1, 'andy madrid', 'madridpolancoa@gmail.com','21687221-5', 'Andymadrid12','21/04/2004','943432345', 1)";
+  TablaRol: string = "CREATE TABLE IF NOT EXISTS rol(idrol INTEGER PRIMARY KEY AUTOINCREMENT, nombre VARCHAR(50));";
+  registrorol: string = "INSERT or IGNORE INTO rol (idrol, nombre) VALUES (1, 'admin');";
 
-  TablaReserva: string = "CREATE TABLE IF NOT EXISTS reserva(idreserva INTEGER PRIMARY KEY AUTOINCREMENT, fechareserva DATE, total VARCHAR(30), usuarioidusuario INTEGER, FOREIGN KEY (usuarioidusuario) REFERENCES usuario(idusuario))";
-  registroReserva: string = "INSERT or IGNORE INTO reserva(idreserva, fechareserva, total, usuarioidusuario) VALUES (1, '2024-10-06', '14000', 1)";
+  TablaReserva: string = "CREATE TABLE IF NOT EXISTS reserva(idreserva INTEGER PRIMARY KEY AUTOINCREMENT, fecha VARCHAR(50) NOT NULL, total VARCHAR(50) NOT NULL, usuarioidusuario INTEGER NOT NULL, FOREIGN KEY (usuarioidusuario) REFERENCES usuario(idusuario));";
+  registroreserva: string = "INSERT or IGNORE INTO reserva (idreserva, fecha, total, usuarioidusuario) VALUES (1, '30/03/2024', '$14.000', 2);";
 
-  TablaHabitacion: string = "CREATE TABLE IF NOT EXISTS habitacion(idhabitacion INTEGER PRIMARY KEY AUTOINCREMENT, nombrehabi VARCHAR(50) NOT NULL, idtipo INTEGER, idestado INTEGER, FOREIGN KEY (idtipo) REFERENCES tipo(idtipo), FOREIGN KEY (idestado) REFERENCES estado(idestado))";
-  registroHabitacion: string = "INSERT or IGNORE INTO habitacion(idhabitacion, nombrehabi, idtipo, idestado) VALUES (1, 'hfamiliar', 1, 1)";
-  registroHabitacion2: string = "INSERT or IGNORE INTO habitacion(idhabitacion, nombrehabi, idtipo, idestado) VALUES (2, 'hfamiliar', 2, 2)";
-  registroHabitacion3: string = "INSERT or IGNORE INTO habitacion(idhabitacion, nombrehabi, idtipo, idestado) VALUES (3, 'hsuite', 3, 3)";
-  registroHabitacion4: string = "INSERT or IGNORE INTO habitacion(idhabitacion, nombrehabi, idtipo, idestado) VALUES (4, 'hpresidencial', 4, 4)";
+  TablaTipo: string = "CREATE TABLE IF NOT EXISTS tipo(idtipo INTEGER PRIMARY KEY AUTOINCREMENT, nombre VARCHAR(50) NOT NULL, imagen VARCHAR(100) NOT NULL, precio VARCHAR(50) NOT NULL, descripcion VARCHAR(200) NOT NULL);";
+  registrotipo: string = "INSERT or IGNORE INTO tipo (idtipo, nombre, imagen, precio, descripcion) VALUES (1, 'familiar', 'http.i/imagen12.com', '$14.000', '2 camas para que duermas como rey');";
 
-  TablaEstado: string = "CREATE TABLE IF NOT EXISTS estado(idestado INTEGER PRIMARY KEY AUTOINCREMENT, nombre VARCHAR(50) NOT NULL)";
-  registroEstado: string = "INSERT or IGNORE INTO estado(idestado, nombre) VALUES (1, 'disponible')";
-  registroEstado2: string = "INSERT or IGNORE INTO estado(idestado, nombre) VALUES (2, 'no disponible')";
+  TablaDetalle: string = "CREATE TABLE IF NOT EXISTS detalle(iddetalle INTEGER PRIMARY KEY AUTOINCREMENT, idreserva INTEGER NOT NULL, habitacionidhabitacion INTEGER NOT NULL, cantidad INTEGER NOT NULL, finicio VARCHAR(50) NOT NULL, subtotal VARCHAR(50) NOT NULL, FOREIGN KEY (idreserva) REFERENCES reserva(idreserva), FOREIGN KEY (habitacionidhabitacion) REFERENCES habitacion(idhabitacion));";
+  registrodetalle: string = "INSERT or IGNORE INTO detalle (iddetalle, idreserva, habitacionidhabitacion, cantidad, finicio, subtotal) VALUES (1, 2, 3, 4, '10/04/2024', '$54.000');";
 
-  TablaTipo: string = "CREATE TABLE IF NOT EXISTS tipo(idtipo INTEGER PRIMARY KEY AUTOINCREMENT, nombre VARCHAR(50) NOT NULL, imagen VARCHAR(100) NOT NULL, precio VARCHAR(50) NOT NULL, descripcion VARCHAR(200) NOT NULL)";
-  registroTipo: string = "INSERT or IGNORE INTO tipo(idtipo, nombre, imagen, precio, descripcion) VALUES (1, 'Habitacion Familiar', 'http/imagen.jpg', '$14.000', '2 camas para que te sientas como rey')";
+  TablaHabitacion: string = "CREATE TABLE IF NOT EXISTS habitacion(idhabitacion INTEGER PRIMARY KEY, tipoidtipo INTEGER NOT NULL, nombreh VARCHAR(50) NOT NULL, estadoidestado INTEGER NOT NULL, FOREIGN KEY (tipoidtipo) REFERENCES tipo(idtipo), FOREIGN KEY (estadoidestado) REFERENCES estado(idestado));";
+  registrohabitacion1: string = "INSERT or IGNORE INTO habitacion (idhabitacion, tipoidtipo, nombreh, estadoidestado) VALUES (1, 1, 'familiar', 1);";
+  registrohabitacion2: string = "INSERT or IGNORE INTO habitacion (idhabitacion, tipoidtipo, nombreh, estadoidestado) VALUES (2, 2, 'suite', 2);";
+  registrohabitacion3: string = "INSERT or IGNORE INTO habitacion (idhabitacion, tipoidtipo, nombreh, estadoidestado) VALUES (3, 3, 'presidencial', 3);";
+  registrohabitacion4: string = "INSERT or IGNORE INTO habitacion (idhabitacion, tipoidtipo, nombreh, estadoidestado) VALUES (4, 4, 'presidencial',4);";
 
-  TablaDetalle: string = `
-  CREATE TABLE IF NOT EXISTS detalle(
-    iddetalle INTEGER PRIMARY KEY AUTOINCREMENT,
-    cantidad INTEGER NOT NULL,
-    finicio VARCHAR(40) NOT NULL,
-    subtotal VARCHAR(40) NOT NULL,
-    idreserva INTEGER,  -- Añadir columna para idreserva
-    idhabitacion INTEGER,  -- Añadir columna para idhabitacion
-    FOREIGN KEY (idreserva) REFERENCES reserva(idreserva),  -- Corregir clave foránea
-    FOREIGN KEY (idhabitacion) REFERENCES habitacion(idhabitacion)  -- Corregir clave foránea
-  )`;
-  
-  registroDetalle: string = "INSERT or IGNORE INTO detalle(iddetalle, cantidad, finicio, subtotal, idreserva, idhabitacion) VALUES (1, 3, '10/04/2024', '$42.000', 1, 1)";
+  TablaEstado: string = "CREATE TABLE IF NOT EXISTS estado(idestado INTEGER PRIMARY KEY, nombre VARCHAR(50) NOT NULL);";
+  registroestado: string = "INSERT or IGNORE INTO estado (idestado, nombre) VALUES (1, 'disponible');";
 
-  listadoRol = new BehaviorSubject<Rol[]>([]);
-  listadoUsuario = new BehaviorSubject<Usuario[]>([]);
-  listadoReserva = new BehaviorSubject<Reserva[]>([]);
-  listadoHabitacion = new BehaviorSubject<Habitacion[]>([]);
-  listadoEstado = new BehaviorSubject<Estado[]>([]);
-  listadoTipo = new BehaviorSubject<Tipo[]>([]);
-  listadoDetalle = new BehaviorSubject<Detalle[]>([]);
+
+  listadoRol = new BehaviorSubject([]);
+  listadoUsuario = new BehaviorSubject([]);
+  listadoReserva = new BehaviorSubject([]);
+  listadoHabitacion = new BehaviorSubject([]);
+  listadoEstado = new BehaviorSubject([]);
+  listadoTipo = new BehaviorSubject([]);
+  listadoDetalle = new BehaviorSubject([]);
 
   private isDBReady: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
@@ -119,46 +108,39 @@ export class BdService {
       }).then((db: SQLiteObject) => {
         // Capturar la conexión a la BD
         this.database = db;
-        // Eliminar la base de datos existente para recrearla
-        this.sqlite.deleteDatabase({ name: 'bd', location: 'default' }).then(() => {
-          // Llamamos a la función para crear las tablas
-          this.crearTablas();
-        });
+        // Llamamos a la función para crear las tablas
+        this.crearTablas(); // Llama a crearTablas directamente
       }).catch(e => {
         this.presentAlert('Base de Datos', 'Error en crear la BD: ' + JSON.stringify(e));
       });
     });
   }
+  
 
   async crearTablas() {
     try {
-      // Enable foreign key constraints
-      await this.database.executeSql("PRAGMA foreign_keys = ON", []);
 
-      // Create tables in the correct order
-      await this.database.executeSql(this.TablaRol, []); // Create 'rol' table first
-      await this.database.executeSql(this.TablaEstado, []); // Create 'estado' table
-      await this.database.executeSql(this.TablaTipo, []); // Create 'tipo' table
-      await this.database.executeSql(this.TablaUsuario, []); // Create 'usuario' table
-      await this.database.executeSql(this.TablaHabitacion, []); // Create 'habitacion' table
-      await this.database.executeSql(this.TablaReserva, []); // Create 'reserva' table
-      await this.database.executeSql(this.TablaDetalle, []); // Create 'detalle' table
+      await this.database.executeSql(this.TablaUsuario, []);
+      await this.database.executeSql(this.TablaRol,[]);
+      await this.database.executeSql(this.TablaReserva,[]);
+      await this.database.executeSql(this.TablaTipo,[]);
+      await this.database.executeSql(this.TablaDetalle,[]); 
+      await this.database.executeSql(this.TablaHabitacion,[]);
+      await this.database.executeSql(this.TablaEstado,[]);
 
-      // Insert initial data
-      await this.database.executeSql(this.registroRol, []);
-      await this.database.executeSql(this.registroEstado, []);
-      await this.database.executeSql(this.registroEstado2, []);
-      await this.database.executeSql(this.registroTipo, []);
       await this.database.executeSql(this.registroUsuario, []);
-      await this.database.executeSql(this.registroHabitacion, []);
-      await this.database.executeSql(this.registroHabitacion2, []);
-      await this.database.executeSql(this.registroHabitacion3, []);
-      await this.database.executeSql(this.registroHabitacion4, []);
-      await this.database.executeSql(this.registroReserva, []);
-      await this.database.executeSql(this.registroDetalle, []);
+      await this.database.executeSql(this.registrorol,[]);
+      await this.database.executeSql(this.registroreserva,[]);
+      await this.database.executeSql(this.registrotipo,[]);
+      await this.database.executeSql(this.registrodetalle,[]); 
+      await this.database.executeSql(this.registrohabitacion1,[]);
+      await this.database.executeSql(this.registrohabitacion2,[]);
+      await this.database.executeSql(this.registrohabitacion3,[]);
+      await this.database.executeSql(this.registrohabitacion4,[]);
+      await this.database.executeSql(this.registroestado,[]);
 
+      this.seleccionarHabitaciones()
       this.seleccionarUsuarios();
-      this.seleccionarHabitaciones();
       this.isDBReady.next(true);
     } catch (e) {
       this.presentAlert('Creación de Tablas', 'Error en crear las tablas: ' + JSON.stringify(e));
@@ -187,7 +169,7 @@ export class BdService {
   }
 
   seleccionarHabitaciones() {
-    return this.database.executeSql('SELECT COUNT(idhabitacion) AS cantidad, tipohabitacion FROM habitacion GROUP BY tipohabitacion', []).then(res => {
+    return this.database.executeSql('SELECT COUNT(h.idhabitacion) AS cantidad, t.nombre AS tipohabitacion FROM habitacion h INNER JOIN tipo t ON h.tipoidtipo = t.idtipo GROUP BY t.nombre', []).then(res => {
       // Variable para almacenar el resultado de la consulta
       let items: Habitacion[] = [];
       // Valido si trae al menos un registro
@@ -206,13 +188,15 @@ export class BdService {
       this.listadoHabitacion.next(items as any);
     });
   }
-   eliminarUsuario(idusuario:string){
-    return this.database.executeSql('DELETE FROM usuario WHERE idusuario = ?',[idusuario]).then(res=>{
-      this.presentAlert("Eliminar","USUARIO ELIMINADO");
-      this.seleccionarUsuarios();
-    }).catch(e=>{
+
+  eliminarUsuario(idusuario: string) {
+    return this.database.executeSql('DELETE FROM usuario WHERE idusuario = ?', [idusuario]).then(res => {
+      this.presentAlert("Eliminar", "USUARIO ELIMINADO");
+      this.seleccionarUsuarios(); // Actualiza la lista de usuarios después de eliminar
+    }).catch(e => {
       this.presentAlert('Eliminar', 'Error: ' + JSON.stringify(e));
-    })
+    });
   }
+  
 }
 

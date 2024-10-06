@@ -147,6 +147,7 @@ export class BdService {
       this.seleccionarHabitaciones();
       this.seleccionarUsuarios();
       this.ListarHabi();
+      this.seleccionarReservas();
       this.isDBReady.next(true);
     } catch (e) {
       this.presentAlert('Creación de Tablas', 'Error en crear las tablas: ' + JSON.stringify(e));
@@ -196,7 +197,7 @@ export class BdService {
   }
 
   ListarHabi() {
-    return this.database.executeSql('SELECT idtipo, nombre, imagen, precio, descripcion FROM tipo ', []).then(res => {
+    return this.database.executeSql('SELECT idtipo, nombre, imagen, precio, descripcion FROM tipo  ', []).then(res => {
       // Variable para almacenar el resultado de la consulta
       let items: Tipo[] = [];
       // Valido si trae al menos un registro
@@ -218,6 +219,27 @@ export class BdService {
     });
   }
   
+  seleccionarReservas(){ return this.database.executeSql('SELECT r.idreserva, r.fecha, r.total, u.nombreusuario AS r.usuarioidusuario FROM  reserva r INNER JOIN usuario u ON r.idusuario = u.idusuario', []).then(res => {
+    // Variable para almacenar el resultado de la consulta
+    let items: Reserva[] = [];
+    // Valido si trae al menos un registro
+    if (res.rows.length > 0) {
+      // Recorro mi resultado
+      for (var i = 0; i < res.rows.length; i++) {
+        // Agrego los registros a mi lista idreserva, fecha, total, usuarioidusuario
+        items.push({
+          idreserva: res.rows.item(i).idreserva,
+          fecha: res.rows.item(i).fecha,
+          total: res.rows.item(i).total,
+          usuarioidusuario: res.rows.item(i).usuarioidusuario
+        });
+      }
+    }
+    // Actualizar el observable
+    this.listadoReserva.next(items as any);
+  });
+
+  }
   
   
   eliminarUsuario(idusuario: string) {

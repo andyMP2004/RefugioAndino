@@ -26,27 +26,34 @@
     <table class="responsive-table">
       <thead>
         <tr>
-          <th>Habitacion</th>
+          <th>Id Reserva</th>
           <th>Fecha</th>
-          <th>Huéspedes</th>
+          <th>Nombre Usuario</th>
+          <th>total</th>
           <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
-        <tr >
+        <tr *ngFor="let x of arregloReserva">
           <td>
             <ng-container>
-              
+              {{x.idreserva}}
+            </ng-container>
+          </td>
+
+          <td>
+            <ng-container>
+              {{x.fecha}}
             </ng-container>
           </td>
           <td>
             <ng-container>
-              
+             {{x.usuarioidusuario}}
             </ng-container>
           </td>
           <td>
             <ng-container >
-             
+              {{x.total}}
             </ng-container>
           </td>
           <td>

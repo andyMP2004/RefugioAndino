@@ -17,6 +17,11 @@ export class AdministradorPage implements OnInit {
   cantidad: string = "";
   tipohabitacion: string = "";
 
+  idreserva: string="";
+  fecha: string="";
+  total: string="";
+  usuarioidusuario: string="";
+
   arreglousuario: any = [
     {
       idusuario: '',
@@ -32,6 +37,14 @@ export class AdministradorPage implements OnInit {
     }
   ];
 
+  arregloReserva: any = [
+  {
+  idreserva:'',
+  fecha: '',
+  total: '',
+  usuarioidusuario: ''
+  }
+  ];
   constructor(private menu: MenuController, private bd: BdService, private router: Router ) {}
 
   ngOnInit() {
@@ -53,6 +66,15 @@ export class AdministradorPage implements OnInit {
         });
       }
     });
+    this.bd.dbState().subscribe(res => {
+      this.arregloReserva = res;
+      if (res) {
+        this.bd.fetchReserva().subscribe(users => {
+          this.arregloReserva = users;
+        });
+      }
+    });
+  
   }
 
   

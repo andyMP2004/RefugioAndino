@@ -13,38 +13,25 @@ export class HsuitePage implements OnInit {
 
   habitaciones = [
     {
-      image: 'assets/suite/suite1.jpg',
+      image: 'assets/suite/suite3.jpg',
       title: 'Habitación Suite',
-      camas: '1 cama king-size, con opciones adicionales como sofás-camas',
-      banos: 'Baño grande con bañera',
-      estar: 'Televisión de pantalla plana',
-      reservaRuta: '/reserva-suite'
-
+      descripcion: '1 cama king-size, con opciones adicionales como sofás-camas, Baño grande con bañera, Televisión de pantalla plana',
     },
     {
-      image: 'assets/suite/suite2.jpg',
+      image: 'assets/suite/suite3.jpg',
       title: 'Habitación Suite',
-      camas: '1 cama king-size, con opciones adicionales como sofás-camas',
-      banos: 'Baño grande con bañera',
-      estar: 'Televisión de pantalla plana',
-      reservaRuta: '/suite2'
+      descripcion: '1 cama king-size, con opciones adicionales como sofás-camas, Baño grande con bañera, Televisión de pantalla plana',
     },
     {
-      image: 'assets/suite/suite3.jpeg',
+      image: 'assets/suite/suite3.jpg',
       title: 'Habitación Suite',
-      camas: '1 cama king-size, con opciones adicionales como sofás-camas',
-      banos: 'Baño grande con bañera',
-      estar: 'Televisión de pantalla plana',
-      reservaRuta: '/suite3'
+      descripcion: '1 cama king-size, con opciones adicionales como sofás-camas, Baño grande con bañera, Televisión de pantalla plana',
     },
     {
-      image: 'assets/suite/suite4.webp',
+      image: 'assets/suite/suite3.jpg',
       title: 'Habitación Suite',
-      camas: '1 cama king-size, con opciones adicionales como sofás-camas',
-      banos: 'Baño grande con bañera',
-      estar: 'Televisión de pantalla plana',
-      reservaRuta: '/suite4'
-    }
+      descripcion: '1 cama king-size, con opciones adicionales como sofás-camas, Baño grande con bañera, Televisión de pantalla plana',
+    },
   ];
 
   openModal(habitaciones: any) {

@@ -107,15 +107,19 @@ const routes: Routes = [
 {
     path: 'agregar',
     loadChildren: () => import('./pages/agregar/agregar.module').then( m => m.AgregarPageModule)
+  },  
+  {
+    path: 'agregars',
+    loadChildren: () => import('./pages/agregars/agregars.module').then( m => m.AgregarsPageModule)
+  },
+  {
+    path: 'agregarp',
+    loadChildren: () => import('./pages/agregarp/agregarp.module').then( m => m.AgregarpPageModule)
   },
   {
     path: '**',
     loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
-  }
-  
-
- 
- 
+  },
 
 ];
 

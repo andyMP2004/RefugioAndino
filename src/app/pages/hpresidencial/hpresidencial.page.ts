@@ -15,35 +15,23 @@ export class HpresidencialPage implements OnInit {
     {
       image: 'assets/precidencial/precidencial1.jpg',
       title: 'Habitación Presidencial',
-      camas: 'King-size con ropa de cama de alta calidad',
-      banos: 'Lujoso, con jacuzzi, ducha separada y doble lavabo',
-      estar: 'Amplia, con sofás y área de entretenimiento',
-      reservaRuta: '/reserva-presidencial'
+      descripcion: 'King-size con ropa de cama de alta calidad, Lujoso, con jacuzzi, ducha separada y doble lavabo, Amplia, con sofás y área de entretenimiento',
     },
     {
-      image: 'assets/precidencial/precidencial2.jpg',
+      image: 'assets/precidencial/precidencial1.jpg',
       title: 'Habitación Presidencial',
-      camas: 'King-size con ropa de cama de alta calidad',
-      banos: 'Lujoso, con jacuzzi, ducha separada y doble lavabo',
-      estar: 'Amplia, con sofás y área de entretenimiento',
-      reservaRuta: '/suite-p2'
+      descripcion: 'King-size con ropa de cama de alta calidad, Lujoso, con jacuzzi, ducha separada y doble lavabo, Amplia, con sofás y área de entretenimiento',
     },
     {
-      image: 'assets/precidencial/precidencial3.jpg',
+      image: 'assets/precidencial/precidencial1.jpg',
       title: 'Habitación Presidencial',
-      camas: 'King-size con ropa de cama de alta calidad',
-      banos: 'Lujoso, con jacuzzi, ducha separada y doble lavabo',
-      estar: 'Amplia, con sofás y área de entretenimiento',
-      reservaRuta: '/suite-p3'
+      descripcion: 'King-size con ropa de cama de alta calidad, Lujoso, con jacuzzi, ducha separada y doble lavabo, Amplia, con sofás y área de entretenimiento',
     },
     {
-      image: 'assets/precidencial/precidencial4.jpg',
-      title: 'Habitación Presidencial ',
-      camas: 'King-size con ropa de cama de alta calidad',
-      banos: 'Lujoso, con jacuzzi, ducha separada y doble lavabo',
-      estar: 'Amplia, con sofás y área de entretenimiento',
-      reservaRuta: '/suite-p4'
-    }
+      image: 'assets/precidencial/precidencial1.jpg',
+      title: 'Habitación Presidencial',
+      descripcion: 'King-size con ropa de cama de alta calidad, Lujoso, con jacuzzi, ducha separada y doble lavabo, Amplia, con sofás y área de entretenimiento',
+    },
   ];
 
   openModal(habitaciones: any) {

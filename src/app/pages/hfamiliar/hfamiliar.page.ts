@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
+import { identity } from 'rxjs';
+import { BdService } from 'src/app/service/servicios/bd.service';
+import { Imagen } from 'src/app/service/servicios/imagen';
 
 @Component({
   selector: 'app-hfamiliar',
@@ -8,56 +10,33 @@ import { MenuController } from '@ionic/angular';
   styleUrls: ['./hfamiliar.page.scss'],
 })
 export class HfamiliarPage implements OnInit {
-  camas: string = "";
-  banos: string = "";
-  selectedImage: string | ArrayBuffer | null = null;
+  idtipo:string="" ;
+  nombre:string= "";
+  imagen: string="";
+  precio: string="";
+  descripcion:string= "";
 
-  isModalOpen = false;
-  modalContent: any = {};
-
-  habitaciones = [
+  habitaciones: any = [
     {
-      image: 'assets/familiar/familiar.3.jpg',
-      title: 'Habitación Familiar',
-      camas: '2 camas matrimoniales además de una cuna para tu bb',
-      banos: 'Baño más grande con bañera y ducha',
-      estar: 'Espacio adicional con sofás o sillones',
-      reservaRuta: '/reserva'
-    },
-    {
-      image: 'assets/familiar/familiar.jpg',
-      title: 'Habitación Familiar',
-      camas: '1 cama matrimonial y 2 camas individuales',
-      banos: 'Baño más grande con bañera y ducha',
-      estar: 'Espacio adicional con sofás o sillones',
-      reservaRuta: '/habitacionf2'
-    },
-    {
-      image: 'assets/familiar/familiar.1.jpg',
-      title: 'Habitación Familiar',
-      camas: '1 cama matrimonial y 1 cama individual',
-      banos: 'Baño más grande con bañera y ducha',
-      estar: 'Espacio adicional con sofás o sillones',
-      reservaRuta: '/habitacionf3'
-    },
-    {
-      image: 'assets/familiar/familiar.4.jpg',
-      title: 'Habitación Familiar',
-      camas: '2 camas matrimoniales',
-      banos: 'Baño más grande con bañera y ducha',
-      estar: 'Espacio adicional con sofás o sillones',
-      reservaRuta: '/habitacionf4'
+      idtipo: '',
+      nombre: '',
+      imagen: '',
+      precio: '',
+      descripcion: ''
     }
   ];
 
-  constructor(private router: Router, private activedrouter: ActivatedRoute, private menu: MenuController) {}
-
-  openModal(habitacion: any) {
-    this.modalContent = habitacion;
-    this.isModalOpen = true;
-  }
+  constructor(private menu: MenuController, private bd: BdService) {}
 
   ngOnInit() {
     this.menu.enable(false);
-  }
+    this.bd.dbState().subscribe(res => {
+      this.habitaciones = res;
+      if (res) {
+        this.bd.fetchTipo().subscribe(users => {
+          this.habitaciones = users;
+        });
+      }
+    });
+}
 }

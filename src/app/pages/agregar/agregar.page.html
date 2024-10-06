@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
-    <ion-title>Agregar</ion-title>
+    <ion-title>Agregar Familiar</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -19,14 +19,13 @@
     <div class="image-preview">
       <img *ngIf="selectedImage" [src]="selectedImage" alt="Imagen Seleccionada"/>
     </div>
+    <ion-item>
+      <ion-icon name="bed" slot="start"></ion-icon> 
+      <ion-input label="Nombre Habitacion" labelPlacement="floating" placeholder="ingrese nombre de habitacion"  [(ngModel)]="nombre" name="nombre"></ion-input>
+    </ion-item>
       <ion-item>
         <ion-icon name="bed" slot="start"></ion-icon> 
-        <ion-input label="Camas" labelPlacement="floating" placeholder="ingrese la descripcion"  [(ngModel)]="camas" name="camas"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-icon name="water" slot="start"></ion-icon> 
-        <ion-input label="Baños" labelPlacement="floating" placeholder="ingrese la descripcion"  [(ngModel)]="banos" name="banos"></ion-input>
+        <ion-input label="Descripcion Habitacion" labelPlacement="floating" placeholder="ingrese la descripcion"  [(ngModel)]="descripcion" name="descipcion"></ion-input>
       </ion-item>
     <ion-button expand="full" color="primary" class="ion-margin-top boton"(click)="agregar()">
       Añadir

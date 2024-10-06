@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-agregar',
-  templateUrl: './agregar.page.html',
-  styleUrls: ['./agregar.page.scss'],
+  selector: 'app-agregarp',
+  templateUrl: './agregarp.page.html',
+  styleUrls: ['./agregarp.page.scss'],
 })
-export class AgregarPage implements OnInit {
+export class AgregarpPage implements OnInit {
   selectedImage: string | ArrayBuffer | null = null;
   descripcion: string = "";
   nombre: string="";
@@ -69,4 +69,5 @@ export class AgregarPage implements OnInit {
       reader.readAsDataURL(file);
     }
   }
+
 }

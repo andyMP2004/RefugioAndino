@@ -2,15 +2,14 @@ import { Injectable } from '@angular/core';
 import { SQLite, SQLiteObject } from '@awesome-cordova-plugins/sqlite/ngx';
 import { AlertController, Platform } from '@ionic/angular';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Contacto } from './contacto';
 import { Rol } from './rol';
 import { Usuario } from './usuario';
 import { Reserva } from './reserva';
 import { Habitacion } from './habitacion';
-import { Imagen } from './imagen';
 import { Estado } from './estado';
 import { Tipo } from './tipo';
 import { Detalle } from './detalle';
+import { Imagen } from './imagen';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +27,10 @@ export class BdService {
   registroreserva: string = "INSERT or IGNORE INTO reserva (idreserva, fecha, total, usuarioidusuario) VALUES (1, '30/03/2024', '$14.000', 2);";
 
   TablaTipo: string = "CREATE TABLE IF NOT EXISTS tipo(idtipo INTEGER PRIMARY KEY AUTOINCREMENT, nombre VARCHAR(50) NOT NULL, imagen VARCHAR(100) NOT NULL, precio VARCHAR(50) NOT NULL, descripcion VARCHAR(200) NOT NULL);";
-  registrotipo: string = "INSERT or IGNORE INTO tipo (idtipo, nombre, imagen, precio, descripcion) VALUES (1, 'familiar', 'http.i/imagen12.com', '$14.000', '2 camas para que duermas como rey');";
+  registrotipo: string = "INSERT or IGNORE INTO tipo (idtipo, nombre, imagen, precio, descripcion) VALUES (1, 'Habitacion Familiar', 'assets/familiar/familiar.3.jpg', '$14.000', '2 camas para que duermas como rey');";
+  registrotipo2: string = "INSERT or IGNORE INTO tipo (idtipo, nombre, imagen, precio, descripcion) VALUES (2, 'Habitacion Familiar', 'assets/familiar/familiar.3.jpg', '$14.000', '2 camas para que duermas como rey');";
+  registrotipo3: string = "INSERT or IGNORE INTO tipo (idtipo, nombre, imagen, precio, descripcion) VALUES (3, 'Habitacion Familiar', 'assets/familiar/familiar.3.jpg', '$14.000', '2 camas para que duermas como rey');";
+  registrotipo4: string = "INSERT or IGNORE INTO tipo (idtipo, nombre, imagen, precio, descripcion) VALUES (4, 'Habitacion Familiar', 'assets/familiar/familiar.3.jpg', '$14.000', '2 camas para que duermas como rey');";
 
   TablaDetalle: string = "CREATE TABLE IF NOT EXISTS detalle(iddetalle INTEGER PRIMARY KEY AUTOINCREMENT, idreserva INTEGER NOT NULL, habitacionidhabitacion INTEGER NOT NULL, cantidad INTEGER NOT NULL, finicio VARCHAR(50) NOT NULL, subtotal VARCHAR(50) NOT NULL, FOREIGN KEY (idreserva) REFERENCES reserva(idreserva), FOREIGN KEY (habitacionidhabitacion) REFERENCES habitacion(idhabitacion));";
   registrodetalle: string = "INSERT or IGNORE INTO detalle (iddetalle, idreserva, habitacionidhabitacion, cantidad, finicio, subtotal) VALUES (1, 2, 3, 4, '10/04/2024', '$54.000');";
@@ -132,6 +134,9 @@ export class BdService {
       await this.database.executeSql(this.registrorol,[]);
       await this.database.executeSql(this.registroreserva,[]);
       await this.database.executeSql(this.registrotipo,[]);
+      await this.database.executeSql(this.registrotipo2,[]);
+      await this.database.executeSql(this.registrotipo3,[]);
+      await this.database.executeSql(this.registrotipo4,[]);
       await this.database.executeSql(this.registrodetalle,[]); 
       await this.database.executeSql(this.registrohabitacion1,[]);
       await this.database.executeSql(this.registrohabitacion2,[]);
@@ -139,8 +144,9 @@ export class BdService {
       await this.database.executeSql(this.registrohabitacion4,[]);
       await this.database.executeSql(this.registroestado,[]);
 
-      this.seleccionarHabitaciones()
+      this.seleccionarHabitaciones();
       this.seleccionarUsuarios();
+      this.ListarHabi();
       this.isDBReady.next(true);
     } catch (e) {
       this.presentAlert('Creación de Tablas', 'Error en crear las tablas: ' + JSON.stringify(e));
@@ -189,6 +195,31 @@ export class BdService {
     });
   }
 
+  ListarHabi() {
+    return this.database.executeSql('SELECT idtipo, nombre, imagen, precio, descripcion FROM tipo WHERE nombre = \'Habitacion Familiar\'', []).then(res => {
+      // Variable para almacenar el resultado de la consulta
+      let items: Tipo[] = [];
+      // Valido si trae al menos un registro
+      if (res.rows.length > 0) {
+        // Recorro mi resultado
+        for (let i = 0; i < res.rows.length; i++) {
+          // Agrego los registros a mi lista
+          items.push({
+            idtipo: res.rows.item(i).idtipo,
+            nombre: res.rows.item(i).nombre,
+            imagen: res.rows.item(i).imagen,
+            precio: res.rows.item(i).precio,
+            descripcion: res.rows.item(i).descripcion
+          });
+        }
+      }
+      // Actualizar el observable
+      this.listadoTipo.next(items as any);
+    });
+  }
+  
+  
+  
   eliminarUsuario(idusuario: string) {
     return this.database.executeSql('DELETE FROM usuario WHERE idusuario = ?', [idusuario]).then(res => {
       this.presentAlert("Eliminar", "USUARIO ELIMINADO");

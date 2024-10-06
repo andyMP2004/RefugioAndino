@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { identity } from 'rxjs';
 import { BdService } from 'src/app/service/servicios/bd.service';
@@ -26,7 +27,7 @@ export class HfamiliarPage implements OnInit {
     }
   ];
 
-  constructor(private menu: MenuController, private bd: BdService) {}
+  constructor(private menu: MenuController, private bd: BdService, private router: Router) {}
 
   ngOnInit() {
     this.menu.enable(false);

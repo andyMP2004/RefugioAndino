@@ -1,3 +1,12 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Habitacion Familiar</ion-title>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content [fullscreen]="true" class="custom-content">
   <ion-card *ngFor="let x of habitaciones">
     <img class="room-image" [src]="x.imagen" alt="Habitacion Familiar" />
@@ -12,3 +21,24 @@
     </ion-card-content>
   </ion-card>
 </ion-content>
+
+<ion-footer>
+  <ion-tab-bar slot="bottom" color="primary">
+    <ion-tab-button tab="home" [routerLink]="['/habitaciones']">
+      <ion-icon name="home"></ion-icon>
+      Inicio
+    </ion-tab-button>
+    <ion-tab-button tab="home" [routerLink]="['/hfamiliar']">
+      <ion-icon name="bed"></ion-icon>
+      Familiar
+    </ion-tab-button>
+    <ion-tab-button tab="suite" [routerLink]="['/hsuite']">
+      <ion-icon name="star-outline"></ion-icon>
+      Suite
+    </ion-tab-button>
+    <ion-tab-button tab="profile" [routerLink]="['/miperfil']">
+      <ion-icon name="person"></ion-icon>
+      Mi Perfil
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-footer>

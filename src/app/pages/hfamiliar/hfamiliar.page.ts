@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
-import { identity } from 'rxjs';
 import { BdService } from 'src/app/service/servicios/bd.service';
-import { Imagen } from 'src/app/service/servicios/imagen';
 
 @Component({
   selector: 'app-hfamiliar',
@@ -34,10 +32,12 @@ export class HfamiliarPage implements OnInit {
     this.bd.dbState().subscribe(res => {
       this.habitaciones = res;
       if (res) {
-        this.bd.fetchTipo().subscribe(users => {
-          this.habitaciones = users;
+        this.bd.ListarHabi().then(() => {
+          this.bd.fetchTipo().subscribe(habitaciones => {
+            this.habitaciones = habitaciones;
+          });
         });
       }
     });
-}
+  }
 }

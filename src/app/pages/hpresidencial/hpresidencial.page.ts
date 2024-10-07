@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController, ModalController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
+import { BdService } from 'src/app/service/servicios/bd.service';
 
 @Component({
   selector: 'app-hpresidencial',
@@ -7,40 +9,35 @@ import { MenuController, ModalController } from '@ionic/angular';
   styleUrls: ['./hpresidencial.page.scss'],
 })
 export class HpresidencialPage implements OnInit {
-  constructor(private modalController: ModalController, private menu:MenuController) {}
-  isModalOpen = false;
-  modalContent:any={};
+  idtipo: string = '';
+  nombre: string = '';
+  imagen: string = '';
+  precio: string = '';
+  descripcion: string = '';
 
-  habitaciones = [
+  habitaciones: any = [
     {
-      image: 'assets/precidencial/precidencial1.jpg',
-      title: 'Habitación Presidencial',
-      descripcion: 'King-size con ropa de cama de alta calidad, Lujoso, con jacuzzi, ducha separada y doble lavabo, Amplia, con sofás y área de entretenimiento',
-    },
-    {
-      image: 'assets/precidencial/precidencial1.jpg',
-      title: 'Habitación Presidencial',
-      descripcion: 'King-size con ropa de cama de alta calidad, Lujoso, con jacuzzi, ducha separada y doble lavabo, Amplia, con sofás y área de entretenimiento',
-    },
-    {
-      image: 'assets/precidencial/precidencial1.jpg',
-      title: 'Habitación Presidencial',
-      descripcion: 'King-size con ropa de cama de alta calidad, Lujoso, con jacuzzi, ducha separada y doble lavabo, Amplia, con sofás y área de entretenimiento',
-    },
-    {
-      image: 'assets/precidencial/precidencial1.jpg',
-      title: 'Habitación Presidencial',
-      descripcion: 'King-size con ropa de cama de alta calidad, Lujoso, con jacuzzi, ducha separada y doble lavabo, Amplia, con sofás y área de entretenimiento',
-    },
+      idtipo: '',
+      nombre: '',
+      imagen: '',
+      precio: '',
+      descripcion: ''
+    }
   ];
 
-  openModal(habitaciones: any) {
-    this.modalContent = habitaciones;
-    this.isModalOpen = true;
+  constructor(private menu: MenuController, private bd: BdService, private router: Router) {}
+
+  ngOnInit() {
+    this.menu.enable(false);
+    this.bd.dbState().subscribe(res => {
+      if (res) {
+        // Llamar a ListarHabip para obtener las habitaciones de tipo "Suite Presidencial"
+        this.bd.ListarHabip().then(() => {
+          this.bd.fetchTipo().subscribe(habitaciones => {
+            this.habitaciones = habitaciones;
+          });
+        });
+      }
+    });
   }
-  
-
-  ngOnInit() {this.menu.enable(false);}
-
 }
-  

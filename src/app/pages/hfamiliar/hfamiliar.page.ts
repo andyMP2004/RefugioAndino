@@ -15,7 +15,7 @@ export class HfamiliarPage implements OnInit {
   precio: string="";
   descripcion:string= "";
 
-  habitaciones: any = [
+  habitacion: any = [
     {
       idtipo: '',
       nombre: '',
@@ -30,11 +30,11 @@ export class HfamiliarPage implements OnInit {
   ngOnInit() {
     this.menu.enable(false);
     this.bd.dbState().subscribe(res => {
-      this.habitaciones = res;
+      this.habitacion = res;
       if (res) {
         this.bd.ListarHabi().then(() => {
           this.bd.fetchTipo().subscribe(habitaciones => {
-            this.habitaciones = habitaciones;
+            this.habitacion = habitaciones;
           });
         });
       }

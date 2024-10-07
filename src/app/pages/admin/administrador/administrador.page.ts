@@ -17,10 +17,10 @@ export class AdministradorPage implements OnInit {
   cantidad: string = "";
   tipohabitacion: string = "";
 
-  idreserva: string="";
-  fecha: string="";
-  total: string="";
-  usuarioidusuario: string="";
+  idreserva: string = "";
+  fecha: string = "";
+  total: string = "";
+  usuarioidusuario: string = "";
 
   arreglousuario: any = [
     {
@@ -37,15 +37,15 @@ export class AdministradorPage implements OnInit {
     }
   ];
 
-  arregloReserva: any = [
-  {
-  idreserva:'',
-  fecha: '',
-  total: '',
-  usuarioidusuario: ''
-  }
+  arregloreserva: any = [
+    {
+      idreserva: '',
+      fecha: '',
+      total: '',
+      usuarioidusuario: ''
+    }
   ];
-  constructor(private menu: MenuController, private bd: BdService, private router: Router ) {}
+  constructor(private menu: MenuController, private bd: BdService, private router: Router) { }
 
   ngOnInit() {
     this.menu.enable(false);
@@ -67,17 +67,16 @@ export class AdministradorPage implements OnInit {
       }
     });
     this.bd.dbState().subscribe(res => {
-      this.arregloReserva = res;
+      this.arregloreserva = res;
       if (res) {
-        this.bd.fetchReserva().subscribe(users => {
-          this.arregloReserva = users;
-        });
+          this.bd.fetchReserva().subscribe(users => {
+            this.arregloreserva = users;
+          });
       }
     });
-  
   }
 
-  
+
   eliminar(x: any) {
     this.bd.eliminarUsuario(x.idusuario);
   }
@@ -87,7 +86,7 @@ export class AdministradorPage implements OnInit {
 
   navigate(index: number) {
     if (index == 0) {
-      this.router.navigate(['/agregar']); 
+      this.router.navigate(['/agregar']);
     } else if (index == 1) {
       this.router.navigate(['/agregarp']);
     } else if (index == 2) {

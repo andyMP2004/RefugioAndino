@@ -17,11 +17,11 @@ import { Imagen } from './imagen';
 export class BdService {
   public database!: SQLiteObject;
 
-  TablaUsuario: string = "CREATE TABLE IF NOT EXISTS usuario(idusuario INTEGER PRIMARY KEY AUTOINCREMENT, nombreusuario VARCHAR(100) NOT NULL, correo VARCHAR(100) NOT NULL, idrol INTEGER NOT NULL, rutusuario VARCHAR(15) NOT NULL, contrasena VARCHAR(20) NOT NULL, fechan VARCHAR(20) NOT NULL, telefono INTEGER NOT NULL, FOREIGN KEY (idrol) REFERENCES rol(idrol));";
-  registroUsuario: string = "INSERT or IGNORE INTO usuario (idusuario, nombreusuario, correo, rutusuario, contrasena, fechan, telefono, idrol) VALUES (1, 'andy madrid', 'madridpolancoa@gmail.com', '21687221-5', 'Andymadrid12', '02/12/2004', '954341221', 2);";
+  TablaUsuario: string = "CREATE TABLE IF NOT EXISTS usuario(idusuario INTEGER PRIMARY KEY AUTOINCREMENT, nombreusuario VARCHAR(100) NOT NULL, correo VARCHAR(100) NOT NULL, idrol INTEGER , rutusuario VARCHAR(15) NOT NULL, contrasena VARCHAR(20) NOT NULL, fechan VARCHAR(20) NOT NULL, telefono VARCHAR(30) NOT NULL, FOREIGN KEY (idrol) REFERENCES rol(idrol));";
+  registroUsuario: string = "INSERT or IGNORE INTO usuario (idusuario, nombreusuario, correo, rutusuario, contrasena, fechan, telefono, idrol) VALUES (0, 'andy madrid', 'madridpolancoa@gmail.com', '21687221-5', 'Andymadrid12', '02/12/2004', '954341221', 2);";
 
-  TablaRol: string = "CREATE TABLE IF NOT EXISTS rol(idrol INTEGER PRIMARY KEY AUTOINCREMENT, nombre VARCHAR(50));";
-  registrorol: string = "INSERT or IGNORE INTO rol (idrol, nombre) VALUES (1, 'admin');";
+  TablaRol: string = "CREATE TABLE IF NOT EXISTS rol(idrol INTEGER PRIMARY KEY AUTOINCREMENT, nombrerol VARCHAR(50));"; 
+  registrorol: string = "INSERT or IGNORE INTO rol (idrol, nombrerol) VALUES (1, 'admin');";
 
   TablaReserva: string = "CREATE TABLE IF NOT EXISTS reserva(idreserva INTEGER PRIMARY KEY AUTOINCREMENT, fecha VARCHAR(50) NOT NULL, total VARCHAR(50) NOT NULL, usuarioidusuario INTEGER NOT NULL, FOREIGN KEY (usuarioidusuario) REFERENCES usuario(idusuario));";
   registroreserva: string = "INSERT or IGNORE INTO reserva (idreserva, fecha, total, usuarioidusuario) VALUES (1, '30/03/2024', '$14.000', 2);";
@@ -35,7 +35,7 @@ export class BdService {
   registrotipo6: string = "INSERT or IGNORE INTO tipo (idtipo, nombre, imagen, precio, descripcion) VALUES (6, 'Suite Presidencial', 'assets/precidencial/precidencial1.jpg', '$60.000', 'Espacio lujoso con vistas panorámicas, chimenea, cama king size y diseño moderno. Perfecta para una experiencia exclusiva.');";
   registrotipo7: string = "INSERT or IGNORE INTO tipo (idtipo, nombre, imagen, precio, descripcion) VALUES (7, 'Suite Presidencial', 'assets/precidencial/precidencial1.jpg', '$60.000', 'Espacio lujoso con vistas panorámicas, chimenea, cama king size y diseño moderno. Perfecta para una experiencia exclusiva.');";
   registrotipo8: string = "INSERT or IGNORE INTO tipo (idtipo, nombre, imagen, precio, descripcion) VALUES (8, 'Suite Presidencial', 'assets/precidencial/precidencial1.jpg', '$60.000', 'Espacio lujoso con vistas panorámicas, chimenea, cama king size y diseño moderno. Perfecta para una experiencia exclusiva.');";
-  registrotipo9: string = "INSERT or IGNORE INTO tipo (idtipo, nombre, imagen, precio, descripcion) VALUES (9, 'Suite Presidencial', 'assets/suite/suite4.webp', '$40.000', 'Suite moderna y lujosa con cama amplia, cabecero acolchado, tonos azul suave y muebles minimalistas. Grandes ventanales ofrecen luz natural, creando un ambiente acogedor y sofisticado ');";
+  registrotipo9: string = "INSERT or IGNORE INTO tipo (idtipo, nombre, imagen, precio, descripcion) VALUES (9, 'Habitacion Suite', 'assets/suite/suite4.webp', '$40.000', 'Suite moderna y lujosa con cama amplia, cabecero acolchado, tonos azul suave y muebles minimalistas. Grandes ventanales ofrecen luz natural, creando un ambiente acogedor y sofisticado ');";
   registrotipo10: string = "INSERT or IGNORE INTO tipo (idtipo, nombre, imagen, precio, descripcion) VALUES (10, 'Habitacion Suite', 'assets/suite/suite4.webp', '$40.000', 'Suite moderna y lujosa con cama amplia, cabecero acolchado, tonos azul suave y muebles minimalistas. Grandes ventanales ofrecen luz natural, creando un ambiente acogedor y sofisticado');";
   registrotipo11: string = "INSERT or IGNORE INTO tipo (idtipo, nombre, imagen, precio, descripcion) VALUES (11, 'Habitacion Suite', 'assets/suite/suite4.webp', '$40.000', 'Suite moderna y lujosa con cama amplia, cabecero acolchado, tonos azul suave y muebles minimalistas. Grandes ventanales ofrecen luz natural, creando un ambiente acogedor y sofisticado');";
   registrotipo12: string = "INSERT or IGNORE INTO tipo (idtipo, nombre, imagen, precio, descripcion) VALUES (12, 'Habitacion Suite', 'assets/suite/suite4.webp', '$40.000', 'Suite moderna y lujosa con cama amplia, cabecero acolchado, tonos azul suave y muebles minimalistas. Grandes ventanales ofrecen luz natural, creando un ambiente acogedor y sofisticado');";
@@ -286,7 +286,8 @@ export class BdService {
     });
   }
 
-  seleccionarReservas(){ return this.database.executeSql('SELECT r.idreserva, r.fecha, r.total, u.nombreusuario AS r.usuarioidusuario FROM  reserva r INNER JOIN usuario u ON r.idusuario = u.idusuario', []).then(res => {
+  seleccionarReservas(){ 
+    return this.database.executeSql('SELECT r.idreserva, r.fecha, r.total, u.nombreusuario AS r.usuarioidusuario FROM reserva r INNER JOIN usuario u ON r.usuarioidusuario = u.usuarioidusuario', []).then(res => {
     // Variable para almacenar el resultado de la consulta
     let items: Reserva[] = [];
     // Valido si trae al menos un registro
@@ -318,5 +319,15 @@ export class BdService {
     });
   }
   
-}
 
+
+//idusuario, nombreusuario, correo, rutusuario, contrasena, fechan, telefono, idrol
+insertarUsuario(idusuario: string,nombreusuario:string,correo:string,rutusuario:string,contrasena:string,fechan:string,telefono:string,idrol:string){
+  return this.database.executeSql('INSERT INTO usuario(idusuario, nombreusuario, rutusuario,correo , contrasena, fechan, telefono,idrol) VALUES (?,?,?,?,?,?,?,3)',[ idusuario,nombreusuario, correo, rutusuario, contrasena, fechan, telefono,idrol]).then(res=>{
+    this.presentAlert("Insertar","Usuario Registrado");
+    this.seleccionarUsuarios();
+  }).catch(e=>{
+    this.presentAlert('Insertar', 'Error: ' + JSON.stringify(e));
+  })
+}
+}

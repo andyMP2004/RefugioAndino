@@ -2,22 +2,26 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
 import { AlertController, MenuController } from '@ionic/angular';
-
+import { BdService } from 'src/app/service/servicios/bd.service';
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.page.html',
   styleUrls: ['./registro.page.scss'],
 })
 export class RegistroPage implements OnInit {
-  rut: string = "";
+  idusuario: string= "";
   nombre: string = "";
-  usuario: string = "";
+  rut: string = "";
+  correo: string = "";
   contrasena: string = "";
+  fechan: string= "";
+  telefono: string = "";
+  idrol: string = "";
 
-  constructor(private router: Router, private menu: MenuController, private alertController: AlertController, private storage: NativeStorage ) {}
+  constructor(private router: Router, private menu: MenuController, private alertController: AlertController, private storage: NativeStorage,private bd: BdService ) {}
 
   async irPagina() {
-    if (!this.usuario || !this.contrasena || !this.nombre || !this.rut) {
+    if (!this.correo || !this.contrasena || !this.nombre || !this.rut) {
       const alert = await this.alertController.create({
         header: 'Los datos no pueden estar vacíos',
         message: 'Por favor, complete todos los datos',
@@ -25,7 +29,7 @@ export class RegistroPage implements OnInit {
       });
       await alert.present();
     } 
-    else if (!/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(this.usuario)) {
+    else if (!/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(this.correo)) {
       const alert = await this.alertController.create({
         header: 'Correo invalido',
         message: 'Por favor, ingrese un correo electronico valido',
@@ -89,7 +93,7 @@ export class RegistroPage implements OnInit {
       });
       await alert.present();
 
-      if (this.usuario == "administrador@gmail.com" && this.contrasena == "Admin123") {
+      if (this.correo == "administrador@gmail.com" && this.contrasena == "Admin123") {
         this.router.navigate(['/administrador']);
       } else {
         this.router.navigate(['/home']);
@@ -105,7 +109,7 @@ export class RegistroPage implements OnInit {
     const usuarioData = {
       rut: this.rut,
       nombre: this.nombre,
-      usuario: this.usuario,
+      usuario: this.correo,
       contrasena: this.contrasena
     };
   
@@ -116,4 +120,7 @@ export class RegistroPage implements OnInit {
     });
       await alert.present();
   }
-}
+  insertar(){
+    this.bd.insertarUsuario(this.idusuario,this.nombre, this.rut,this.fechan,this.telefono,this.correo,this.contrasena,this.idrol);
+  }
+}//idusuario, nombreusuario, correo, rutusuario, contrasena, fechan, telefono, idrol

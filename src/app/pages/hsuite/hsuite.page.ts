@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AlertController, MenuController, ModalController } from '@ionic/angular';
+import { BdService } from 'src/app/service/servicios/bd.service';
 
 @Component({
   selector: 'app-hsuite',
@@ -7,39 +9,36 @@ import { AlertController, MenuController, ModalController } from '@ionic/angular
   styleUrls: ['./hsuite.page.scss'],
 })
 export class HsuitePage implements OnInit {
-  constructor(private modalController: ModalController, private menu: MenuController) {}
-  isModalOpen = false;
-  modalContent:any={};
+  idtipo:string="" ;
+  nombre:string= "";
+  imagen: string="";
+  precio: string="";
+  descripcion:string= "";
 
-  habitaciones = [
+  habitacions: any = [
     {
-      image: 'assets/suite/suite3.jpg',
-      title: 'Habitación Suite',
-      descripcion: '1 cama king-size, con opciones adicionales como sofás-camas, Baño grande con bañera, Televisión de pantalla plana',
-    },
-    {
-      image: 'assets/suite/suite3.jpg',
-      title: 'Habitación Suite',
-      descripcion: '1 cama king-size, con opciones adicionales como sofás-camas, Baño grande con bañera, Televisión de pantalla plana',
-    },
-    {
-      image: 'assets/suite/suite3.jpg',
-      title: 'Habitación Suite',
-      descripcion: '1 cama king-size, con opciones adicionales como sofás-camas, Baño grande con bañera, Televisión de pantalla plana',
-    },
-    {
-      image: 'assets/suite/suite3.jpg',
-      title: 'Habitación Suite',
-      descripcion: '1 cama king-size, con opciones adicionales como sofás-camas, Baño grande con bañera, Televisión de pantalla plana',
-    },
+      idtipo: '',
+      nombre: '',
+      imagen: '',
+      precio: '',
+      descripcion: ''
+    }
   ];
 
-  openModal(habitaciones: any) {
-    this.modalContent = habitaciones;
-    this.isModalOpen = true;
-  }
-  
+  constructor(private menu: MenuController, private bd: BdService, private router: Router) {}
 
-  ngOnInit() {this.menu.enable(false);}
+  ngOnInit() {
+    this.menu.enable(false);
+    this.bd.dbState().subscribe(res => {
+      this.habitacions = res;
+      if (res) {
+        this.bd.ListarHabis().then(() => {
+          this.bd.fetchTipo().subscribe(habitacions => {
+            this.habitacions = habitacions;
+          });
+        });
+      }
+    });
+  }
 
 }

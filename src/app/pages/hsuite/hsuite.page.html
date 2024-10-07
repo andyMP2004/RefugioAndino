@@ -1,4 +1,3 @@
-<!-- hsuite.page.html -->
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
@@ -9,45 +8,28 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="custom-content">
-  <ion-card *ngFor="let habitaciones of habitaciones">
-    <img class="room-image" [src]="habitaciones.image" alt="Habitación Familiar"/>
+  <ion-card *ngFor="let x of habitacions">
+    <img class="room-image" [src]="x.imagen" alt="Habitacion Suite" />
     <ion-card-header>
-      <ion-card-title>{{ habitaciones.title }}</ion-card-title>
+      <ion-card-title>{{ x.nombre }}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <ion-button expand="block" (click)="openModal(habitaciones)">Ver más</ion-button>
-      <ion-button color="warning" expand="block" >Reserva</ion-button>
+      <p>Id: {{x.idtipo}}</p>
+      <p>Descripción: {{ x.descripcion }}</p>
+      <p>Precio: {{ x.precio }}</p>
+      <ion-button color="warning" expand="block" [routerLink]="'/reserva'">Reserva</ion-button>
     </ion-card-content>
-  </ion-card>  
-
-  <!-- Modal -->
-  <ion-modal [isOpen]="isModalOpen" (didDismiss)="isModalOpen = false">
-    <ng-template>
-      <ion-header>
-        <ion-toolbar color="success">
-          <ion-title>Informacion Habitacion</ion-title>
-          <ion-buttons slot="end">
-            <ion-button (click)="isModalOpen = false">Cerrar</ion-button>
-          </ion-buttons>
-        </ion-toolbar>
-      </ion-header>
-      <ion-content class="modal-content ion-padding">
-        <ion-list>
-          <ion-item>
-            <ion-label>Descripcion: {{ modalContent.descripcion }}</ion-label>
-          </ion-item>
-        </ion-list>
-      </ion-content>
-    </ng-template>
-  </ion-modal>
+  </ion-card>
 </ion-content>
+
+
 <ion-footer>
   <ion-tab-bar slot="bottom" color="primary">
     <ion-tab-button tab="home" [routerLink]="['/habitaciones']">
       <ion-icon name="home"></ion-icon>
       Inicio
     </ion-tab-button>
-    <ion-tab-button  [routerLink]="['/habitaciones']">
+    <ion-tab-button  [routerLink]="['/hfamiliar']">
       <ion-icon name="bed"></ion-icon>
       Familiar
     </ion-tab-button>

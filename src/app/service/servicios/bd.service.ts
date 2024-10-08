@@ -364,4 +364,20 @@ insertarUsuario(nombreusuario: string,rutusuario: string , correo: string, contr
       this.presentAlert('Insertar', 'Error: ' + JSON.stringify(e));
     })
   }
+  insertarReservas(fecha: string,total:string,usuarioidusuario:string){
+    return this.database.executeSql('INSERT INTO reserva(fecha,total,usuarioidusuario) VALUES (?,?,?)',[fecha,total,usuarioidusuario]).then(res=>{
+      this.presentAlert("Insertar","Reserva Registrada");
+      this.ListarReservas();
+    }).catch(e=>{
+      this.presentAlert('Insertar', 'Error: ' + JSON.stringify(e));
+    })
+  }
+  insertarReservap(fecha: string,total:string,usuarioidusuario:string){
+    return this.database.executeSql('INSERT INTO reserva(fecha,total,usuarioidusuario) VALUES (?,?,?)',[fecha,total,usuarioidusuario]).then(res=>{
+      this.presentAlert("Insertar","Reserva Registrada");
+      this.ListarReservas();
+    }).catch(e=>{
+      this.presentAlert('Insertar', 'Error: ' + JSON.stringify(e));
+    })
+  }
 }

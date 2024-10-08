@@ -18,10 +18,10 @@ export class BdService {
   public database!: SQLiteObject;
 
   TablaUsuario: string = "CREATE TABLE IF NOT EXISTS usuario(idusuario INTEGER PRIMARY KEY AUTOINCREMENT, nombreusuario VARCHAR(100) NOT NULL, correo VARCHAR(100) NOT NULL, idrol INTEGER , rutusuario VARCHAR(15) NOT NULL, contrasena VARCHAR(20) NOT NULL, fechan VARCHAR(20) NOT NULL, telefono VARCHAR(30) NOT NULL, FOREIGN KEY (idrol) REFERENCES rol(idrol));";
-  registroUsuario: string = "INSERT or IGNORE INTO usuario (idusuario, nombreusuario, correo, rutusuario, contrasena, fechan, telefono, idrol) VALUES (0, 'andy madrid', 'madridpolancoa@gmail.com', '21687221-5', 'Andymadrid12', '02/12/2004', '954341221', 2);";
+  registroUsuario: string = "INSERT or IGNORE INTO usuario (idusuario, nombreusuario, correo, rutusuario, contrasena, fechan, telefono, idrol) VALUES (1, 'andy madrid', 'madridpolancoa@gmail.com', '21687221-5', 'Andymadrid12', '02/12/2004', '954341221', 1);";
 
-  TablaRol: string = "CREATE TABLE IF NOT EXISTS rol(idrol INTEGER PRIMARY KEY AUTOINCREMENT, nombrerol VARCHAR(50));"; 
-  registrorol: string = "INSERT or IGNORE INTO rol (idrol, nombrerol) VALUES (1, 'admin');";
+  TablaRol: string = "CREATE TABLE IF NOT EXISTS rol(idrol INTEGER PRIMARY KEY AUTOINCREMENT, nombre VARCHAR(50));"; 
+  registrorol: string = "INSERT or IGNORE INTO rol (idrol, nombre) VALUES (1, 'admin');";
 
   TablaReserva: string = "CREATE TABLE IF NOT EXISTS reserva(idreserva INTEGER PRIMARY KEY AUTOINCREMENT, fecha VARCHAR(50) NOT NULL, total VARCHAR(50) NOT NULL, usuarioidusuario INTEGER NOT NULL, FOREIGN KEY (usuarioidusuario) REFERENCES usuario(idusuario));";
   registroreserva: string = "INSERT or IGNORE INTO reserva (idreserva, fecha, total, usuarioidusuario) VALUES (1, '30/03/2024', '$14.000', 2);";
@@ -173,6 +173,7 @@ export class BdService {
       this.presentAlert('Creación de Tablas', 'Error en crear las tablas: ' + JSON.stringify(e));
     }
   }
+  //ADMINISTRADOR
 
   seleccionarUsuarios() {
     return this.database.executeSql('SELECT idusuario, nombreusuario, rutusuario FROM usuario', []).then(res => {
@@ -195,6 +196,38 @@ export class BdService {
     });
   }
 
+  seleccionarReservas(){ 
+    return this.database.executeSql('SELECT r.idreserva, r.fecha, r.total, u.nombreusuario AS r.usuarioidusuario FROM reserva r INNER JOIN usuario u ON r.usuarioidusuario = u.usuarioidusuario', []).then(res => {
+    // Variable para almacenar el resultado de la consulta
+    let items: Reserva[] = [];
+    // Valido si trae al menos un registro
+    if (res.rows.length > 0) {
+      // Recorro mi resultado
+      for (var i = 0; i < res.rows.length; i++) {
+        // Agrego los registros a mi lista idreserva, fecha, total, usuarioidusuario
+        items.push({
+          idreserva: res.rows.item(i).idreserva,
+          fecha: res.rows.item(i).fecha,
+          total: res.rows.item(i).total,
+          usuarioidusuario: res.rows.item(i).usuarioidusuario
+        });
+      }
+    }
+    // Actualizar el observable
+    this.listadoReserva.next(items as any);
+  });
+
+  }
+
+  eliminarUsuario(idusuario: string) {
+    return this.database.executeSql('DELETE FROM usuario WHERE idusuario = ?', [idusuario]).then(res => {
+      this.presentAlert("Eliminar", "USUARIO ELIMINADO");
+      this.seleccionarUsuarios(); // Actualiza la lista de usuarios después de eliminar
+    }).catch(e => {
+      this.presentAlert('Eliminar', 'Error: ' + JSON.stringify(e));
+    });
+  }
+  //HABITACIONES
   seleccionarHabitaciones() {
     return this.database.executeSql('SELECT COUNT(h.idhabitacion) AS cantidad, t.nombre AS tipohabitacion FROM habitacion h INNER JOIN tipo t ON h.tipoidtipo = t.idtipo GROUP BY t.nombre', []).then(res => {
       // Variable para almacenar el resultado de la consulta
@@ -286,44 +319,10 @@ export class BdService {
     });
   }
 
-  seleccionarReservas(){ 
-    return this.database.executeSql('SELECT r.idreserva, r.fecha, r.total, u.nombreusuario AS r.usuarioidusuario FROM reserva r INNER JOIN usuario u ON r.usuarioidusuario = u.usuarioidusuario', []).then(res => {
-    // Variable para almacenar el resultado de la consulta
-    let items: Reserva[] = [];
-    // Valido si trae al menos un registro
-    if (res.rows.length > 0) {
-      // Recorro mi resultado
-      for (var i = 0; i < res.rows.length; i++) {
-        // Agrego los registros a mi lista idreserva, fecha, total, usuarioidusuario
-        items.push({
-          idreserva: res.rows.item(i).idreserva,
-          fecha: res.rows.item(i).fecha,
-          total: res.rows.item(i).total,
-          usuarioidusuario: res.rows.item(i).usuarioidusuario
-        });
-      }
-    }
-    // Actualizar el observable
-    this.listadoReserva.next(items as any);
-  });
-
-  }
-  
-  
-  eliminarUsuario(idusuario: string) {
-    return this.database.executeSql('DELETE FROM usuario WHERE idusuario = ?', [idusuario]).then(res => {
-      this.presentAlert("Eliminar", "USUARIO ELIMINADO");
-      this.seleccionarUsuarios(); // Actualiza la lista de usuarios después de eliminar
-    }).catch(e => {
-      this.presentAlert('Eliminar', 'Error: ' + JSON.stringify(e));
-    });
-  }
-  
-
 
 //idusuario, nombreusuario, correo, rutusuario, contrasena, fechan, telefono, idrol
-insertarUsuario(idusuario: string,nombreusuario:string,correo:string,rutusuario:string,contrasena:string,fechan:string,telefono:string,idrol:string){
-  return this.database.executeSql('INSERT INTO usuario(idusuario, nombreusuario, rutusuario,correo , contrasena, fechan, telefono,idrol) VALUES (?,?,?,?,?,?,?,3)',[ idusuario,nombreusuario, correo, rutusuario, contrasena, fechan, telefono,idrol]).then(res=>{
+insertarUsuario(nombreusuario: string, correo: string, rutusuario: string, contrasena: string, fechan: string, telefono: string, idrol: string){
+  return this.database.executeSql('INSERT INTO usuario(nombreusuario, correo, rutusuario, contrasena, fechan, telefono, idrol) VALUES (?,?,?,?,?,?,?)',[nombreusuario, correo, rutusuario, contrasena, fechan, telefono,idrol]).then(res=>{
     this.presentAlert("Insertar","Usuario Registrado");
     this.seleccionarUsuarios();
   }).catch(e=>{

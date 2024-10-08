@@ -121,6 +121,6 @@ export class RegistroPage implements OnInit {
       await alert.present();
   }
   insertar(){
-    this.bd.insertarUsuario(this.idusuario,this.nombre, this.rut,this.fechan,this.telefono,this.correo,this.contrasena,this.idrol);
+    this.bd.insertarUsuario(this.nombre, this.rut,this.fechan,this.telefono,this.correo,this.contrasena,this.idrol);
   }
 }//idusuario, nombreusuario, correo, rutusuario, contrasena, fechan, telefono, idrol

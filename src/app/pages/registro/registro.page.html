@@ -15,7 +15,7 @@
               <ion-input class="ion-text-center" placeholder="Nombre completo" type="text" [(ngModel)]="nombre" name="nombre" required></ion-input>
             </ion-item>
             <ion-item>
-              <ion-input class="ion-text-center" placeholder="Ingrese su RUT" type="text" [(ngModel)]="rut" name="rut" required></ion-input>
+              <ion-input class="ion-text-center" placeholder="Ingrese su RUT" type="text" [(ngModel)]="rutusuario" name="rutusuario" required></ion-input>
             </ion-item>
             <ion-item>
               <ion-input class="ion-text-center" placeholder="Ingrese su Fecha de nacimiento" type="text" [(ngModel)]="fechan" name="fechan" required></ion-input>
@@ -35,7 +35,7 @@
             </ion-item>
             <ion-item>
               <ion-icon name="lock-closed" slot="start"></ion-icon>
-              <ion-input type="password" placeholder="Repetir Contraseña" [(ngModel)]="contrasena" name="contrasena" required>
+              <ion-input type="password" placeholder="Repetir Contraseña" required>
                 <ion-input-password-toggle slot="end"></ion-input-password-toggle>
               </ion-input>
             </ion-item>

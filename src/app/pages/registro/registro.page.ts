@@ -11,7 +11,7 @@ import { BdService } from 'src/app/service/servicios/bd.service';
 export class RegistroPage implements OnInit {
   idusuario: string= "";
   nombre: string = "";
-  rut: string = "";
+  rutusuario: string = "";
   correo: string = "";
   contrasena: string = "";
   fechan: string= "";
@@ -21,7 +21,7 @@ export class RegistroPage implements OnInit {
   constructor(private router: Router, private menu: MenuController, private alertController: AlertController, private storage: NativeStorage,private bd: BdService ) {}
 
   async irPagina() {
-    if (!this.correo || !this.contrasena || !this.nombre || !this.rut) {
+    if (!this.correo || !this.contrasena || !this.nombre || !this.rutusuario) {
       const alert = await this.alertController.create({
         header: 'Los datos no pueden estar vacíos',
         message: 'Por favor, complete todos los datos',
@@ -37,7 +37,7 @@ export class RegistroPage implements OnInit {
       });
       await alert.present();
     }
-    else if (!/^[0-9]+[-]{1}[0-9kK]{1}$/.test(this.rut)) {
+    else if (!/^[0-9]+[-]{1}[0-9kK]{1}$/.test(this.rutusuario)) {
       const alert = await this.alertController.create({
         header: 'RUT invalido',
         message: 'El RUT debe estar en el formato "XXXXXXXX-X"',
@@ -107,7 +107,7 @@ export class RegistroPage implements OnInit {
 
   async crear() {
     const usuarioData = {
-      rut: this.rut,
+      rut: this.rutusuario,
       nombre: this.nombre,
       usuario: this.correo,
       contrasena: this.contrasena
@@ -121,6 +121,6 @@ export class RegistroPage implements OnInit {
       await alert.present();
   }
   insertar(){
-    this.bd.insertarUsuario(this.nombre, this.rut,this.fechan,this.telefono,this.correo,this.contrasena,this.idrol);
+    this.bd.insertarUsuario(this.nombre, this.rutusuario,this.fechan,this.telefono,this.correo,this.contrasena,this.idrol);
   }
 }//idusuario, nombreusuario, correo, rutusuario, contrasena, fechan, telefono, idrol

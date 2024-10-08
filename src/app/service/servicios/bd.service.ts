@@ -168,6 +168,7 @@ export class BdService {
       this.seleccionarReservas();
       this.ListarHabip();
       this.ListarHabis();
+      
       this.isDBReady.next(true);
     } catch (e) {
       this.presentAlert('Creación de Tablas', 'Error en crear las tablas: ' + JSON.stringify(e));
@@ -251,6 +252,27 @@ export class BdService {
       this.listadoHabitacion.next(items as any);
     });
   }
+
+    Login(correo: string, contrasena: string){
+      return this.database.executeSql('SELECT * FROM usuario WHERE correo = ? AND contrasena = ?', [correo,contrasena]
+
+      ).then(res =>{
+        if (res.rows.length > 0) {
+          return res.rows.item(0);
+
+        }else {
+          return null;
+
+        } 
+
+
+      }).catch(e =>{
+        this.presentAlert('Usuario', 'Error: ' + JSON.stringify(e));
+        return null;
+
+      });
+
+    }
 
   ListarHabi() {
     return this.database.executeSql('SELECT idtipo, nombre, imagen, precio, descripcion FROM tipo WHERE precio = ?', ['$20.000']).then(res => {

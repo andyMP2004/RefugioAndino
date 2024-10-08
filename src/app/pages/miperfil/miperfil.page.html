@@ -17,7 +17,7 @@
   <ion-grid>
     <ion-row class="ion-justify-content-center">
       <ion-col size="12" size-md="8">
-        <ion-card class="perfil">
+        <ion-card class="perfil" *ngFor="let x of arreglousuario">
           <ion-card-content class="cuerpo">
             <div class="avatar-container">
               <ion-avatar>
@@ -25,23 +25,23 @@
               </ion-avatar>
             </div>
             
-            <ion-card-title class="titulo">{{ nombre }}</ion-card-title>
+            <ion-card-title class="titulo">{{x.nombreusuario}}</ion-card-title>
             <p class="location">Chile, Santiago</p>
-  
+            
             <form class="perfil-form">
               <ion-item>
                 <ion-icon name="person" slot="start"></ion-icon>      
-                <ion-input [value]="rut" type="text" readonly></ion-input>
+                <ion-input type="text" readonly>{{x.idusuario}}</ion-input>
               </ion-item>
 
               <ion-item>
                 <ion-icon name="person" slot="start"></ion-icon>      
-                <ion-input [value]="nombre" type="text" readonly></ion-input>
+                <ion-input type="text" readonly>{{x.nombreusuario}}</ion-input>
               </ion-item>
                
               <ion-item>
                 <ion-icon name="mail" slot="start"></ion-icon>      
-                <ion-input [value]="usuario" type="text" readonly></ion-input>
+                <ion-input  type="text" readonly>{{x.correo}}</ion-input>
               </ion-item>
                     
               <div class="buttons-row">             

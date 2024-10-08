@@ -176,7 +176,7 @@ export class BdService {
   //ADMINISTRADOR
 
   seleccionarUsuarios() {
-    return this.database.executeSql('SELECT idusuario, nombreusuario, rutusuario FROM usuario', []).then(res => {
+    return this.database.executeSql('SELECT * FROM usuario', []).then(res => {
       // Variable para almacenar el resultado de la consulta
       let items: Usuario[] = [];
       // Valido si trae al menos un registro
@@ -184,10 +184,13 @@ export class BdService {
         // Recorro mi resultado
         for (var i = 0; i < res.rows.length; i++) {
           // Agrego los registros a mi lista
-          items.push({
+          items.push({//idusuario, nombreusuario, correo, rutusuario, contrasena, fechan, telefono, idrol
             idusuario: res.rows.item(i).idusuario,
             nombreusuario: res.rows.item(i).nombreusuario,
-            rutusuario: res.rows.item(i).rutusuario
+            rutusuario: res.rows.item(i).rutusuario,
+            correo: res.rows.item(i).correo,
+            telefono: res.rows.item(i).telefono
+
           });
         }
       }
@@ -320,7 +323,7 @@ export class BdService {
   }
 
 
-//idusuario, nombreusuario, correo, rutusuario, contrasena, fechan, telefono, idrol
+
 insertarUsuario(nombreusuario: string,rutusuario: string , correo: string, contrasena: string, fechan: string, telefono: string, idrol: string){
   return this.database.executeSql('INSERT INTO usuario(nombreusuario, correo, rutusuario, contrasena, fechan, telefono, idrol) VALUES (?,?,?,?,?,?,?)',[nombreusuario, correo, rutusuario, contrasena, fechan, telefono,idrol]).then(res=>{
     this.presentAlert("Insertar","Usuario Registrado");

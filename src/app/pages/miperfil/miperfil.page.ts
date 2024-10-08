@@ -2,43 +2,50 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuController, AlertController } from '@ionic/angular';
 import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
-
+import { BdService } from 'src/app/service/servicios/bd.service';
 @Component({
   selector: 'app-miperfil',
   templateUrl: './miperfil.page.html',
   styleUrls: ['./miperfil.page.scss'],
 })
 export class MiperfilPage implements OnInit {
-  nombre: string = "";
-  usuario: string = "";
-  rut: string = "";
+  idusuario: string = "";
+  nombreusuario: string = "";
+  rutusuario: string = "";
+  correo: string = "";
+  telefono: string = "";
+
+  arreglousuario: any = [
+    {
+      idusuario: '',
+      nombreusuario: '',
+      rutusuario: '',
+      correo: '',
+      telefono: ''
+    }
+  ];
+
 
   constructor(
     private router: Router,
     private activedrouter: ActivatedRoute,
     private menu: MenuController,
     private storage: NativeStorage,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private bd: BdService
   ) {}
 
   ngOnInit() {
     this.menu.enable(false);
-    this.cargarDatos();
+    this.bd.dbState().subscribe(res => {
+      this.arreglousuario = res;
+      if (res) {
+        this.bd.fetchUsuario().subscribe(users => {
+          this.arreglousuario = users;
+        });
+      }
+    });
   }
 
-  async cargarDatos() {
-    try {
-      const usuarioData = await this.storage.getItem('usuario');
-      this.nombre = usuarioData.nombre;
-      this.usuario = usuarioData.usuario;
-      this.rut = usuarioData.rut;
-    } catch (error) {
-      const alert = await this.alertController.create({
-        header: 'Error',
-        message: 'No se pudieron cargar los datos del usuario.',
-        buttons: ['Aceptar'],
-      });
-      await alert.present();
-    }
-  }
+  
 }

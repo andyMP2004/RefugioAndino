@@ -201,7 +201,7 @@ export class BdService {
   }
 
   seleccionarReservas(){ 
-    return this.database.executeSql('SELECT r.idreserva, r.fecha, r.total, u.nombreusuario AS r.usuarioidusuario FROM reserva r INNER JOIN usuario u ON r.usuarioidusuario = u.usuarioidusuario', []).then(res => {
+    return this.database.executeSql('SELECT r.idreserva, r.fecha, r.total, u.nombreusuario AS r.usuarioidusuario FROM reserva r INNER JOIN usuario u ON r.usuarioidusuario =u.idusuario ', []).then(res => {
     // Variable para almacenar el resultado de la consulta
     let items: Reserva[] = [];
     // Valido si trae al menos un registro

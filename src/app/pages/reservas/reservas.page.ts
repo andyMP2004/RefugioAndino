@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
+import { BdService } from 'src/app/service/servicios/bd.service';
 
 @Component({
   selector: 'app-reservas',
@@ -7,28 +9,27 @@ import { MenuController } from '@ionic/angular';
   styleUrls: ['./reservas.page.scss'],
 })
 export class ReservasPage implements OnInit {
-  habitaciones: string[] = ['habitacion', 'fecha', 'huespedes', 'acciones'];
-  reservas = [
-    { habitacion: 'Suite Familiar', fecha: '2024-08-25', huespedes: '4', editing: false },
-    { habitacion: 'Suite Presidencial', fecha: '2024-08-26', huespedes: '2', editing: false },
-    { habitacion: 'Suite', fecha: '2024-08-27', huespedes: '3', editing: false } 
+  arregloreserva: any = [
+    {
+      idreserva: '',
+      fecha: '',
+      total: '',
+      usuarioidusuario: ''
+    }
   ];
 
-  constructor(private menu: MenuController) {}
+  constructor(private menu: MenuController, private bd: BdService, private router: Router) {}
 
   ngOnInit() {
     this.menu.enable(false);
+    this.bd.dbState().subscribe(res => {
+      this.arregloreserva = res;
+      if (res) {
+          this.bd.fetchReserva().subscribe(users => {
+            this.arregloreserva = users;
+          });
+      }
+    });
   }
 
-  editar(elemento: { editar: boolean; }) {
-    elemento.editar = true;
-  }
-
-  guardar(elemento: { editar: boolean; }) {
-    elemento.editar = false;
-  }
-
-  cancelar(elemento: { editar: boolean; }) {
-    elemento.editar = false;
-  }
 }

@@ -44,6 +44,10 @@ export class HomePage {
         this.router.navigate(['/habitaciones']);
 
       }
+      if (this.correo == "admin@gmail.com" , this.contrasena == "Admin123") {
+      this.router.navigate(['/administrador']);
+    }
+ 
       else {
         const alert = await this.alertController.create({
           header: 'Error al iniciar Sesion',
@@ -55,10 +59,7 @@ export class HomePage {
 
     }
 
-    if (this.correo == "admin@gmail.com" , this.contrasena == "Admin123") {
-      this.router.navigate(['/administrador']);
-    }
-  }
+   }
 
   ngOnInit() {
     this.menu.enable(false);

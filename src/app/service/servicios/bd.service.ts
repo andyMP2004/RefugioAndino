@@ -23,7 +23,7 @@ export class BdService {
   TablaRol: string = "CREATE TABLE IF NOT EXISTS rol(idrol INTEGER PRIMARY KEY AUTOINCREMENT, nombrerol VARCHAR(50));"; 
   registrorol: string = "INSERT or IGNORE INTO rol (idrol, nombrerol) VALUES (1, 'admin');";
 
-  TablaReserva: string = "CREATE TABLE IF NOT EXISTS reserva(idreserva INTEGER PRIMARY KEY AUTOINCREMENT, fecha VARCHAR(50) NOT NULL, total VARCHAR(50) NOT NULL, usuarioidusuario INTEGER NOT NULL, FOREIGN KEY (usuarioidusuario) REFERENCES usuario(idusuario));";
+  TablaReserva: string = "CREATE TABLE IF NOT EXISTS reserva(idreserva INTEGER PRIMARY KEY AUTOINCREMENT, fecha VARCHAR(50) NOT NULL, total VARCHAR(50) NOT NULL, usuarioidusuario VARCHAR(200) NOT NULL, FOREIGN KEY (usuarioidusuario) REFERENCES usuario(idusuario));";
   registroreserva: string = "INSERT or IGNORE INTO reserva (idreserva, fecha, total, usuarioidusuario) VALUES (1, '30/03/2024', '$14.000', 2);";
 
   TablaTipo: string = "CREATE TABLE IF NOT EXISTS tipo(idtipo INTEGER PRIMARY KEY AUTOINCREMENT, nombre VARCHAR(50) NOT NULL, imagen VARCHAR(100) NOT NULL, precio VARCHAR(50) NOT NULL, descripcion VARCHAR(200) NOT NULL);";
@@ -165,7 +165,7 @@ export class BdService {
       this.seleccionarHabitaciones();
       this.seleccionarUsuarios();
       this.ListarHabi();
-      this.seleccionarReservas();
+      this.ListarReservas();
       this.ListarHabip();
       this.ListarHabis();
       
@@ -200,8 +200,8 @@ export class BdService {
     });
   }
 
-  seleccionarReservas(){ 
-    return this.database.executeSql('SELECT r.idreserva, r.fecha, r.total, u.nombreusuario AS r.usuarioidusuario FROM reserva r INNER JOIN usuario u ON r.usuarioidusuario =u.idusuario ', []).then(res => {
+  ListarReservas(){ 
+    return this.database.executeSql('SELECT idreserva, fecha, total,usuarioidusuario FROM reserva', []).then(res => {
     // Variable para almacenar el resultado de la consulta
     let items: Reserva[] = [];
     // Valido si trae al menos un registro

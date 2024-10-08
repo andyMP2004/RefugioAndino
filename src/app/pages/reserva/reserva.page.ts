@@ -13,10 +13,10 @@ export class ReservaPage implements OnInit {
   habitacion: string = "";
   huesped: string = "";
   fecha: string = "";
-  total: string= "$20.000";
+  total: number=20.000;
   idreserva:string="";
   usuarioidusuario:string="";
-
+  noches:number=0;
   constructor(private router: Router,private menu: MenuController, private alertController: AlertController,private bd: BdService, private storage: NativeStorage) { }
 
   async reservar(){
@@ -37,10 +37,15 @@ export class ReservaPage implements OnInit {
   }
 }
 
+calculartotal() {
+  const precio = 20000;
+  this.total = Number(this.noches) * precio;
+}
+
   ngOnInit() {this.menu.enable(false);}
 
   insertar(){
-    this.bd.insertarReserva(this.fecha, this.total, this.usuarioidusuario);
+    this.bd.insertarReserva(this.fecha, this.total.toString(), this.usuarioidusuario);
   }
 
 }

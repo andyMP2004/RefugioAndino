@@ -25,38 +25,38 @@
           <th>Id Reserva</th>
           <th>Fecha</th>
           <th>Nombre Usuario</th>
-          <th>total</th>
+          <th>Total</th>
           <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let x of arregloreserva">
+        <tr *ngFor="let reserva of arregloreserva">
           <td>
-              {{x.idreserva}}
-          </td>
-
-          <td>
-              {{x.fecha}}
+            <input *ngIf="reserva.isEditing" [(ngModel)]="reserva.idreserva" />
+            <span *ngIf="!reserva.isEditing">{{reserva.idreserva}}</span>
           </td>
           <td>
-             {{x.usuarioidusuario}}
+            <input *ngIf="reserva.isEditing" [(ngModel)]="reserva.fecha" />
+            <span *ngIf="!reserva.isEditing">{{reserva.fecha}}</span>
           </td>
           <td>
-              {{x.total}}
+            <input *ngIf="reserva.isEditing" [(ngModel)]="reserva.usuarioidusuario" />
+            <span *ngIf="!reserva.isEditing">{{reserva.usuarioidusuario}}</span>
           </td>
           <td>
-            <ng-container >
-              <button mat-icon-button color="accent">
-                <ion-icon name="create"></ion-icon>
+            <input *ngIf="reserva.isEditing" [(ngModel)]="reserva.total" />
+            <span *ngIf="!reserva.isEditing">{{reserva.total}}</span>
+          </td>
+          <td>
+              <button [routerLink]="['/modificar']">
+                <ion-icon name="create" size="large"></ion-icon>
               </button>
-              <button mat-icon-button color="warn">
-                <ion-icon name="trash"></ion-icon>
+              <button (click)="eliminar(reserva)">
+                <ion-icon name="trash" size="large"></ion-icon>
               </button>
-            </ng-container> 
           </td>
         </tr>
       </tbody>
     </table>
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
   </div>
 </ion-content>

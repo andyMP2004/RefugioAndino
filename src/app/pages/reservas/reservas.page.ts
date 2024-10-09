@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { BdService } from 'src/app/service/servicios/bd.service';
+import { Reserva } from 'src/app/service/servicios/reserva';
 
 @Component({
   selector: 'app-reservas',
@@ -31,5 +32,7 @@ export class ReservasPage implements OnInit {
       }
     });
   }
-
+  eliminar(x:any){
+    this.bd.eliminarReserva(x.idreserva);
+  }
 }

@@ -380,4 +380,24 @@ insertarUsuario(nombreusuario: string,rutusuario: string , correo: string, contr
       this.presentAlert('Insertar', 'Error: ' + JSON.stringify(e));
     })
   }
+
+  eliminarReserva(idreserva: string) {
+    return this.database.executeSql('DELETE FROM reserva WHERE idreserva = ?', [idreserva]).then(res => {
+      this.presentAlert("Eliminar", "RESERVA ELIMINADA");
+      this.ListarReservas(); // Actualiza la lista de usuarios después de eliminar
+    }).catch(e => {
+      this.presentAlert('Eliminar', 'Error: ' + JSON.stringify(e));
+    });
+  }
+
+  modificarReserva(idreserva:string,fecha:string){
+    this.presentAlert("service","ID: " + idreserva);
+    return this.database.executeSql('UPDATE reserva SET fecha = ? WHERE idreserva = ?',[fecha,idreserva]).then(res=>{
+      this.presentAlert("Modificar","RESERVA Modificada");
+      this.ListarReservas();
+    }).catch(e=>{
+      this.presentAlert('Modificar', 'Error: ' + JSON.stringify(e));
+    })
+
+  }
 }

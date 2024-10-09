@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { Habitacionf4PageRoutingModule } from './habitacionf4-routing.module';
+import { ModificarPageRoutingModule } from './modificar-routing.module';
 
-import { Habitacionf4Page } from './habitacionf4.page';
+import { ModificarPage } from './modificar.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    Habitacionf4PageRoutingModule
+    ModificarPageRoutingModule
   ],
-  declarations: [Habitacionf4Page]
+  declarations: [ModificarPage]
 })
-export class Habitacionf4PageModule {}
+export class ModificarPageModule {}

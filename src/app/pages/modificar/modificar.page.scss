@@ -1,0 +1,108 @@
+ion-content {
+    --background: linear-gradient(15deg, #00c6ff, #0072ff);
+  }
+  .room-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 15px;
+    margin-top: 4px;
+  }
+  .fondo {
+    background-color: #00c6ff;
+  }
+  .titulo{
+    font-weight: bold;
+    font-size: 25px;
+  }
+  .accordion-container {
+  display: flex;
+  gap: 20px; /* Espacio entre los acordeones */
+  }
+  .accordion-container ion-accordion-group {
+  flex: 1;
+  }
+  
+  .titulo1{
+  font-weight: bold;
+  font-size: 25px;
+  
+  }
+  
+  ion-item{
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  overflow: hidden;
+  margin-bottom: 25px;
+  background: linear-gradient(145deg, #f3f4f6, #e2e4e8);
+  }
+  .subtotal{
+  width: 50%;
+  margin: auto;
+  }
+  
+  .titulo, .titulo1, .info, .price-info {
+  margin-bottom: 15px;
+  }
+  
+  .accordion-container {
+  margin-top: 20px;
+  }
+  
+  
+  .titulo2{
+  padding: 20px;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #555;
+  text-align: justify;
+  }
+  ion-card {
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  overflow: hidden;
+  margin-bottom: 25px;
+  background: linear-gradient(145deg, #f3f4f6, #e2e4e8);
+  }
+  
+  ion-card img {
+  width: 100%;
+  height: auto;
+  border-bottom: 4px solid #dedede;
+  }
+  
+  .table-wrapper {
+    width: 100%; 
+    overflow-x: auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-top: 20px; 
+  }
+  
+  .responsive-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed; 
+    word-wrap: break-word;
+    background-color: #0088ff; 
+  }
+  
+  .responsive-table th, .responsive-table td {
+    padding: 14px 19px;
+    text-align: center;
+    white-space: normal; 
+    word-break: break-word; 
+  }
+  
+  .responsive-table th {
+    background-color: #004080;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 17px;
+  }
+  
+  .responsive-table td {
+    font-size: 15px;
+    color: #002060;
+    border-bottom: 1px solid #7f7f7f;
+  }

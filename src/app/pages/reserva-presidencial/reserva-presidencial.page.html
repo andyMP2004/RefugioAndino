@@ -10,7 +10,11 @@
     <ion-card-title class="">Tu Reserva</ion-card-title>
   </ion-card-header>
 </ion-card>
-<ion-item><ion-datetime  [(ngModel)]="fecha" name="fecha" presentation="date"></ion-datetime></ion-item>
+
+<ion-item>
+  <ion-label>Selecciona la fecha</ion-label>
+  <ion-datetime [(ngModel)]="fecha" name="fecha" presentation="date"></ion-datetime>
+</ion-item>
 
 <ion-item>
     <ion-select label="Noches Que Se Hospedaran" placeholder="seleccione" [(ngModel)]="noches" (ionChange)="calculartotal()">

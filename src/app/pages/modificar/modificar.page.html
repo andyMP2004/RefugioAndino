@@ -7,11 +7,11 @@
 <ion-content [fullscreen]="true">
   <ion-item>
     <ion-label>Selecciona la fecha</ion-label>
-    <ion-datetime [(ngModel)]="fecha" name="fecha" presentation="date"></ion-datetime>
+    <ion-datetime presentation="date" [(ngModel)]="fecha" name="fecha"></ion-datetime>
   </ion-item>
   
   <div class="ion-text-center">
-    <ion-button id="trigger-button" (click)="modificar()" [routerLink]="['/reservas']">Reservar</ion-button>
+    <ion-button id="trigger-button" (click)="reservar()">Guardar</ion-button>
     <br>
     <ion-button color="danger" id="trigger-button" [routerLink]="['/reservas']" class="slide-up">Volver</ion-button>
   </div>

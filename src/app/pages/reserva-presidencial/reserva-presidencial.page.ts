@@ -21,7 +21,7 @@ export class ReservaPresidencialPage implements OnInit {
   constructor(private router: Router,private menu: MenuController, private alertController: AlertController,private bd: BdService) { }
 
   async reservar(){
-    if (!this.huesped || !this.fecha) {
+    if (!this.noches || !this.fecha) {
       const alert = await this.alertController.create({
         header: 'Los datos no pueden estar vacíos',
         message: 'Por favor, complete todos los datos',
@@ -29,20 +29,19 @@ export class ReservaPresidencialPage implements OnInit {
       });
       await alert.present();
   }else {
-    this.router.navigate(['/habitaciones'] );
+    const fechaSinHora = this.fecha.split('T')[0]; 
+    this.bd.insertarReserva(fechaSinHora, this.total.toString(), this.usuarioidusuario);    
     const alert = await this.alertController.create({
       header: 'Reserva confrimada',
       buttons: ['Aceptar'],
     });
     await alert.present();
+    this.router.navigate(['/habitaciones'] );
   }
 }
   ngOnInit() {this.menu.enable(false);}
   calculartotal() {
     const precio = 60000;
     this.total = Number(this.noches) * precio;
-  }
-  insertar(){
-    this.bd.insertarReserva(this.fecha, this.total.toString(), this.usuarioidusuario);
   }
 }

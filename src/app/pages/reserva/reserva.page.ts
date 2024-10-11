@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, MenuController } from '@ionic/angular';
-import { NavigationExtras, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { BdService } from 'src/app/service/servicios/bd.service';
 import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
+
 @Component({
   selector: 'app-reserva',
   templateUrl: './reserva.page.html',
@@ -13,37 +14,34 @@ export class ReservaPage implements OnInit {
   habitacion: string = "";
   huesped: string = "";
   fecha: string = "";
-  total: number=20.000;
-  idreserva:string="";
-  usuarioidusuario:string="";
-  noches:number=0;
-  constructor(private router: Router,private menu: MenuController, private alertController: AlertController,private bd: BdService, private storage: NativeStorage) { }
+  total: number = 20000; 
+  idreserva: string = "";
+  usuarioidusuario: string = "";
+  noches: number = 0;
 
-  async reservar(){
-    if (!this.huesped || !this.fecha) {
+  constructor(private router: Router, private menu: MenuController, private alertController: AlertController, private bd: BdService, private storage: NativeStorage) { }
+
+  async reservar() {
+    if (!this.noches || !this.fecha) {
       const alert = await this.alertController.create({
         header: 'Los datos no pueden estar vacíos',
         message: 'Por favor, complete todos los datos',
         buttons: ['Aceptar'],
       });
       await alert.present();
-  }else {    
-
-    const alert = await this.alertController.create({
-      header: 'Reserva confrimada',
-      buttons: ['Aceptar'],
-    });
-    await alert.present();
-    this.bd.insertarReserva(this.fecha, this.total.toString(), this.usuarioidusuario);
-    this.router.navigate(['/habitaciones'] );
+    } else {
+      const fechaSinHora = this.fecha.split('T')[0]; 
+      this.bd.insertarReserva(fechaSinHora, this.total.toString(), this.usuarioidusuario);    
+      this.router.navigate(['/habitaciones']);
+    }
   }
-}
 
-calculartotal() {
-  const precio = 20000;
-  this.total = Number(this.noches) * precio;
-}
+  calculartotal() {
+    const precio = 20000;
+    this.total = Number(this.noches) * precio;
+  }
 
-  ngOnInit() {this.menu.enable(false);}
-
+  ngOnInit() {
+    this.menu.enable(false);
+  }
 }

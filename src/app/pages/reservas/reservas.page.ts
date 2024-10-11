@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { BdService } from 'src/app/service/servicios/bd.service';
-import { Reserva } from 'src/app/service/servicios/reserva';
 
 @Component({
   selector: 'app-reservas',
@@ -26,13 +25,27 @@ export class ReservasPage implements OnInit {
     this.bd.dbState().subscribe(res => {
       this.arregloreserva = res;
       if (res) {
-          this.bd.fetchReserva().subscribe(users => {
-            this.arregloreserva = users;
-          });
+        this.bd.fetchReserva().subscribe(users => {
+          this.arregloreserva = users;
+        });
       }
     });
   }
-  eliminar(x:any){
+
+  eliminar(x: any) {
     this.bd.eliminarReserva(x.idreserva);
+  }
+
+  modificar(reserva: any) {
+    const navigationExtras: NavigationExtras = {
+      state: {
+        reserva: {
+          idreserva: reserva.idreserva,
+          fecha: reserva.fecha,
+          usuarioidusuario: reserva.usuarioidusuario,
+        }
+      }
+    };
+    this.router.navigate(['/modificar'], navigationExtras);
   }
 }

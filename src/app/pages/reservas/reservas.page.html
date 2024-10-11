@@ -48,7 +48,7 @@
             <span *ngIf="!reserva.isEditing">{{reserva.total}}</span>
           </td>
           <td>
-              <button [routerLink]="['/modificar']">
+              <button (click)="modificar(reserva)">
                 <ion-icon name="create" size="large"></ion-icon>
               </button>
               <button (click)="eliminar(reserva)">

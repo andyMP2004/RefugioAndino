@@ -17,8 +17,8 @@ import { Imagen } from './imagen';
 export class BdService {
   public database!: SQLiteObject;
 
-  TablaUsuario: string = "CREATE TABLE IF NOT EXISTS usuario(idusuario INTEGER PRIMARY KEY AUTOINCREMENT, nombreusuario VARCHAR(100) NOT NULL, correo VARCHAR(100) NOT NULL, idrol INTEGER , rutusuario VARCHAR(15) NOT NULL, contrasena VARCHAR(20) NOT NULL, fechan VARCHAR(20) NOT NULL, telefono VARCHAR(30) NOT NULL, FOREIGN KEY (idrol) REFERENCES rol(idrol));";
-  registroUsuario: string = "INSERT or IGNORE INTO usuario (idusuario, nombreusuario, correo, rutusuario, contrasena, fechan, telefono, idrol) VALUES (1, 'andy madrid', 'madridpolancoa@gmail.com', '21687221-5', 'Andymadrid12', '02/12/2004', '954341221', 1);";
+  TablaUsuario: string = "CREATE TABLE IF NOT EXISTS usuario(idusuario INTEGER PRIMARY KEY AUTOINCREMENT, nombreusuario VARCHAR(100) NOT NULL, correo VARCHAR(100) NOT NULL, idrol INTEGER , rutusuario VARCHAR(15) NOT NULL, contrasena VARCHAR(20) NOT NULL, fechan VARCHAR(20) NOT NULL, telefono VARCHAR(30) NOT NULL,imagenp TEXT, FOREIGN KEY (idrol) REFERENCES rol(idrol));";
+  registroUsuario: string = "INSERT or IGNORE INTO usuario (idusuario, nombreusuario, correo, rutusuario, contrasena, fechan, telefono,imagenp, idrol) VALUES (1, 'andy madrid', 'madridpolancoa@gmail.com', '21687221-5', 'Andymadrid12', '02/12/2004', '954341221','', 1);";
 
   TablaRol: string = "CREATE TABLE IF NOT EXISTS rol(idrol INTEGER PRIMARY KEY AUTOINCREMENT, nombrerol VARCHAR(50));"; 
   registrorol: string = "INSERT or IGNORE INTO rol (idrol, nombrerol) VALUES (1, 'admin');";
@@ -131,7 +131,6 @@ export class BdService {
 
   async crearTablas() {
     try {
-
       await this.database.executeSql(this.TablaUsuario, []);
       await this.database.executeSql(this.TablaRol,[]);
       await this.database.executeSql(this.TablaReserva,[]);
@@ -168,7 +167,6 @@ export class BdService {
       this.ListarReservas();
       this.ListarHabip();
       this.ListarHabis();
-      
       this.isDBReady.next(true);
     } catch (e) {
       this.presentAlert('Creación de Tablas', 'Error en crear las tablas: ' + JSON.stringify(e));
@@ -177,7 +175,7 @@ export class BdService {
   //ADMINISTRADOR
 
   seleccionarUsuarios() {
-    return this.database.executeSql('SELECT * FROM usuario', []).then(res => {
+    return this.database.executeSql('SELECT idusuario, nombreusuario, correo, rutusuario, contrasena, fechan, telefono, idrol FROM usuario', []).then(res => {
       // Variable para almacenar el resultado de la consulta
       let items: Usuario[] = [];
       // Valido si trae al menos un registro
@@ -198,6 +196,34 @@ export class BdService {
       // Actualizar el observable
       this.listadoUsuario.next(items as any);
     });
+  }
+  
+
+  //idusuario, nombreusuario, correo, rutusuario, contrasena, fechan, telefono, idrol
+  ModificarUsuario(idusuario: string, nombreusuario: string, correo: string,contrasena: string, telefono: string,imagenp: string)  {{
+    return this.database.executeSql('UPDATE usuario SET idusuario = ?,nombreusuario =?, correo =?,contrasena =?, telefono =?, imagenp = ? WHERE idusuario =?', []).then(res => {
+      this.presentAlert("Modificar", "USUARIO MODIFICADO");
+      this.seleccionarUsuarios(); // Actualiza la lista de usuarios después de
+    });
+  }
+}
+BuscarUsu(idusuario: number){
+    return this.database.executeSql('SELECT idusuario ,nombreusuario, correo , telefono, imagen FROM usuario WHERE idusuario = ?', [idusuario]).then(res =>{
+      if (res.rows.length > 0) {
+        return res.rows.item(0);
+
+      }else {
+        return null;
+
+      } 
+
+
+    }).catch(e =>{
+      this.presentAlert('Usuario', 'Error: ' + JSON.stringify(e));
+      return null;
+
+    });
+  
   }
 
   ListarReservas(){ 
@@ -222,6 +248,7 @@ export class BdService {
   });
 
   }
+  
 
   eliminarUsuario(idusuario: string) {
     return this.database.executeSql('DELETE FROM usuario WHERE idusuario = ?', [idusuario]).then(res => {

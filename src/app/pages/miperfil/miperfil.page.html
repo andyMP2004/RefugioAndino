@@ -17,31 +17,38 @@
   <ion-grid>
     <ion-row class="ion-justify-content-center">
       <ion-col size="12" size-md="8">
-        <ion-card class="perfil" *ngFor="let x of arreglousuario">
+        <ion-card class="perfil">
           <ion-card-content class="cuerpo">
             <div class="avatar-container">
               <ion-avatar>
-                <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+                <img alt="Silhouette of a person's head" *ngIf="imagenp" [src] = "imagenp"  />
+                <img alt="Silhouette of a person's head" *ngIf="!imagenp" alt="Avatar" src = "../../../assets/icon/avatar.svg"  />
+                
+                
               </ion-avatar>
+              <ion-button size="small" color="dark" (click)="tomarFoto()">
+                  <ion-icon name="camera-outline"></ion-icon>
+              </ion-button>
             </div>
             
-            <ion-card-title class="titulo">{{x.nombreusuario}}</ion-card-title>
+            <ion-card-title class="titulo"></ion-card-title>
+            
             <p class="location">Chile, Santiago</p>
             
             <form class="perfil-form">
               <ion-item>
                 <ion-icon name="person" slot="start"></ion-icon>      
-                <ion-input type="text" readonly>{{x.idusuario}}</ion-input>
+                <ion-input type="text" readonly></ion-input>
               </ion-item>
 
               <ion-item>
                 <ion-icon name="person" slot="start"></ion-icon>      
-                <ion-input type="text" readonly>{{x.nombreusuario}}</ion-input>
+                <ion-input type="text" readonly></ion-input>
               </ion-item>
                
               <ion-item>
                 <ion-icon name="mail" slot="start"></ion-icon>      
-                <ion-input  type="text" readonly>{{x.correo}}</ion-input>
+                <ion-input  type="text" readonly></ion-input>
               </ion-item>
                     
               <div class="buttons-row">             

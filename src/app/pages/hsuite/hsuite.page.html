@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="custom-content">
+<ion-content class="custom-content">
   <ion-card *ngFor="let x of habitacions">
     <img class="room-image" [src]="x.imagen" alt="Habitacion Suite" />
     <ion-card-header>
@@ -22,14 +22,13 @@
   </ion-card>
 </ion-content>
 
-
 <ion-footer>
   <ion-tab-bar slot="bottom" color="primary">
     <ion-tab-button tab="home" [routerLink]="['/habitaciones']">
       <ion-icon name="home"></ion-icon>
       Inicio
     </ion-tab-button>
-    <ion-tab-button  [routerLink]="['/hfamiliar']">
+    <ion-tab-button [routerLink]="['/hfamiliar']">
       <ion-icon name="bed"></ion-icon>
       Familiar
     </ion-tab-button>

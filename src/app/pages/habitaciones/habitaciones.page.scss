@@ -105,3 +105,9 @@ ion-card {
 ion-item {
   --background: transparent;
 }
+.custom-content {
+  padding-bottom: 20px; /* Ensure there's space for the last card */
+}
+.ion-padding {
+  padding-bottom: 60px;
+}

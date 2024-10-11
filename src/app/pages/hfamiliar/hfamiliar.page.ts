@@ -9,35 +9,35 @@ import { BdService } from 'src/app/service/servicios/bd.service';
   styleUrls: ['./hfamiliar.page.scss'],
 })
 export class HfamiliarPage implements OnInit {
-  idtipo:string="" ;
-  nombre:string= "";
-  imagen: string="";
-  precio: string="";
-  descripcion:string= "";
+  idtipo: string = '';
+  nombre: string = '';
+  imagen: string = '';
+  precio: string = '';
+  descripcion: string = '';
 
-  habitacion: any = [
-    {
-      idtipo: '',
-      nombre: '',
-      imagen: '',
-      precio: '',
-      descripcion: ''
-    }
-  ];
+  habitacion: any[] = [];
 
   constructor(private menu: MenuController, private bd: BdService, private router: Router) {}
 
   ngOnInit() {
-    this.menu.enable(false);
     this.bd.dbState().subscribe(res => {
-      this.habitacion = res;
       if (res) {
-        this.bd.ListarHabi().then(() => {
-          this.bd.fetchTipo().subscribe(habitaciones => {
-            this.habitacion = habitaciones;
-          });
-        });
+        this.loadHabitaciones();
       }
+    });
+  }
+
+  ionViewWillEnter() {
+    this.loadHabitaciones();
+  }
+
+  loadHabitaciones() {
+    this.bd.ListarHabi().then(() => {
+      this.bd.fetchTipo().subscribe(habitaciones => {
+        this.habitacion = habitaciones;
+      });
+    }).catch(error => {
+      console.error("Error al cargar las habitaciones:", error);
     });
   }
 }

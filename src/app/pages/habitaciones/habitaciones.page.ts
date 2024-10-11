@@ -12,7 +12,6 @@ export class HabitacionesPage {
   constructor(private menu:MenuController) {}  
 
   ngOnInit() {
-    this.menu.enable(true);
   }
   ionViewWillEnter() {
     this.menu.enable(true);

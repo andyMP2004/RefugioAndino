@@ -55,4 +55,11 @@ ion-modal {
     background-color: #fff;
     border-top: 1px solid #dedede;
   }
+  .custom-content {
+    padding-bottom: 20px; /* Ensure there's space for the last card */
+  }
+  
+  ion-content {
+    padding-bottom: 60px;
+  }
   

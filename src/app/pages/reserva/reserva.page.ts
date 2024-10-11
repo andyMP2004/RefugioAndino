@@ -27,13 +27,15 @@ export class ReservaPage implements OnInit {
         buttons: ['Aceptar'],
       });
       await alert.present();
-  }else {
-    this.router.navigate(['/habitaciones'] );
+  }else {    
+
     const alert = await this.alertController.create({
       header: 'Reserva confrimada',
       buttons: ['Aceptar'],
     });
     await alert.present();
+    this.bd.insertarReserva(this.fecha, this.total.toString(), this.usuarioidusuario);
+    this.router.navigate(['/habitaciones'] );
   }
 }
 
@@ -43,9 +45,5 @@ calculartotal() {
 }
 
   ngOnInit() {this.menu.enable(false);}
-
-  insertar(){
-    this.bd.insertarReserva(this.fecha, this.total.toString(), this.usuarioidusuario);
-  }
 
 }

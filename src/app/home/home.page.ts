@@ -62,6 +62,9 @@ export class HomePage {
    }
 
   ngOnInit() {
+  }
+  ionViewWillEnter() {
+    // Cargamos los datos cada vez que la página se vuelve a mostrar
     this.menu.enable(false);
   }
 }

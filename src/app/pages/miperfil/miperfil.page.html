@@ -21,46 +21,45 @@
           <ion-card-content class="cuerpo">
             <div class="avatar-container">
               <ion-avatar>
-                <img alt="Silhouette of a person's head" *ngIf="imagenp" [src] = "imagenp"  />
-                <img alt="Silhouette of a person's head" *ngIf="!imagenp" alt="Avatar" src = "../../../assets/icon/avatar.svg"  />
-                
-                
+                <img alt="Silhouette of a person's head" *ngIf="imagenp" [src]="imagenp" />
+                <img alt="Silhouette of a person's head" *ngIf="!imagenp" src="../../../assets/icon/avatar.svg" />
               </ion-avatar>
-              <ion-button size="small" color="dark" (click)="tomarFoto()">
-                  <ion-icon name="camera-outline"></ion-icon>
+              <ion-button class="camara" size="small" color="dark" (click)="tomarFoto()">
+                <ion-icon name="camera-outline"></ion-icon>
               </ion-button>
             </div>
-            
-            <ion-card-title class="titulo"></ion-card-title>
-            
+
+            <ion-card-title class="titulo">{{nombreusuario}}</ion-card-title>
+
             <p class="location">Chile, Santiago</p>
-            
-            <form class="perfil-form">
+
+            <form class="perfil-form" *ngFor="let x of arreglousuario">
               <ion-item>
-                <ion-icon name="person" slot="start"></ion-icon>      
-                <ion-input type="text" readonly></ion-input>
+                <ion-icon name="person" slot="start"></ion-icon>
+                <ion-input type="text" readonly>{{x.nombreusuario}}</ion-input>
               </ion-item>
 
               <ion-item>
-                <ion-icon name="person" slot="start"></ion-icon>      
-                <ion-input type="text" readonly></ion-input>
+                <ion-icon name="mail" slot="start"></ion-icon>
+                <ion-input type="text" readonly>{{x.correo}}</ion-input>
               </ion-item>
-               
+
               <ion-item>
-                <ion-icon name="mail" slot="start"></ion-icon>      
-                <ion-input  type="text" readonly></ion-input>
+                <ion-icon name="person" slot="start"></ion-icon>
+                <ion-input type="text" readonly>{{x.rutusuario}}</ion-input>
               </ion-item>
-                    
-              <div class="buttons-row">             
+
+              <div class="buttons-row">
                 <ion-button class="log" color="danger" expand="full" [routerLink]="['/home']">
                   <ion-icon name="log-out-outline" slot="start"></ion-icon>
                   Cerrar Sesión
                 </ion-button>
               </div><br>
-               <ion-button [routerLink]="['/ayuda']">
-                  <ion-icon name="information-circle-outline"></ion-icon>
-                  ayuda
-                </ion-button>
+
+              <ion-button [routerLink]="['/ayuda']">
+                <ion-icon name="information-circle-outline"></ion-icon>
+                ayuda
+              </ion-button>
             </form>
           </ion-card-content>
         </ion-card>

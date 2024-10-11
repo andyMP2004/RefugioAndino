@@ -208,7 +208,7 @@ export class BdService {
   }
 }
 BuscarUsu(idusuario: number){
-    return this.database.executeSql('SELECT idusuario ,nombreusuario, correo , telefono, imagen FROM usuario WHERE idusuario = ?', [idusuario]).then(res =>{
+    return this.database.executeSql('SELECT idusuario ,nombreusuario, correo ,rutusuario, telefono, imagenp FROM usuario WHERE idusuario = ?', [idusuario]).then(res =>{
       if (res.rows.length > 0) {
         return res.rows.item(0);
 

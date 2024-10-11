@@ -47,17 +47,8 @@ export class HomePage {
       if (this.correo == "admin@gmail.com" , this.contrasena == "Admin123") {
       this.router.navigate(['/administrador']);
     }
- 
-      else {
-        const alert = await this.alertController.create({
-          header: 'Error al iniciar Sesion',
-          message: 'Usuario o Contraseña incorrecta',
-          buttons: ['OK'],
-        });
-        await alert.present();
-      }
 
-    }
+  }
 
    }
 

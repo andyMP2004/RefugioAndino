@@ -14,15 +14,20 @@ ion-content {
 
 .avatar-container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
 .avatar img {
-    width: 120px;
-    height: 120px;
+    width: 150px; 
     border-radius: 50%;
     border: 5px solid white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.camara {
+    margin-top: 10px;
 }
 
 .titulo {
@@ -37,17 +42,16 @@ ion-content {
     margin-bottom: 20px;
 }
 
-.perfil-form {
-    margin-top: 30px;
-}
-
-ion-item {
+.perfil-form ion-item {
     margin: 0 auto;
     width: 18rem;
     --background: white;
     --border-radius: 8px;
-    margin-bottom: 15px;
+    padding: 5px; 
+    justify-content: center;
+    margin-top: 5px; 
 }
+
 
 ion-label {
     color: #0072ff;
@@ -58,7 +62,6 @@ ion-label {
     margin: auto;
     display: flex; 
     gap: 1px; 
- 
 }
 
 ion-button {
@@ -68,6 +71,7 @@ ion-button {
 ion-input {
     color: #0072ff;
     font-size: 1.1rem;
+    padding: 1px;
 }
 
 @media (max-width: 768px) {
@@ -76,8 +80,10 @@ ion-input {
     }
 
     .avatar img {
-        width: 90px;
-        height: 90px;
+        display: flex;
+        align-items: center;
+        width: 140px;
+        height: 140px;
     }
 
     .location {

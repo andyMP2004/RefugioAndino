@@ -30,6 +30,7 @@ export class ReservasPage implements OnInit {
         });
       }
     });
+    
   }
 
   eliminar(x: any) {

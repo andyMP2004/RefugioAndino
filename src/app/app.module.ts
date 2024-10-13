@@ -6,6 +6,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { LocalNotifications } from '@capacitor/local-notifications';
+import { NavigationExtras, Router } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +15,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
 import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -26,9 +29,31 @@ import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
     MatPaginatorModule,
   ],
   providers: [
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },NativeStorage,SQLite,
-    provideAnimationsAsync()
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    NativeStorage,
+    SQLite,
+    provideAnimationsAsync(),
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {    
+  constructor(private router:Router) {
+    this.initializeApp();
+  }
+
+  async initializeApp() {
+    // Inicializa notificaciones locales
+    const permissionResult = await LocalNotifications.requestPermissions();
+    if (permissionResult.display !== 'granted') {
+      console.warn('Permiso de notificaciones no otorgado');
+      return; // No continuar si no hay permisos
+    }
+
+    // Escucha eventos de notificaciones
+    LocalNotifications.addListener('localNotificationReceived', (notification) => {
+      console.log('Notificación recibida:', notification);
+      // Redirige a una página específica
+      this.router.navigate(['/reservas']); // Cambia '/reservas' a la ruta que desees
+    });
+  }
+}

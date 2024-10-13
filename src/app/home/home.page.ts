@@ -3,6 +3,7 @@ import { NavigationExtras, Router } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
 import { BdService } from '../service/servicios/bd.service';
 import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
+import { LocalNotifications } from '@capacitor/local-notifications';
 
 @Component({
   selector: 'app-home',
@@ -58,4 +59,7 @@ export class HomePage {
     // Cargamos los datos cada vez que la página se vuelve a mostrar
     this.menu.enable(false);
   }
+
+
+
 }

@@ -31,29 +31,17 @@
       </thead>
       <tbody>
         <tr *ngFor="let reserva of arregloreserva">
+          <td>{{reserva.idreserva}}</td>
+          <td>{{reserva.fecha}}</td>
+          <td>{{reserva.nombreusuario}}</td>
+          <td>{{reserva.total}}</td>
           <td>
-            <input *ngIf="reserva.isEditing" [(ngModel)]="reserva.idreserva" />
-            <span *ngIf="!reserva.isEditing">{{reserva.idreserva}}</span>
-          </td>
-          <td>
-            <input *ngIf="reserva.isEditing" [(ngModel)]="reserva.fecha" />
-            <span *ngIf="!reserva.isEditing">{{reserva.fecha}}</span>
-          </td>
-          <td>
-            <input *ngIf="reserva.isEditing" [(ngModel)]="reserva.usuarioidusuario" />
-            <span *ngIf="!reserva.isEditing">{{reserva.usuarioidusuario}}</span>
-          </td>
-          <td>
-            <input *ngIf="reserva.isEditing" [(ngModel)]="reserva.total" />
-            <span *ngIf="!reserva.isEditing">{{reserva.total}}</span>
-          </td>
-          <td>
-              <button (click)="modificar(reserva)">
-                <ion-icon name="create" size="large"></ion-icon>
-              </button>
-              <button (click)="eliminar(reserva)">
-                <ion-icon name="trash" size="large"></ion-icon>
-              </button>
+            <button (click)="modificar(reserva)">
+              <ion-icon name="create" size="large"></ion-icon>
+            </button>
+            <button (click)="eliminar(reserva)">
+              <ion-icon name="trash" size="large"></ion-icon>
+            </button>
           </td>
         </tr>
       </tbody>

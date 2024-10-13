@@ -226,30 +226,25 @@ BuscarUsu(idusuario: number){
   
   }
 
-  ListarReservas(){ 
-    return this.database.executeSql('SELECT idreserva, fecha, total,usuarioidusuario FROM reserva', []).then(res => {
-    // Variable para almacenar el resultado de la consulta
-    let items: Reserva[] = [];
-    // Valido si trae al menos un registro
-    if (res.rows.length > 0) {
-      // Recorro mi resultado
-      for (var i = 0; i < res.rows.length; i++) {
-        // Agrego los registros a mi lista idreserva, fecha, total, usuarioidusuario
-        items.push({
-          idreserva: res.rows.item(i).idreserva,
-          fecha: res.rows.item(i).fecha,
-          total: res.rows.item(i).total,
-          usuarioidusuario: res.rows.item(i).usuarioidusuario
-        });
+  ListarReservas() {
+    const query = 'SELECT r.idreserva, r.fecha, r.total, r.usuarioidusuario, u.nombreusuario FROM reserva r INNER JOIN usuario u ON r.usuarioidusuario = u.idusuario';
+    return this.database.executeSql(query, []).then(res => {
+      let items: any[] = [];
+      if (res.rows.length > 0) {
+        for (var i = 0; i < res.rows.length; i++) {
+          items.push({
+            idreserva: res.rows.item(i).idreserva,
+            fecha: res.rows.item(i).fecha,
+            total: res.rows.item(i).total,
+            usuarioidusuario: res.rows.item(i).usuarioidusuario,
+            nombreusuario: res.rows.item(i).nombreusuario 
+          });
+        }
       }
-    }
-    // Actualizar el observable
-    this.listadoReserva.next(items as any);
-  });
-
+      this.listadoReserva.next(items as any);
+    });
   }
   
-
   eliminarUsuario(idusuario: string) {
     return this.database.executeSql('DELETE FROM usuario WHERE idusuario = ?', [idusuario]).then(res => {
       this.presentAlert("Eliminar", "USUARIO ELIMINADO");
@@ -388,7 +383,7 @@ insertarUsuario(nombreusuario: string,rutusuario: string , correo: string, contr
       this.presentAlert("Insertar","Reserva Registrada");
       this.ListarReservas();
     }).catch(e=>{
-      this.presentAlert('Insertar', 'Error: ' + JSON.stringify(e));
+      this.presentAlert('Insertar', 'Error: ' + JSON.stringify(e)); 
     })
   }
   insertarReservas(fecha: string,total:string,usuarioidusuario:string){

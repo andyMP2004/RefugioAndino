@@ -48,12 +48,8 @@ export class MiperfilPage implements OnInit {
 
           this.cdr.detectChanges();
         }
-      }).catch((error) => {
-        console.error('Error al obtener la información del usuario:', error);
-      });
-    }).catch((error) => {
-      console.error('Error al obtener el idusuario desde NativeStorage:', error);
-    });
+      })
+    })
   }
 
   tomarFoto = async () => {

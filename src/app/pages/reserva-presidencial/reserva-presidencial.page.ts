@@ -40,24 +40,31 @@ export class ReservaPresidencialPage implements OnInit {
       const fechaSinHora = this.fecha.split('T')[0]; 
       const total = this.valor(this.total);
 
-      this.bd.insertarReserva(fechaSinHora, total, this.idusuario);
+      this.bd.insertarReservap(fechaSinHora, total, this.idusuario);
 
-      const notificationId = Math.floor(Math.random() * 1000);
-      const notificationDate = new Date(fechaSinHora);
-      console.log('Notificación programada para:', notificationDate);
+      const notificationId = Math.floor(Math.random() * 1000); 
+
+      const notificationDate = new Date(Date.now() + 10000); 
+      console.log('Notificación programada para:', notificationDate); 
 
       if (notificationDate.getTime() > Date.now()) {
-        await LocalNotifications.schedule({
-          notifications: [
-            {
-              title: 'Reserva Confirmada',
-              body: `Tu reserva ha sido realizada para el ${fechaSinHora}.`,
-              id: notificationId,
-              schedule: { at: notificationDate },
-            }
-          ]
-        });
+        try {
+          await LocalNotifications.schedule({
+            notifications: [
+              {
+                title: 'Reserva Confirmada',
+                body: `Tu reserva ha sido realizada para el ${fechaSinHora}.`,
+                id: notificationId,
+                schedule: { at: notificationDate },
+              }
+            ]
+          });
+          console.log('Notificación programada con éxito');
+        } catch (error) {
+          console.error('Error programando la notificación:', error);
+        }
       }
+
       this.router.navigate(['/habitaciones']);
     }
   }
@@ -67,8 +74,16 @@ export class ReservaPresidencialPage implements OnInit {
     this.total = Number(this.noches) * precio;
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.menu.enable(false);
+  
+    const permission = await LocalNotifications.requestPermissions();
+    if (permission.display == 'granted') {
+      console.log('Permisos de notificación otorgados');
+    } else {
+      console.log('Permisos de notificación denegados');
+    }
+  
     this.storage.getItem('usuario').then((data) => {
       const idusuario = data;
       this.bd.BuscarUsu(idusuario).then((usuario) => {
@@ -76,7 +91,7 @@ export class ReservaPresidencialPage implements OnInit {
           this.idusuario = usuario.idusuario;
           this.nombreusuario = usuario.nombreusuario;
         }
-      })
-    })
+      });
+    });
   }
 }

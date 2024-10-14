@@ -48,11 +48,13 @@ export class ReservaPage implements OnInit {
 
       this.bd.insertarReserva(fechaSinHora, total, this.idusuario);
 
-        const notificationId = Math.floor(Math.random() * 1000); 
-        const notificationDate = new Date(fechaSinHora);
-        console.log('Notificación programada para:', notificationDate); 
+      const notificationId = Math.floor(Math.random() * 1000); 
 
-        if (notificationDate.getTime() > Date.now()) {
+      const notificationDate = new Date(Date.now() + 10000); 
+      console.log('Notificación programada para:', notificationDate); 
+
+      if (notificationDate.getTime() > Date.now()) {
+        try {
           await LocalNotifications.schedule({
             notifications: [
               {
@@ -63,9 +65,13 @@ export class ReservaPage implements OnInit {
               }
             ]
           });
+          console.log('Notificación programada con éxito');
+        } catch (error) {
+          console.error('Error programando la notificación:', error);
         }
+      }
 
-        this.router.navigate(['/habitaciones']);
+      this.router.navigate(['/habitaciones']);
     }
   }
 
@@ -74,8 +80,17 @@ export class ReservaPage implements OnInit {
     this.total = this.noches * precio;
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.menu.enable(false);
+  
+    // Solicitar permisos de notificaciones
+    const permission = await LocalNotifications.requestPermissions();
+    if (permission.display == 'granted') {
+      console.log('Permisos de notificación otorgados');
+    } else {
+      console.log('Permisos de notificación denegados');
+    }
+  
     this.storage.getItem('usuario').then((data) => {
       const idusuario = data;
       this.bd.BuscarUsu(idusuario).then((usuario) => {
@@ -83,7 +98,8 @@ export class ReservaPage implements OnInit {
           this.idusuario = usuario.idusuario;
           this.nombreusuario = usuario.nombreusuario;
         }
-      })
-    })
+      });
+    });
   }
+  
 }

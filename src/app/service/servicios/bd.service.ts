@@ -275,6 +275,21 @@ BuscarUsu(idusuario: number){
     });
   }
 
+  ReservaPorUsuario(idusuario: string) {
+    return this.database.executeSql('SELECT r.idreserva, r.fecha, r.total, r.usuarioidusuario, u.nombreusuario AS nombreusuario FROM reserva r JOIN usuario u ON r.usuarioidusuario = u.idusuario WHERE r.usuarioidusuario = ?', [idusuario]).then(res => {
+        let reservas: any[] = [];
+        for (let i = 0; i < res.rows.length; i++) {
+          reservas.push(res.rows.item(i));
+        }
+        return reservas;
+      })
+      .catch(e => {
+        this.presentAlert('Usuario', 'Error: ' + JSON.stringify(e));
+        return [];
+      });
+  }
+  
+
     Login(correo: string, contrasena: string){
       return this.database.executeSql('SELECT * FROM usuario WHERE correo = ? AND contrasena = ?', [correo,contrasena]
 
@@ -406,11 +421,12 @@ insertarUsuario(nombreusuario: string,rutusuario: string , correo: string, contr
   eliminarReserva(idreserva: string) {
     return this.database.executeSql('DELETE FROM reserva WHERE idreserva = ?', [idreserva]).then(res => {
       this.presentAlert("Eliminar", "RESERVA ELIMINADA");
-      this.ListarReservas(); // Actualiza la lista de usuarios después de eliminar
+      this.ListarReservas(); // Asegúrate de que este método recarga la lista de reservas
     }).catch(e => {
       this.presentAlert('Eliminar', 'Error: ' + JSON.stringify(e));
     });
   }
+  
 
   modificarReserva(idreserva:string,fecha:string){
     this.presentAlert("service","ID: " + idreserva);

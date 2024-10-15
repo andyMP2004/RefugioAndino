@@ -9,15 +9,11 @@
     <ion-card-title class="titulo">Añada La habitacion</ion-card-title>
     <img class="room" src="assets/icon/logo.png" alt="Logo Refugio Andino"/>
   <form class="agregar">
-    <ion-item *ngIf="selectedImage">
-      <ion-label>Imagen:</ion-label>
-      <img [src]="selectedImage" alt="Imagen de habitación" class="room-image" />
-    </ion-item>
-    <input type="file" (change)="onFileSelected($event)" accept="image/*" />
-    
-
-    <div class="image-preview">
-      <img *ngIf="selectedImage" [src]="selectedImage" alt="Imagen Seleccionada"/>
+    <div class="avatar-container">
+        <img alt="Silhouette of a person's head" *ngIf="imagen" [src]="imagen" />
+      <ion-button class="camara" size="small" color="dark" (click)="tomarFoto()">
+        <ion-icon name="camera-outline"></ion-icon>
+      </ion-button>
     </div>
     <ion-item>
       <ion-icon name="bed" slot="start"></ion-icon> 
@@ -27,6 +23,10 @@
         <ion-icon name="bed" slot="start"></ion-icon> 
         <ion-input label="Descripcion Habitacion" labelPlacement="floating" placeholder="ingrese la descripcion"  [(ngModel)]="descripcion" name="descipcion"></ion-input>
       </ion-item>
+      <ion-item>
+        <ion-icon name="cash" slot="start"></ion-icon>
+        <ion-input label="Precio Habitacion" labelPlacement="floating" placeholder="Ingrese el precio" [(ngModel)]="precio" name="precio"></ion-input>
+      </ion-item>      
     <ion-button expand="full" color="primary" class="ion-margin-top boton"(click)="agregar()">
       Añadir
     </ion-button>

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
+import { Camera, CameraResultType } from '@capacitor/camera';
 import { AlertController, MenuController } from '@ionic/angular';
+import { BdService } from 'src/app/service/servicios/bd.service';
 
 @Component({
   selector: 'app-agregar',
@@ -8,12 +10,14 @@ import { AlertController, MenuController } from '@ionic/angular';
   styleUrls: ['./agregar.page.scss'],
 })
 export class AgregarPage implements OnInit {
-  selectedImage: string | ArrayBuffer | null = null;
   descripcion: string = "";
   nombre: string="";
   precio: string="";
-  constructor(private menu: MenuController, private router: Router, private alertController: AlertController) {}
-
+  imagen:string="";
+  constructor(private menu: MenuController, private router: Router, private alertController: AlertController,private bd: BdService) {}
+  private valor(value: number): string {
+    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  }
   async agregar() {
     if (!this.descripcion || !this.nombre || !this.precio) {
       const alert = await this.alertController.create({
@@ -36,37 +40,30 @@ export class AgregarPage implements OnInit {
         buttons: ['Aceptar'],
       });
       await alert.present();
-    }else if (isNaN(Number(this.precio)) || Number(this.precio) < 5000 || Number(this.precio) > 100000) {
-      const alert = await this.alertController.create({
-        header: 'El precio debe ser un número entre 5000 y 100000',
-        message: 'Por favor, ingrese un valor valido.',
-        buttons: ['Aceptar'],
-      });
-      await alert.present();
-    }else if (!this.selectedImage) {
+    }else if (!this.imagen) {
       const alert = await this.alertController.create({
         header: 'La imagen es necesaria',
         message: 'Por favor, seleccione una imagen antes de continuar',
         buttons: ['Aceptar'],
       });
       await alert.present();
+    }else{
+      this.tomarFoto();
+
+      this.bd.insertahabi(this.nombre, this.imagen,this.precio, this.descripcion);
     }
   }
 
   ngOnInit() {
     this.menu.enable(false);
   }
+  tomarFoto = async () => {
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: false,
+      resultType: CameraResultType.Base64
+    });
 
-  onFileSelected(event: any) {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-
-    reader.onload = () => {
-      this.selectedImage = reader.result;
-    };
-
-    if (file) {
-      reader.readAsDataURL(file);
-    }
-  }
+    this.imagen = 'data:image/jpeg;base64,' + image.base64String;
+  };
 }

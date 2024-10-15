@@ -334,6 +334,16 @@ BuscarUsu(idusuario: number){
     });
   }
   
+  insertahabi(nombre:string, imagen:string, precio:string, descripcion:string){
+    return this.database.executeSql('INSERT INTO tipo(nombre, imagen, precio, descripcion) VALUES (?,?,?,?)',[nombre, imagen,precio,descripcion]).then(res=>{
+      this.presentAlert("Insertar","Habitacion Registrada");
+      this.ListarHabi();
+      this.ListarHabip();
+      this.ListarHabis();
+    }).catch(e=>{
+      this.presentAlert('Insertar', 'Error: ' + JSON.stringify(e));
+    })
+  }
 
   ListarHabip() {
     return this.database.executeSql('SELECT idtipo, nombre, imagen, precio, descripcion FROM tipo WHERE precio = ?', ['$60.000']).then(res => {
@@ -409,6 +419,7 @@ insertarUsuario(nombreusuario: string,rutusuario: string , correo: string, contr
       this.presentAlert('Insertar', 'Error: ' + JSON.stringify(e));
     })
   }
+
   insertarReservap(fecha: string,total:string,usuarioidusuario:string){
     return this.database.executeSql('INSERT INTO reserva(fecha,total,usuarioidusuario) VALUES (?,?,?)',[fecha,total,usuarioidusuario]).then(res=>{
       this.presentAlert("Insertar","Reserva Registrada");

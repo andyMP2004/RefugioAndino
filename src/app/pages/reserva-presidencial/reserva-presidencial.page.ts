@@ -16,7 +16,7 @@ export class ReservaPresidencialPage implements OnInit {
   habitacion: string = "";
   huesped: string = "";
   fecha: string = "";
-  total: number = 60.000;
+  total: number = 60000;
   idreserva: string = "";
   usuarioidusuario: string = "";
   noches: number = 0;

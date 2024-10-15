@@ -16,6 +16,10 @@ export class ReservasPage implements OnInit {
 
   ngOnInit() {
     this.menu.enable(false);
+    this.cargarReservas();
+  }
+
+  cargarReservas() {
     this.storage.getItem('usuario').then((idusuario) => {
       this.bd.dbState().subscribe(res => {
         if (res) {
@@ -28,10 +32,15 @@ export class ReservasPage implements OnInit {
       console.error('Error al obtener el ID de usuario:', e);
     });
   }
+  
+
+  ionViewWillEnter() {
+    this.cargarReservas();  
+  }
 
   eliminar(reserva: any) {
     this.bd.eliminarReserva(reserva.idreserva).then(() => {
-      this.ngOnInit(); 
+      this.cargarReservas();  
     });
   }
 
@@ -40,11 +49,12 @@ export class ReservasPage implements OnInit {
       state: {
         reserva: {
           idreserva: reserva.idreserva,
-          fecha: reserva.fecha,
-          usuarioidusuario: reserva.usuarioidusuario,
+          fecha: reserva.fecha
         }
       }
     };
     this.router.navigate(['/modificar'], navigationExtras);
   }
+  
+  
 }

@@ -428,14 +428,16 @@ insertarUsuario(nombreusuario: string,rutusuario: string , correo: string, contr
   }
   
 
-  modificarReserva(idreserva:string,fecha:string){
-    this.presentAlert("service","ID: " + idreserva);
-    return this.database.executeSql('UPDATE reserva SET fecha = ? WHERE idreserva = ?',[fecha,idreserva]).then(res=>{
-      this.presentAlert("Modificar","RESERVA Modificada");
-      this.ListarReservas();
-    }).catch(e=>{
-      this.presentAlert('Modificar', 'Error: ' + JSON.stringify(e));
-    })
-
+  modificarReserva(idreserva: string, fecha: string) {
+    this.presentAlert("service", "ID: " + idreserva);
+    return this.database.executeSql('UPDATE reserva SET fecha = ? WHERE idreserva = ?', [fecha, idreserva])
+      .then(res => {
+        this.presentAlert("Modificar", "RESERVA Modificada");
+        return res;
+      })
+      .catch(e => {
+        this.presentAlert('Modificar', 'Error: ' + JSON.stringify(e));
+      });
   }
+  
 }

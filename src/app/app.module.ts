@@ -15,6 +15,8 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
 import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,6 +29,8 @@ import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
     MatIconModule,
     MatTableModule,
     MatPaginatorModule,
+    AngularFireModule, // Inicializa Firebase con tus credenciales
+    AngularFireAuthModule
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

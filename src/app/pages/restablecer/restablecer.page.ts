@@ -36,13 +36,18 @@ export class RestablecerPage implements OnInit {
     }
   }
   async recuperarContrasena() {
+    if(this.correo !=""){
     this.auth.resetAuth(this.correo).then(()=>{
       console.log('enviado');
     }).catch(()=>{
       console.log('error');
 
     }) 
-     
+     }else{
+      alert('Ingrese un correo');
+     }
+
+
   }
 
 

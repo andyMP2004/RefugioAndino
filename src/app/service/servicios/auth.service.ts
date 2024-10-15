@@ -13,13 +13,11 @@ export class AuthService {
 resetAuth(correo: string) {
   return this.AFauth.sendPasswordResetEmail(correo);
 
-
-
  }
 
-
-
-
+ registro(correo: string, contrasena: string) {
+  return this.AFauth.createUserWithEmailAndPassword(correo, contrasena)
+    
 }
 
-
+}

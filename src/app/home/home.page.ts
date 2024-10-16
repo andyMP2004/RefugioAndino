@@ -36,7 +36,9 @@ export class HomePage {
       });
       await alert.present();
     } else {
-
+      if (this.correo == "admin@gmail.com" , this.contrasena == "Admin123") {
+      this.router.navigate(['/administrador']);
+    }
       let ValidarUsuario = await this.authService.inicioSesion(this.correo, this.contrasena);
       let Validarcorreo = await this.bd.BuscarUsuC(this.correo);
           if (ValidarUsuario) {
@@ -49,9 +51,7 @@ export class HomePage {
         this.router.navigate(['/habitaciones']);
 
       }
-      if (this.correo == "admin@gmail.com" , this.contrasena == "Admin123") {
-      this.router.navigate(['/administrador']);
-    }
+
 
   }
 

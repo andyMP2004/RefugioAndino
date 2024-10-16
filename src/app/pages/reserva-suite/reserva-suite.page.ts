@@ -38,7 +38,7 @@ export class ReservaSuitePage implements OnInit {
       const fechaSinHora = this.fecha.split('T')[0]; 
       const total = this.valor(this.total);
 
-      this.bd.insertarReservas(fechaSinHora, total, this.idusuario);
+      this.bd.insertarReservas(fechaSinHora,this.noches, total, this.idusuario);
 
       const notificationId = Math.floor(Math.random() * 1000); 
 

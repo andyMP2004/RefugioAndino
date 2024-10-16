@@ -55,7 +55,7 @@ export class ReservaPresidencialPage implements OnInit {
         this.totalConvertido = totalConvertido; 
         console.log(`Total convertido a ${this.monedaSeleccionada}: ${totalConvertido}`);
 
-        this.bd.insertarReservap(fechaSinHora, totalEnPesos, this.idusuario); 
+        this.bd.insertarReservap(fechaSinHora,this.noches, totalEnPesos, this.idusuario); 
       } catch (error) {
         console.error('Error al convertir la moneda:', error);
         const alert = await this.alertController.create({

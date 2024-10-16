@@ -23,8 +23,8 @@ export class BdService {
   TablaRol: string = "CREATE TABLE IF NOT EXISTS rol(idrol INTEGER PRIMARY KEY AUTOINCREMENT, nombrerol VARCHAR(50));"; 
   registrorol: string = "INSERT or IGNORE INTO rol (idrol, nombrerol) VALUES (1, 'admin');";
 
-  TablaReserva: string = "CREATE TABLE IF NOT EXISTS reserva(idreserva INTEGER PRIMARY KEY AUTOINCREMENT, fecha VARCHAR(50) NOT NULL, total VARCHAR(50) NOT NULL, usuarioidusuario VARCHAR(200) NOT NULL, FOREIGN KEY (usuarioidusuario) REFERENCES usuario(idusuario));";
-  registroreserva: string = "INSERT or IGNORE INTO reserva (idreserva, fecha, total, usuarioidusuario) VALUES (1, '30/03/2024', '$14.000', 2);";
+  TablaReserva: string = "CREATE TABLE IF NOT EXISTS reserva(idreserva INTEGER PRIMARY KEY AUTOINCREMENT, fecha VARCHAR(50) NOT NULL,noches INTEGER, total VARCHAR(50) NOT NULL, usuarioidusuario VARCHAR(200) NOT NULL, FOREIGN KEY (usuarioidusuario) REFERENCES usuario(idusuario));";
+  registroreserva: string = "INSERT or IGNORE INTO reserva (idreserva, fecha,noches, total, usuarioidusuario) VALUES (1, '30/03/2024',3, '$20.000', 2);";
 
   TablaTipo: string = "CREATE TABLE IF NOT EXISTS tipo(idtipo INTEGER PRIMARY KEY AUTOINCREMENT, nombre VARCHAR(50) NOT NULL, imagen VARCHAR(100) NOT NULL, precio VARCHAR(50) NOT NULL, descripcion VARCHAR(200) NOT NULL);";
   registrotipo: string = "INSERT or IGNORE INTO tipo (idtipo, nombre, imagen, precio, descripcion) VALUES (1, 'Habitacion Familiar', 'assets/familiar/familiar.3.jpg', '$20.000', 'Habitación acogedora con varias camas, ideal para familias. Ofrece TV, iluminación suave y decoración sencilla.');";
@@ -421,16 +421,16 @@ insertarUsuario(nombreusuario: string,rutusuario: string , correo: string, contr
 }
 
   //RESERVA
-  insertarReserva(fecha: string,total:string,usuarioidusuario:string){
-    return this.database.executeSql('INSERT INTO reserva(fecha,total,usuarioidusuario) VALUES (?,?,?)',[fecha,total,usuarioidusuario]).then(res=>{
+  insertarReserva(fecha: string,noches:number ,total:string,usuarioidusuario:string){
+    return this.database.executeSql('INSERT INTO reserva(fecha,noches,total,usuarioidusuario) VALUES (?,?,?,?)',[fecha,noches,total,usuarioidusuario]).then(res=>{
       this.presentAlert("Insertar","Reserva Registrada");
       this.ListarReservas();
     }).catch(e=>{
       this.presentAlert('Insertar', 'Error: ' + JSON.stringify(e)); 
     })
   }
-  insertarReservas(fecha: string,total:string,usuarioidusuario:string){
-    return this.database.executeSql('INSERT INTO reserva(fecha,total,usuarioidusuario) VALUES (?,?,?)',[fecha,total,usuarioidusuario]).then(res=>{
+  insertarReservas(fecha: string,noches:number ,total:string,usuarioidusuario:string){
+    return this.database.executeSql('INSERT INTO reserva(fecha,noches,total,usuarioidusuario) VALUES (?,?,?,?)',[fecha,noches,total,usuarioidusuario]).then(res=>{
       this.presentAlert("Insertar","Reserva Registrada");
       this.ListarReservas();
     }).catch(e=>{
@@ -438,8 +438,8 @@ insertarUsuario(nombreusuario: string,rutusuario: string , correo: string, contr
     })
   }
 
-  insertarReservap(fecha: string,total:string,usuarioidusuario:string){
-    return this.database.executeSql('INSERT INTO reserva(fecha,total,usuarioidusuario) VALUES (?,?,?)',[fecha,total,usuarioidusuario]).then(res=>{
+  insertarReservap(fecha: string,noches:number ,total:string,usuarioidusuario:string){
+    return this.database.executeSql('INSERT INTO reserva(fecha,noches,total,usuarioidusuario) VALUES (?,?,?,?)',[fecha,noches,total,usuarioidusuario]).then(res=>{
       this.presentAlert("Insertar","Reserva Registrada");
       this.ListarReservas();
     }).catch(e=>{

@@ -4,6 +4,7 @@ import { NavigationExtras, Router } from '@angular/router';
 import { BdService } from 'src/app/service/servicios/bd.service';
 import { LocalNotifications } from '@capacitor/local-notifications';
 import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
+import { DivisaService } from 'src/app/service/servicios/divisa.service';
 
 @Component({
   selector: 'app-reserva-presidencial',
@@ -12,7 +13,8 @@ import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
 })
 export class ReservaPresidencialPage implements OnInit {
 
-
+  monedaSeleccionada: string = 'USD'; // Moneda seleccionada
+  totalConvertido: number = 0;  // Propiedad para almacenar el total convertido
   habitacion: string = "";
   huesped: string = "";
   fecha: string = "";
@@ -22,7 +24,14 @@ export class ReservaPresidencialPage implements OnInit {
   noches: number = 0;
   idusuario: string = "";
   nombreusuario: string = "";
-  constructor(private router: Router, private menu: MenuController, private alertController: AlertController, private bd: BdService, private storage: NativeStorage) { }
+  constructor(
+    private router: Router, 
+    private menu: MenuController, 
+    private alertController: AlertController, 
+    private bd: BdService, 
+    private storage: NativeStorage,
+    private divisaService: DivisaService  // Inyecta el servicio de divisas
+  ) { }
 
   private valor(value: number): string {
     return `$${value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}`;
@@ -38,14 +47,28 @@ export class ReservaPresidencialPage implements OnInit {
       await alert.present();
     } else {
       const fechaSinHora = this.fecha.split('T')[0]; 
-      const total = this.valor(this.total);
+      const totalEnPesos = this.valor(this.total);
 
-      this.bd.insertarReservap(fechaSinHora, total, this.idusuario);
+      try {
+        // Convertir a la moneda seleccionada solo para mostrar
+        const totalConvertido = await this.divisaService.convertCurrency(this.total, this.monedaSeleccionada);
+        this.totalConvertido = totalConvertido; 
+        console.log(`Total convertido a ${this.monedaSeleccionada}: ${totalConvertido}`);
+
+        this.bd.insertarReservap(fechaSinHora, totalEnPesos, this.idusuario); 
+      } catch (error) {
+        console.error('Error al convertir la moneda:', error);
+        const alert = await this.alertController.create({
+          header: 'Error',
+          message: 'No se pudo convertir la moneda. Intente nuevamente.',
+          buttons: ['Aceptar'],
+        });
+        await alert.present();
+        return;
+      }
 
       const notificationId = Math.floor(Math.random() * 1000); 
-
-      const notificationDate = new Date(Date.now() + 10000); 
-      console.log('Notificación programada para:', notificationDate); 
+      const notificationDate = new Date(Date.now() + 10000);
 
       if (notificationDate.getTime() > Date.now()) {
         try {
@@ -69,9 +92,15 @@ export class ReservaPresidencialPage implements OnInit {
     }
   }
 
-  calculartotal() {
+  async calculartotal() {
     const precio = 60000;
-    this.total = Number(this.noches) * precio;
+    this.total = this.noches * precio;
+
+    try {
+      this.totalConvertido = await this.divisaService.convertCurrency(this.total, this.monedaSeleccionada);
+    } catch (error) {
+      console.error('Error al convertir la moneda:', error);
+    }
   }
 
   async ngOnInit() {

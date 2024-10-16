@@ -18,6 +18,7 @@ import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from 'src/environments/environment';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -29,6 +30,7 @@ import { environment } from 'src/environments/environment';
     MatIconModule,
     MatTableModule,
     MatPaginatorModule,
+    HttpClientModule,
     AngularFireModule.initializeApp(environment.firebaseConfig), 
     AngularFireAuthModule,
   ],

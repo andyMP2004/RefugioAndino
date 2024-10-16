@@ -225,6 +225,24 @@ BuscarUsu(idusuario: number){
     });
   
   }
+  BuscarUsuC(correo: string){
+    return this.database.executeSql('SELECT idusuario ,nombreusuario, correo ,rutusuario, telefono, imagenp FROM usuario WHERE correo = ?', [correo]).then(res =>{
+      if (res.rows.length > 0) {
+        return res.rows.item(0);
+
+      }else {
+        return null;
+
+      } 
+
+
+    }).catch(e =>{
+      this.presentAlert('Usuario', 'Error: ' + JSON.stringify(e));
+      return null;
+
+    });
+  
+  }
 
   ListarReservas() {
     const query = 'SELECT r.idreserva, r.fecha, r.total, r.usuarioidusuario, u.nombreusuario FROM reserva r INNER JOIN usuario u ON r.usuarioidusuario = u.idusuario';
@@ -451,4 +469,15 @@ insertarUsuario(nombreusuario: string,rutusuario: string , correo: string, contr
       });
   }
   
+  modificarContra(contrasena: string, idusuario: number){
+    return this.database.executeSql(
+      'UPDATE usuario SET contrasena = ? WHERE idusuario = ?',
+      [contrasena, idusuario] 
+    ).then(res => {
+      this.seleccionarUsuarios();
+    }).catch(e => {
+      this.presentAlert('Modificar', 'Error: ' + JSON.stringify(e));
+    });
+  }
+
 }

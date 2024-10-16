@@ -19,7 +19,8 @@ export class RegistroPage implements OnInit {
   telefono: string = "";
   idrol: string = "";
 
-  constructor(private router: Router, private menu: MenuController, private alertController: AlertController, private storage: NativeStorage,private bd: BdService, private auth: AuthService ) {}
+  constructor(private router: Router, private menu: MenuController,
+     private alertController: AlertController, private storage: NativeStorage,private bd: BdService, private auth: AuthService ) {}
 
   async irPagina() {
     if (!this.correo || !this.contrasena || !this.nombre || !this.rutusuario) {
@@ -87,30 +88,14 @@ export class RegistroPage implements OnInit {
       });
       await alert.present();
     }
-    else {
-      try {
-        await this.auth.registro(this.correo, this.contrasena);
+    else{  
+        this.insertar();
         const alert = await this.alertController.create({
           header: 'Cuenta Creada Correctamente',
           buttons: ['Aceptar'],
         });
         await alert.present();
-    
-        if (this.correo === 'administrador@gmail.com' && this.contrasena === 'Admin123') {
-          this.router.navigate(['/administrador']);
-        } else {
-          this.router.navigate(['/home']);
-        }
-      } catch (error) {
-        // Muestra una alerta si hay algún error durante la creación del usuario
-        const alert = await this.alertController.create({
-          header: 'Error',
-          message: 'Hubo un problema al crear el usuario. Por favor, intente nuevamente.',
-          buttons: ['Aceptar'],
-        });
-        await alert.present();
-        console.error('Error durante el registro:', error);
-      }
+        
     }
   }
 
@@ -134,6 +119,7 @@ export class RegistroPage implements OnInit {
       await alert.present();
   }
   insertar(){
-    this.bd.insertarUsuario(this.nombre, this.rutusuario,this.correo,this.contrasena,this.fechan,this.telefono,this.idrol);
+    this.auth.registro(this.correo,this.contrasena);
+    this.bd.insertarUsuario(this.nombre, this.rutusuario,this.correo,this.contrasena,this.fechan,this.telefono,'',this.idrol);
   }
 }//idusuario, nombreusuario, correo, rutusuario, contrasena, fechan, telefono, idrol

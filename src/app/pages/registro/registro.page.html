@@ -10,7 +10,7 @@
       <ion-col size="12" size-md="8">
         <ion-card-content class="cuerpo">
           <ion-card-title class="titulo">Registro de Refugio Andino</ion-card-title>
-          <form class="registro" (ngSubmit)="irPagina()">
+          <form class="registro">
             <ion-item>
               <ion-input class="ion-text-center" placeholder="Nombre completo" type="text" [(ngModel)]="nombre" name="nombre" required></ion-input>
             </ion-item>
@@ -39,7 +39,7 @@
                 <ion-input-password-toggle slot="end"></ion-input-password-toggle>
               </ion-input>
             </ion-item>
-            <ion-button expand="full" color="primary" class="ion-margin-top" type="submit" (click)="insertar()">Acceder</ion-button>
+            <ion-button expand="full" color="primary" class="ion-margin-top"  (click)="irPagina()">Acceder</ion-button>
             <ion-button expand="full" color="primary" class="ion-margin-top" [routerLink]="['/home']" type="button">Volver</ion-button>
           </form>
         </ion-card-content>

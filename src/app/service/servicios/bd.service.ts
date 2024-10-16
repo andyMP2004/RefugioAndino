@@ -393,8 +393,8 @@ BuscarUsu(idusuario: number){
 
 
 
-insertarUsuario(nombreusuario: string,rutusuario: string , correo: string, contrasena: string, fechan: string, telefono: string, idrol: string){
-  return this.database.executeSql('INSERT INTO usuario(nombreusuario, correo, rutusuario, contrasena, fechan, telefono, idrol) VALUES (?,?,?,?,?,?,?)',[nombreusuario, correo, rutusuario, contrasena, fechan, telefono,idrol]).then(res=>{
+insertarUsuario(nombreusuario: string,rutusuario: string , correo: string, contrasena: string, fechan: string, telefono: string,imagenp:string, idrol: string){
+  return this.database.executeSql('INSERT INTO usuario(nombreusuario, correo, rutusuario, contrasena, fechan, telefono,imagenp, idrol) VALUES (?,?,?,?,?,?,?,?)',[nombreusuario, correo, rutusuario, contrasena, fechan, telefono,imagenp,idrol]).then(res=>{
     this.presentAlert("Insertar","Usuario Registrado");
     this.seleccionarUsuarios();
   }).catch(e=>{

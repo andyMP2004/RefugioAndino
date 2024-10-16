@@ -17,7 +17,7 @@ import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
 import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-
+import { environment } from 'src/environments/environment';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -29,8 +29,8 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
     MatIconModule,
     MatTableModule,
     MatPaginatorModule,
-    AngularFireModule, // Inicializa Firebase con tus credenciales
-    AngularFireAuthModule
+    AngularFireModule.initializeApp(environment.firebaseConfig), 
+    AngularFireAuthModule,
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

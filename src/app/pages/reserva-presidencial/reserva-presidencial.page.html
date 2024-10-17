@@ -11,10 +11,11 @@
   </ion-card-header>
 </ion-card>
 
-<ion-item>
-  <ion-label>Selecciona la fecha</ion-label>
-  <ion-datetime presentation="date" [(ngModel)]="fecha" name="fecha"></ion-datetime>
-</ion-item>
+<ion-label>Selecciona la fecha</ion-label>
+    <mat-card class="demo-inline-calendar-card" name="fecha">
+      <mat-calendar [(selected)]="fecha"></mat-calendar>
+    </mat-card>
+    <p>Selected date: {{fecha}}</p>
 
 <ion-item>
   <ion-select label="Noches Que Se Hospedarán" placeholder="Seleccione" [(ngModel)]="noches" (ionChange)="calculartotal()">

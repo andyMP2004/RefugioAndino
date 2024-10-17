@@ -7,14 +7,21 @@ import { IonicModule } from '@ionic/angular';
 import { ReservaPresidencialPageRoutingModule } from './reserva-presidencial-routing.module';
 
 import { ReservaPresidencialPage } from './reserva-presidencial.page';
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ReservaPresidencialPageRoutingModule
+    ReservaPresidencialPageRoutingModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
   ],
-  declarations: [ReservaPresidencialPage]
+  declarations: [ReservaPresidencialPage],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ReservaPresidencialPageModule {}

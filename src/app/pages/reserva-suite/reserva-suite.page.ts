@@ -13,14 +13,17 @@ export class ReservaSuitePage implements OnInit {
 
   habitacion: string = "";
   huesped: string = "";
-  fecha: string = "";
+  fecha: Date;
   total: number = 40.000;
   idreserva: string = "";
   usuarioidusuario: string = "";
   noches: number = 0;
   idusuario: string = "";
   nombreusuario: string = "";
-  constructor(private router: Router, private menu: MenuController, private alertController: AlertController, private bd: BdService, private storage: NativeStorage) { }
+  today = new Date(); // Fecha actual
+  diamin: Date;
+  constructor(private router: Router, private menu: MenuController, private alertController: AlertController, private bd: BdService, private storage: NativeStorage) { this.diamin = this.today 
+    this.fecha = new Date();}
 
   private valor(value: number): string {
     return `$${value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}`;
@@ -35,10 +38,10 @@ export class ReservaSuitePage implements OnInit {
       });
       await alert.present();
     } else {
-      const fechaSinHora = this.fecha.split('T')[0]; 
+      
       const total = this.valor(this.total);
 
-      this.bd.insertarReservas(fechaSinHora,this.noches, total, this.idusuario);
+      this.bd.insertarReservas(this.fecha.toString(),this.noches, total, this.idusuario);
 
       const notificationId = Math.floor(Math.random() * 1000); 
 
@@ -51,7 +54,7 @@ export class ReservaSuitePage implements OnInit {
             notifications: [
               {
                 title: 'Reserva Confirmada',
-                body: `Tu reserva ha sido realizada para el ${fechaSinHora}.`,
+                body: `Tu reserva ha sido realizada para el ${this.fecha}.`,
                 id: notificationId,
                 schedule: { at: notificationDate },
               }

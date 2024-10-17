@@ -17,13 +17,15 @@ export class ReservaPresidencialPage implements OnInit {
   totalConvertido: number = 0;  // Propiedad para almacenar el total convertido
   habitacion: string = "";
   huesped: string = "";
-  fecha: string = "";
+  fecha: Date;
   total: number = 60000;
   idreserva: string = "";
   usuarioidusuario: string = "";
   noches: number = 0;
   idusuario: string = "";
   nombreusuario: string = "";
+  today = new Date(); // Fecha actual
+  diamin: Date;
   constructor(
     private router: Router, 
     private menu: MenuController, 
@@ -31,7 +33,8 @@ export class ReservaPresidencialPage implements OnInit {
     private bd: BdService, 
     private storage: NativeStorage,
     private divisaService: DivisaService  // Inyecta el servicio de divisas
-  ) { }
+  ) {this.diamin = this.today 
+    this.fecha = new Date(); }
 
   private valor(value: number): string {
     return `$${value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}`;
@@ -46,7 +49,7 @@ export class ReservaPresidencialPage implements OnInit {
       });
       await alert.present();
     } else {
-      const fechaSinHora = this.fecha.split('T')[0]; 
+     
       const totalEnPesos = this.valor(this.total);
 
       try {
@@ -55,7 +58,7 @@ export class ReservaPresidencialPage implements OnInit {
         this.totalConvertido = totalConvertido; 
         console.log(`Total convertido a ${this.monedaSeleccionada}: ${totalConvertido}`);
 
-        this.bd.insertarReservap(fechaSinHora,this.noches, totalEnPesos, this.idusuario); 
+        this.bd.insertarReservap(this.fecha.toString(),this.noches, totalEnPesos, this.idusuario); 
       } catch (error) {
         console.error('Error al convertir la moneda:', error);
         const alert = await this.alertController.create({
@@ -76,7 +79,7 @@ export class ReservaPresidencialPage implements OnInit {
             notifications: [
               {
                 title: 'Reserva Confirmada',
-                body: `Tu reserva ha sido realizada para el ${fechaSinHora}.`,
+                body: `Tu reserva ha sido realizada para el ${this.fecha}.`,
                 id: notificationId,
                 schedule: { at: notificationDate },
               }

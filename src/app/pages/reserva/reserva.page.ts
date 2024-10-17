@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { BdService } from 'src/app/service/servicios/bd.service';
 import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
 import { LocalNotifications } from '@capacitor/local-notifications';
-
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-reserva',
@@ -24,6 +24,7 @@ export class ReservaPage implements OnInit {
   noches: number = 0;
   today = new Date(); // Fecha actual
   diamin: Date;
+  minDate: Date = new Date();
   constructor(
     
     private router: Router, 

@@ -22,6 +22,7 @@ export class ReservaSuitePage implements OnInit {
   nombreusuario: string = "";
   today = new Date(); // Fecha actual
   diamin: Date;
+  minDate: Date = new Date();
   constructor(private router: Router, private menu: MenuController, private alertController: AlertController, private bd: BdService, private storage: NativeStorage) { this.diamin = this.today 
     this.fecha = new Date();}
 

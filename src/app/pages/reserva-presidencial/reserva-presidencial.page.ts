@@ -26,6 +26,7 @@ export class ReservaPresidencialPage implements OnInit {
   nombreusuario: string = "";
   today = new Date(); // Fecha actual
   diamin: Date;
+  minDate: Date = new Date();
   constructor(
     private router: Router, 
     private menu: MenuController, 
@@ -33,6 +34,7 @@ export class ReservaPresidencialPage implements OnInit {
     private bd: BdService, 
     private storage: NativeStorage,
     private divisaService: DivisaService  // Inyecta el servicio de divisas
+    
   ) {this.diamin = this.today 
     this.fecha = new Date(); }
 

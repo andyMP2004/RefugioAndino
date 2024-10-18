@@ -10,6 +10,15 @@ ion-content {
   margin-bottom: 25px;
   background: linear-gradient(145deg, #f3f4f6, #e2e4e8);
 }
+::ng-deep .mat-calendar-body-cell-disabled {
+  background-color: rgba(255, 0, 0, 0.3); // Color de fondo para fechas desactivadas
+  pointer-events: none; // Desactiva la interactividad
+  color: rgba(255, 0, 0, 0.6); // Color del texto para fechas desactivadas
+}
+
+::ng-deep .mat-calendar-body-cell {
+  cursor: not-allowed; // Cambia el cursor a no permitido para fechas desactivadas
+}
 
 .room-image {
   width: 100%;

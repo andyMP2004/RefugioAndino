@@ -23,7 +23,7 @@ export class BdService {
   TablaRol: string = "CREATE TABLE IF NOT EXISTS rol(idrol INTEGER PRIMARY KEY AUTOINCREMENT, nombrerol VARCHAR(50));"; 
   registrorol: string = "INSERT or IGNORE INTO rol (idrol, nombrerol) VALUES (1, 'admin');";
 
-  TablaReserva: string = "CREATE TABLE IF NOT EXISTS reserva(idreserva INTEGER PRIMARY KEY AUTOINCREMENT, fecha VARCHAR(50) NOT NULL,noches INTEGER, total VARCHAR(50) NOT NULL, usuarioidusuario VARCHAR(200) NOT NULL,idhabitacion INTEGER, FOREIGN KEY (usuarioidusuario) REFERENCES usuario(idusuario), FOREIGN KEY (idhabitacion) REFERENCES habitacion(idhabitacion));";
+  TablaReserva: string = "CREATE TABLE IF NOT EXISTS reserva(idreserva INTEGER PRIMARY KEY AUTOINCREMENT, fecha DATE NOT NULL,noches INTEGER, total VARCHAR(50) NOT NULL, usuarioidusuario VARCHAR(200) NOT NULL,idhabitacion INTEGER, FOREIGN KEY (usuarioidusuario) REFERENCES usuario(idusuario), FOREIGN KEY (idhabitacion) REFERENCES habitacion(idhabitacion));";
   registroreserva: string = "INSERT or IGNORE INTO reserva (idreserva, fecha,noches, total, usuarioidusuario,idhabitacion) VALUES (1, '30/03/2024',3, '$20.000', 2,1);";
 
   TablaTipo: string = "CREATE TABLE IF NOT EXISTS tipo(idtipo INTEGER PRIMARY KEY, nombre VARCHAR(50) NOT NULL, imagen VARCHAR(100) NOT NULL, precio VARCHAR(50) NOT NULL, descripcion VARCHAR(200) NOT NULL);";
@@ -468,4 +468,21 @@ insertarUsuario(nombreusuario: string,rutusuario: string , correo: string, contr
     });
   }
 
+
+  getReservasPorHabitacion(idhabitacion: number) {
+    const query = "SELECT fecha, noches FROM reserva WHERE idhabitacion = ?";
+    return this.database.executeSql(query, [idhabitacion]).then((data) => {
+      let reservas = [];
+      for (let i = 0; i < data.rows.length; i++) {
+        // Asegúrate de convertir la fecha en un objeto Date
+        const reserva = {
+          fecha: new Date(data.rows.item(i).fecha), // Convertimos la fecha a un objeto Date
+          noches: data.rows.item(i).noches
+        };
+        reservas.push(reserva);
+      }
+      return reservas;
+    });
+  }
+  
 }

@@ -1,6 +1,6 @@
 <ion-content [fullscreen]="true" class="ion-padding">
 
-  <ion-title class="titulo ion-text-center fade-in">Reserva Habitacion <br>Familiar</ion-title>
+  <ion-title class="titulo ion-text-center fade-in">Reserva Habitación <br>Familiar</ion-title>
 
   <ion-card>
     <img src="assets/familiar/familiar.3.jpg" alt="Habitación Familiar" />
@@ -9,42 +9,46 @@
     </ion-card-header>
   </ion-card>
 
-  
-    <ion-label>Selecciona la fecha {{idhabitacion}}</ion-label>
-    <mat-card class="demo-inline-calendar-card" name="fecha" >
-      <mat-calendar class="cal" [(selected)]="fecha"[minDate]="minDate"></mat-calendar>
-    </mat-card>
-    <p>Selected date: {{fecha}}</p>
-  
-  <ion-item>
-      <ion-select label="Noches Que Se Hospedaran" placeholder="seleccione" [(ngModel)]="noches" (ionChange)="calculartotal()">
-        <ion-select-option value="2">2 Noches</ion-select-option>
-        <ion-select-option value="3">3 Noches</ion-select-option>
-        <ion-select-option value="4">4 Noches</ion-select-option>
-        <ion-select-option value="5">5 Noches</ion-select-option>
-        <ion-select-option value="6">6 Noches</ion-select-option>
-      </ion-select>
-    </ion-item>
+  <ion-label>Selecciona la fecha {{idhabitacion}}</ion-label>
+  <mat-card class="demo-inline-calendar-card" name="fecha">
+    <mat-calendar 
+      [(selected)]="fecha" 
+      [minDate]="minDate" 
+      [dateFilter]="desactivarFechas"
+      class="cal">
+    </mat-calendar>
+  </mat-card>
+  <p>Fecha seleccionada: {{fecha | date: 'shortDate'}}</p>
 
-    <ion-item>
-      <ion-label>Moneda</ion-label>
-      <ion-select [(ngModel)]="monedaSeleccionada" (ionChange)="calculartotal()">
-        <ion-select-option value="USD">Dólares (USD)</ion-select-option>
-        <ion-select-option value="EUR">Euros (EUR)</ion-select-option>
-        <ion-select-option value="CLP">PESOS CL (CLP)</ion-select-option>ARS
-        <ion-select-option value="ARS">ARGENTINO (ARS)</ion-select-option>
-      </ion-select>
-    </ion-item>
-    
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>Total</ion-card-title>
-        <p>${{total | number:'1.2-2'}} CLP</p>
-      </ion-card-header>
-      <ion-card-content>
-        <p>Total convertido: {{totalConvertido | number:'1.2-2'}} {{monedaSeleccionada}}</p>
-      </ion-card-content>
-    </ion-card>
+  <ion-item>
+    <ion-select label="Noches Que Se Hospedarán" placeholder="seleccione" [(ngModel)]="noches" (ionChange)="calculartotal()">
+      <ion-select-option value="2">2 Noches</ion-select-option>
+      <ion-select-option value="3">3 Noches</ion-select-option>
+      <ion-select-option value="4">4 Noches</ion-select-option>
+      <ion-select-option value="5">5 Noches</ion-select-option>
+      <ion-select-option value="6">6 Noches</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Moneda</ion-label>
+    <ion-select [(ngModel)]="monedaSeleccionada" (ionChange)="calculartotal()">
+      <ion-select-option value="USD">Dólares (USD)</ion-select-option>
+      <ion-select-option value="EUR">Euros (EUR)</ion-select-option>
+      <ion-select-option value="CLP">PESOS CL (CLP)</ion-select-option>
+      <ion-select-option value="ARS">ARGENTINO (ARS)</ion-select-option>
+    </ion-select>
+  </ion-item>
+  
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Total</ion-card-title>
+      <p>${{total | number:'1.2-2'}} CLP</p>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Total convertido: {{totalConvertido | number:'1.2-2'}} {{monedaSeleccionada}}</p>
+    </ion-card-content>
+  </ion-card>
 
   <div class="ion-text-center">
     <ion-button id="trigger-button" (click)="reservar()">Reservar</ion-button>

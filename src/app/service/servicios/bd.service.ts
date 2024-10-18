@@ -394,14 +394,27 @@ BuscarUsu(idusuario: number){
 
 
 
-insertarUsuario(nombreusuario: string,rutusuario: string , correo: string, contrasena: string, fechan: string, telefono: string,imagenp:string, idrol: string){
-  return this.database.executeSql('INSERT INTO usuario(nombreusuario, correo, rutusuario, contrasena, fechan, telefono,imagenp, idrol) VALUES (?,?,?,?,?,?,?,?)',[nombreusuario, correo, rutusuario, contrasena, fechan, telefono,imagenp,idrol]).then(res=>{
-    this.presentAlert("Insertar","Usuario Registrado");
-    this.seleccionarUsuarios();
-  }).catch(e=>{
-    this.presentAlert('Insertar', 'Error: ' + JSON.stringify(e));
-  })
-}
+  insertarUsuario(nombreusuario: string, rutusuario: string, correo: string, contrasena: string, fechan: string, telefono: string, imagenp: string, idrol: string) {
+    if (!this.validarEdad(fechan)) {
+      this.presentAlert("Error", "Debes ser mayor de 18 años para registrarte.");
+      return; 
+    }
+      return this.database.executeSql('INSERT INTO usuario(nombreusuario, correo, rutusuario, contrasena, fechan, telefono, imagenp, idrol) VALUES (?,?,?,?,?,?,?,?)', 
+      [nombreusuario, correo, rutusuario, contrasena, fechan, telefono, imagenp, idrol])
+      .then(res => {
+        this.presentAlert("Insertar", "Usuario Registrado");
+        this.seleccionarUsuarios();
+      })
+      .catch(e => {
+        this.presentAlert('Insertar', 'Error: ' + JSON.stringify(e));
+      });
+  }
+  
+  validarEdad(fecha: string): boolean {
+    const fechaNacimiento = new Date(fecha);
+    const edad = new Date().getFullYear() - fechaNacimiento.getFullYear();
+    return edad > 18 || (edad === 18 && new Date().getTime() >= fechaNacimiento.getTime());
+  }
 
   //RESERVA
   insertarReserva(fecha: string,noches:number ,total:string,usuarioidusuario:string,idhabitacion: number){
@@ -482,6 +495,15 @@ insertarUsuario(nombreusuario: string,rutusuario: string , correo: string, contr
         reservas.push(reserva);
       }
       return reservas;
+    });
+  }
+
+  eliminarHabi(idhabitacion: string) {
+    return this.database.executeSql('DELETE FROM habitacion WHERE idhabitacion = ?', [idhabitacion]).then(res => {
+      this.presentAlert("Eliminar", "Habitacion ELIMINADA");
+      this.ListarReservas(); // Asegúrate de que este método recarga la lista de reservas
+    }).catch(e => {
+      this.presentAlert('Eliminar', 'Error: ' + JSON.stringify(e));
     });
   }
   

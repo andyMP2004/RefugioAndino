@@ -49,25 +49,23 @@
               {{x.total}}
           </td>
           <td>
-            <ng-container >
-              <button mat-icon-button color="accent">
-                <ion-icon name="create"></ion-icon>
-              </button>
-              <button mat-icon-button color="warn">
-                <ion-icon name="trash"></ion-icon>
-              </button>
-            </ng-container> 
+            <button mat-icon-button color="warm" (click)="eliminarr(x)">
+              <ion-icon name="trash"></ion-icon>
+            </button>
           </td>
         </tr>
       </tbody>
     </table>
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
   </div>
   
   
 
   <!-- Tabla de Habitaciones -->
   <div *ngIf="seleccion === 'gestion2'" class="table-wrapper">
+    <div class="agregar">
+      <ion-button color="primary" [routerLink]="['/agregar']">Agregar Habitacion
+      </ion-button>
+    </div>
     <table class="responsive-table">
       <thead>
         <tr>
@@ -89,17 +87,14 @@
             </ng-container>
           </td>
           <td>
-            <ng-container>
-              <button mat-icon-button color="primary" [routerLink]="['/agregar']">
-                <ion-icon name="add"></ion-icon>
-              </button>
-            </ng-container>
+            <button mat-icon-button color="warm" (click)="eliminarh(x)">
+              <ion-icon name="trash"></ion-icon>
+            </button>
           </td>
         </tr>
         
       </tbody>
     </table>
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
   </div>
   
 <!-- Tabla de Usuarios -->
@@ -119,9 +114,6 @@
         <td>{{ x.rutusuario }}</td>
         <td>{{ x.nombreusuario }}</td>
         <td>
-          <button mat-icon-button color="primary" >
-            <ion-icon name="create"></ion-icon>
-          </button>
           <button mat-icon-button color="warm" (click)="eliminar(x)">
             <ion-icon name="trash"></ion-icon>
           </button>
@@ -129,9 +121,6 @@
       </tr>
     </tbody>
   </table>
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 </div>
-
-
 
 </ion-content>

@@ -22,87 +22,61 @@ export class RegistroPage implements OnInit {
   constructor(private router: Router, private menu: MenuController,
      private alertController: AlertController, private storage: NativeStorage,private bd: BdService, private auth: AuthService ) {}
 
-  async irPagina() {
-    if (!this.correo || !this.contrasena || !this.nombre || !this.rutusuario) {
-      const alert = await this.alertController.create({
-        header: 'Los datos no pueden estar vacíos',
-        message: 'Por favor, complete todos los datos',
-        buttons: ['Aceptar'],
-      });
-      await alert.present();
-    } 
-    else if (!/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(this.correo)) {
-      const alert = await this.alertController.create({
-        header: 'Correo invalido',
-        message: 'Por favor, ingrese un correo electronico valido',
-        buttons: ['Aceptar'],
-      });
-      await alert.present();
+     async irPagina() {
+      if (!this.correo || !this.contrasena || !this.nombre || !this.rutusuario) {
+        await this.presentAlert('Los datos no pueden estar vacíos', 'Por favor, complete todos los datos');
+        return;
+      } 
+      if (!/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(this.correo)) {
+        await this.presentAlert('Correo invalido', 'Por favor, ingrese un correo electronico valido');
+        return;
+      }
+      if (!/^[0-9]+[-]{1}[0-9kK]{1}$/.test(this.rutusuario)) {
+        await this.presentAlert('RUT invalido', 'El RUT debe estar en el formato "XXXXXXXX-X"');
+        return;
+      } 
+      if (this.nombre.trim().length == 0) {
+        await this.presentAlert('Nombre invalido', 'El nombre no puede estar vacio.');
+        return;
+      } 
+      if (this.contrasena.length < 6 || this.contrasena.length > 12) {
+        await this.presentAlert('Contraseña invalida', 'La contraseña debe tener entre 6 y 12 caracteres.');
+        return;
+      }
+      if (!/(?=.*[A-Z])/.test(this.contrasena)) {
+        await this.presentAlert('Contraseña invalida', 'La contraseña debe contener al menos una letra mayuscula.');
+        return;
+      }
+      if (!/(?=.*[a-z])/.test(this.contrasena)) {
+        await this.presentAlert('Contraseña invalida', 'La contraseña debe contener al menos una letra minuscula.');
+        return;
+      }
+      if (!/(?=.*\d)/.test(this.contrasena)) {
+        await this.presentAlert('Contraseña invalida', 'La contraseña debe contener al menos un numero.');
+        return;
+      }
+      if (!this.validarEdad(this.fechan)) {
+        await this.presentAlert("Error", "Debes ser mayor de 18 años para registrarte.");
+        return;
+      }
+    
+      await this.insertar(); 
+      await this.presentAlert('Cuenta Creada Correctamente', '');
+    
+      this.router.navigate(['/home']);
     }
-    else if (!/^[0-9]+[-]{1}[0-9kK]{1}$/.test(this.rutusuario)) {
-      const alert = await this.alertController.create({
-        header: 'RUT invalido',
-        message: 'El RUT debe estar en el formato "XXXXXXXX-X"',
-        buttons: ['Aceptar'],
-      });
-      await alert.present();
-    } 
-    else if (this.nombre.trim().length == 0) {
-      const alert = await this.alertController.create({
-        header: 'Nombre invalido',
-        message: 'El nombre no puede estar vacio.',
-        buttons: ['Aceptar'],
-      });
-      await alert.present();
-    } 
-    else if (this.contrasena.length < 6 || this.contrasena.length > 12) {
-      const alert = await this.alertController.create({
-        header: 'Contraseña invalida',
-        message: 'La contraseña debe tener entre 6 y 12 caracteres.',
-        buttons: ['Aceptar'],
-      });
-      await alert.present();
-    }
-    else if (!/(?=.*[A-Z])/.test(this.contrasena)) {
-      const alert = await this.alertController.create({
-        header: 'Contraseña invalida',
-        message: 'La contraseña debe contener al menos una letra mayuscula.',
-        buttons: ['Aceptar'],
-      });
-      await alert.present();
-    }
-    else if (!/(?=.*[a-z])/.test(this.contrasena)) {
-      const alert = await this.alertController.create({
-        header: 'Contraseña invalida',
-        message: 'La contraseña debe contener al menos una letra minuscula.',
-        buttons: ['Aceptar'],
-      });
-      await alert.present();
-    }
-
-    else if (!/(?=.*\d)/.test(this.contrasena)) {
-      const alert = await this.alertController.create({
-        header: 'Contraseña invalida',
-        message: 'La contraseña debe contener al menos un numero.',
-        buttons: ['Aceptar'],
-      });
-      await alert.present();
-    }
-    else{  
-        this.insertar();
-        const alert = await this.alertController.create({
-          header: 'Cuenta Creada Correctamente',
-          buttons: ['Aceptar'],
-        });
-        await alert.present();
-        
-    }
-  }
 
   ngOnInit() {
     this.menu.enable(false);
   }
-
+  async presentAlert(header: string, message: string) {
+    const alert = await this.alertController.create({
+      header: header,
+      message: message,
+      buttons: ['Aceptar'],
+    });
+    await alert.present();
+  }
   async crear() {
     const usuarioData = {
       rut: this.rutusuario,
@@ -118,8 +92,15 @@ export class RegistroPage implements OnInit {
     });
       await alert.present();
   }
-  insertar(){
-    this.auth.registro(this.correo,this.contrasena);
-    this.bd.insertarUsuario(this.nombre, this.rutusuario,this.correo,this.contrasena,this.fechan,this.telefono,'',this.idrol);
+  async insertar() {
+    this.auth.registro(this.correo, this.contrasena);
+    const fechaSinHora = this.fechan.split('T')[0]; 
+    await this.bd.insertarUsuario(this.nombre, this.rutusuario, this.correo, this.contrasena, fechaSinHora, this.telefono, '', this.idrol);
   }
+  validarEdad(fecha: string): boolean {
+    const fechaNacimiento = new Date(fecha);
+    const edad = new Date().getFullYear() - fechaNacimiento.getFullYear();
+    return edad > 18 || (edad === 18 && new Date().getTime() >= fechaNacimiento.getTime());
+  }
+  
 }//idusuario, nombreusuario, correo, rutusuario, contrasena, fechan, telefono, idrol

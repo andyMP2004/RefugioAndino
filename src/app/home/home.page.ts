@@ -49,18 +49,13 @@ export class HomePage {
             
 
         this.router.navigate(['/habitaciones']);
-
       }
-
-
-  }
-
+    } 
    }
 
   ngOnInit() {
   }
   ionViewWillEnter() {
-    // Cargamos los datos cada vez que la página se vuelve a mostrar
     this.menu.enable(false);
   }
 

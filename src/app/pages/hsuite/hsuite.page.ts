@@ -15,7 +15,6 @@ export class HsuitePage implements OnInit {
   precio: string = '';
   descripcion: string = '';
 
-  // Inicializamos la variable habitacions como un array vacío
   habitacions: any[] = [];
 
   constructor(
@@ -25,26 +24,21 @@ export class HsuitePage implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Nos suscribimos al estado de la base de datos y verificamos que esté lista
     this.bd.dbState().subscribe(res => {
       if (res) {
-        // Si la base de datos está lista, cargamos las habitaciones
         this.loadHabitaciones();
       }
     });
   }
 
   ionViewWillEnter() {
-    // Cargamos los datos cada vez que la página se vuelve a mostrar
     this.loadHabitaciones();
     this.menu.enable(true);
   }
 
-  // Método para cargar las habitaciones desde la base de datos
   loadHabitaciones() {
     this.bd.ListarHabis().then(() => {
       this.bd.fetchHabitacion().subscribe(habitacions => {
-        // Asignamos las habitaciones obtenidas desde el observable
         this.habitacions = habitacions;
       });
     }).catch(error => {
@@ -59,7 +53,5 @@ export class HsuitePage implements OnInit {
       }
     };
     this.router.navigate(['/reserva-suite'], navigationExtras);
-
-
   }
 }

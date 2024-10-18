@@ -32,6 +32,15 @@ ion-content {
   white-space: normal; 
   word-break: break-word; 
 }
+.agregar {
+  left: 20px;   
+}
+
+.agregar ion-button {
+  --padding-start: 16px; 
+  --padding-end: 16px;
+  font-size: 10px;    
+}
 
 .responsive-table th {
   background-color: #004080;

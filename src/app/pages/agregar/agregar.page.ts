@@ -15,7 +15,7 @@ export class AgregarPage implements OnInit {
   precio: string="";
   imagen:string="";
   idtipo!: number;
-  constructor(private menu: MenuController, private router: Router, private alertController: AlertController,private bd: BdService) {}
+  constructor(private menu: MenuController, private router: Router, private alertController: AlertController,private bd: BdService  ) {}
   private valor(value: number): string {
     return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   }
@@ -30,7 +30,10 @@ export class AgregarPage implements OnInit {
     } else{
 
       this.bd.insertahabi(this.idtipo);
+      this.router.navigate(['/administrador']);
     }
+    
+
   }
 
   ngOnInit() {

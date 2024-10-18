@@ -75,7 +75,23 @@ export class AdministradorPage implements OnInit {
   eliminar(x: any) {
     this.bd.eliminarUsuario(x.idusuario);
   }
+  eliminarh(x: any) {
+    this.bd.eliminarHabi(x.idhabitacion);
+    this.listarHabitaciones();
+  }
 
+  eliminarr(x: any) {
+    this.bd.eliminarReserva(x.idreserva).then(() => {
+      this.listarReservas(); 
+    })
+  }
+  
+  listarReservas() {
+    this.bd.fetchReserva().subscribe((reservas) => {
+      this.arregloreserva = reservas;
+    });
+  }
+  
   listarHabitaciones() {
     this.bd.seleccionarHabitaciones().then(() => {
       this.bd.fetchHabitacion().subscribe((habitaciones) => {

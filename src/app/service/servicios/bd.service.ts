@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SQLite, SQLiteObject } from '@awesome-cordova-plugins/sqlite/ngx';
 import { AlertController, Platform } from '@ionic/angular';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, identity, Observable } from 'rxjs';
 import { Rol } from './rol';
 import { Usuario } from './usuario';
 import { Reserva } from './reserva';
@@ -23,36 +23,26 @@ export class BdService {
   TablaRol: string = "CREATE TABLE IF NOT EXISTS rol(idrol INTEGER PRIMARY KEY AUTOINCREMENT, nombrerol VARCHAR(50));"; 
   registrorol: string = "INSERT or IGNORE INTO rol (idrol, nombrerol) VALUES (1, 'admin');";
 
-  TablaReserva: string = "CREATE TABLE IF NOT EXISTS reserva(idreserva INTEGER PRIMARY KEY AUTOINCREMENT, fecha VARCHAR(50) NOT NULL,noches INTEGER, total VARCHAR(50) NOT NULL, usuarioidusuario VARCHAR(200) NOT NULL, FOREIGN KEY (usuarioidusuario) REFERENCES usuario(idusuario));";
-  registroreserva: string = "INSERT or IGNORE INTO reserva (idreserva, fecha,noches, total, usuarioidusuario) VALUES (1, '30/03/2024',3, '$20.000', 2);";
+  TablaReserva: string = "CREATE TABLE IF NOT EXISTS reserva(idreserva INTEGER PRIMARY KEY AUTOINCREMENT, fecha VARCHAR(50) NOT NULL,noches INTEGER, total VARCHAR(50) NOT NULL, usuarioidusuario VARCHAR(200) NOT NULL,idhabitacion INTEGER, FOREIGN KEY (usuarioidusuario) REFERENCES usuario(idusuario), FOREIGN KEY (idhabitacion) REFERENCES habitacion(idhabitacion));";
+  registroreserva: string = "INSERT or IGNORE INTO reserva (idreserva, fecha,noches, total, usuarioidusuario,idhabitacion) VALUES (1, '30/03/2024',3, '$20.000', 2,1);";
 
-  TablaTipo: string = "CREATE TABLE IF NOT EXISTS tipo(idtipo INTEGER PRIMARY KEY AUTOINCREMENT, nombre VARCHAR(50) NOT NULL, imagen VARCHAR(100) NOT NULL, precio VARCHAR(50) NOT NULL, descripcion VARCHAR(200) NOT NULL);";
+  TablaTipo: string = "CREATE TABLE IF NOT EXISTS tipo(idtipo INTEGER PRIMARY KEY, nombre VARCHAR(50) NOT NULL, imagen VARCHAR(100) NOT NULL, precio VARCHAR(50) NOT NULL, descripcion VARCHAR(200) NOT NULL);";
   registrotipo: string = "INSERT or IGNORE INTO tipo (idtipo, nombre, imagen, precio, descripcion) VALUES (1, 'Habitacion Familiar', 'assets/familiar/familiar.3.jpg', '$20.000', 'Habitación acogedora con varias camas, ideal para familias. Ofrece TV, iluminación suave y decoración sencilla.');";
-  registrotipo2: string = "INSERT or IGNORE INTO tipo (idtipo, nombre, imagen, precio, descripcion) VALUES (2, 'Habitacion Familiar', 'assets/familiar/familiar.3.jpg', '$20.000', 'Habitación acogedora con varias camas, ideal para familias. Ofrece TV, iluminación suave y decoración sencilla.');";
-  registrotipo3: string = "INSERT or IGNORE INTO tipo (idtipo, nombre, imagen, precio, descripcion) VALUES (3, 'Habitacion Familiar', 'assets/familiar/familiar.3.jpg', '$20.000', 'Habitación acogedora con varias camas, ideal para familias. Ofrece TV, iluminación suave y decoración sencilla.');";
-  registrotipo4: string = "INSERT or IGNORE INTO tipo (idtipo, nombre, imagen, precio, descripcion) VALUES (4, 'Habitacion Familiar', 'assets/familiar/familiar.3.jpg', '$20.000', 'Habitación acogedora con varias camas, ideal para familias. Ofrece TV, iluminación suave y decoración sencilla.');";
-  registrotipo5: string = "INSERT or IGNORE INTO tipo (idtipo, nombre, imagen, precio, descripcion) VALUES (5, 'Suite Presidencial', 'assets/precidencial/precidencial1.jpg', '$60.000', 'Espacio lujoso con vistas panorámicas, chimenea, cama king size y diseño moderno. Perfecta para una experiencia exclusiva. ');";
-  registrotipo6: string = "INSERT or IGNORE INTO tipo (idtipo, nombre, imagen, precio, descripcion) VALUES (6, 'Suite Presidencial', 'assets/precidencial/precidencial1.jpg', '$60.000', 'Espacio lujoso con vistas panorámicas, chimenea, cama king size y diseño moderno. Perfecta para una experiencia exclusiva.');";
-  registrotipo7: string = "INSERT or IGNORE INTO tipo (idtipo, nombre, imagen, precio, descripcion) VALUES (7, 'Suite Presidencial', 'assets/precidencial/precidencial1.jpg', '$60.000', 'Espacio lujoso con vistas panorámicas, chimenea, cama king size y diseño moderno. Perfecta para una experiencia exclusiva.');";
-  registrotipo8: string = "INSERT or IGNORE INTO tipo (idtipo, nombre, imagen, precio, descripcion) VALUES (8, 'Suite Presidencial', 'assets/precidencial/precidencial1.jpg', '$60.000', 'Espacio lujoso con vistas panorámicas, chimenea, cama king size y diseño moderno. Perfecta para una experiencia exclusiva.');";
-  registrotipo9: string = "INSERT or IGNORE INTO tipo (idtipo, nombre, imagen, precio, descripcion) VALUES (9, 'Habitacion Suite', 'assets/suite/suite4.webp', '$40.000', 'Suite moderna y lujosa con cama amplia, cabecero acolchado, tonos azul suave y muebles minimalistas. Grandes ventanales ofrecen luz natural, creando un ambiente acogedor y sofisticado ');";
-  registrotipo10: string = "INSERT or IGNORE INTO tipo (idtipo, nombre, imagen, precio, descripcion) VALUES (10, 'Habitacion Suite', 'assets/suite/suite4.webp', '$40.000', 'Suite moderna y lujosa con cama amplia, cabecero acolchado, tonos azul suave y muebles minimalistas. Grandes ventanales ofrecen luz natural, creando un ambiente acogedor y sofisticado');";
-  registrotipo11: string = "INSERT or IGNORE INTO tipo (idtipo, nombre, imagen, precio, descripcion) VALUES (11, 'Habitacion Suite', 'assets/suite/suite4.webp', '$40.000', 'Suite moderna y lujosa con cama amplia, cabecero acolchado, tonos azul suave y muebles minimalistas. Grandes ventanales ofrecen luz natural, creando un ambiente acogedor y sofisticado');";
-  registrotipo12: string = "INSERT or IGNORE INTO tipo (idtipo, nombre, imagen, precio, descripcion) VALUES (12, 'Habitacion Suite', 'assets/suite/suite4.webp', '$40.000', 'Suite moderna y lujosa con cama amplia, cabecero acolchado, tonos azul suave y muebles minimalistas. Grandes ventanales ofrecen luz natural, creando un ambiente acogedor y sofisticado');";
+  registrotipo2: string = "INSERT or IGNORE INTO tipo (idtipo, nombre, imagen, precio, descripcion) VALUES (2, 'Suite Presidencial', 'assets/precidencial/precidencial1.jpg', '$60.000', 'Espacio lujoso con vistas panorámicas, chimenea, cama king size y diseño moderno. Perfecta para una experiencia exclusiva. ');";
+  registrotipo3: string = "INSERT or IGNORE INTO tipo (idtipo, nombre, imagen, precio, descripcion) VALUES (3, 'Habitacion Suite', 'assets/suite/suite4.webp', '$40.000', 'Suite moderna y lujosa con cama amplia, cabecero acolchado, tonos azul suave y muebles minimalistas. Grandes ventanales ofrecen luz natural, creando un ambiente acogedor y sofisticado ');";
+
 
 
 
   TablaDetalle: string = "CREATE TABLE IF NOT EXISTS detalle(iddetalle INTEGER PRIMARY KEY AUTOINCREMENT, idreserva INTEGER NOT NULL, habitacionidhabitacion INTEGER NOT NULL, cantidad INTEGER NOT NULL, finicio VARCHAR(50) NOT NULL, subtotal VARCHAR(50) NOT NULL, FOREIGN KEY (idreserva) REFERENCES reserva(idreserva), FOREIGN KEY (habitacionidhabitacion) REFERENCES habitacion(idhabitacion));";
   registrodetalle: string = "INSERT or IGNORE INTO detalle (iddetalle, idreserva, habitacionidhabitacion, cantidad, finicio, subtotal) VALUES (1, 2, 3, 4, '10/04/2024', '$54.000');";
 
-  TablaHabitacion: string = "CREATE TABLE IF NOT EXISTS habitacion(idhabitacion INTEGER PRIMARY KEY, tipoidtipo INTEGER NOT NULL, nombreh VARCHAR(50) NOT NULL, estadoidestado INTEGER NOT NULL, FOREIGN KEY (tipoidtipo) REFERENCES tipo(idtipo), FOREIGN KEY (estadoidestado) REFERENCES estado(idestado));";
-  registrohabitacion1: string = "INSERT or IGNORE INTO habitacion (idhabitacion, tipoidtipo, nombreh, estadoidestado) VALUES (1, 1, 'familiar', 1);";
-  registrohabitacion2: string = "INSERT or IGNORE INTO habitacion (idhabitacion, tipoidtipo, nombreh, estadoidestado) VALUES (2, 2, 'suite', 2);";
-  registrohabitacion3: string = "INSERT or IGNORE INTO habitacion (idhabitacion, tipoidtipo, nombreh, estadoidestado) VALUES (3, 3, 'presidencial', 3);";
-  registrohabitacion4: string = "INSERT or IGNORE INTO habitacion (idhabitacion, tipoidtipo, nombreh, estadoidestado) VALUES (4, 4, 'presidencial',4);";
+  TablaHabitacion: string = "CREATE TABLE IF NOT EXISTS habitacion(idhabitacion INTEGER PRIMARY KEY AUTOINCREMENT, tipoidtipo INTEGER NOT NULL, estadoidestado INTEGER, FOREIGN KEY (tipoidtipo) REFERENCES tipo(idtipo));";
+  registrohabitacion1: string = "INSERT or IGNORE INTO habitacion (idhabitacion, tipoidtipo) VALUES (1, 1);";
+  registrohabitacion2: string = "INSERT or IGNORE INTO habitacion (idhabitacion, tipoidtipo) VALUES (2, 3);";
+  registrohabitacion3: string = "INSERT or IGNORE INTO habitacion (idhabitacion, tipoidtipo) VALUES (3, 2);";
+  registrohabitacion4: string = "INSERT or IGNORE INTO habitacion (idhabitacion, tipoidtipo) VALUES (4, 2);";
 
-  TablaEstado: string = "CREATE TABLE IF NOT EXISTS estado(idestado INTEGER PRIMARY KEY, nombre VARCHAR(50) NOT NULL);";
-  registroestado: string = "INSERT or IGNORE INTO estado (idestado, nombre) VALUES (1, 'disponible');";
 
 
   listadoRol = new BehaviorSubject([]);
@@ -137,7 +127,7 @@ export class BdService {
       await this.database.executeSql(this.TablaTipo,[]);
       await this.database.executeSql(this.TablaDetalle,[]); 
       await this.database.executeSql(this.TablaHabitacion,[]);
-      await this.database.executeSql(this.TablaEstado,[]);
+
 
       await this.database.executeSql(this.registroUsuario, []);
       await this.database.executeSql(this.registrorol,[]);
@@ -145,21 +135,12 @@ export class BdService {
       await this.database.executeSql(this.registrotipo,[]);
       await this.database.executeSql(this.registrotipo2,[]);
       await this.database.executeSql(this.registrotipo3,[]);
-      await this.database.executeSql(this.registrotipo4,[]);
-      await this.database.executeSql(this.registrotipo5,[]);
-      await this.database.executeSql(this.registrotipo6,[]);
-      await this.database.executeSql(this.registrotipo7,[]);
-      await this.database.executeSql(this.registrotipo8,[]);
-      await this.database.executeSql(this.registrotipo9,[]);
-      await this.database.executeSql(this.registrotipo10,[]);
-      await this.database.executeSql(this.registrotipo11,[]);
-      await this.database.executeSql(this.registrotipo12,[]);
       await this.database.executeSql(this.registrodetalle,[]); 
       await this.database.executeSql(this.registrohabitacion1,[]);
       await this.database.executeSql(this.registrohabitacion2,[]);
       await this.database.executeSql(this.registrohabitacion3,[]);
       await this.database.executeSql(this.registrohabitacion4,[]);
-      await this.database.executeSql(this.registroestado,[]);
+
 
       this.seleccionarHabitaciones();
       this.seleccionarUsuarios();
@@ -273,7 +254,7 @@ BuscarUsu(idusuario: number){
   }
   //HABITACIONES
   seleccionarHabitaciones() {
-    return this.database.executeSql('SELECT COUNT(h.idhabitacion) AS cantidad, t.nombre AS tipohabitacion FROM habitacion h INNER JOIN tipo t ON h.tipoidtipo = t.idtipo GROUP BY t.nombre', []).then(res => {
+    return this.database.executeSql('SELECT h.idhabitacion, t.nombre FROM habitacion h INNER JOIN tipo t ON h.tipoidtipo = t.idtipo ', []).then(res => {
       // Variable para almacenar el resultado de la consulta
       let items: Habitacion[] = [];
       // Valido si trae al menos un registro
@@ -282,8 +263,8 @@ BuscarUsu(idusuario: number){
         for (var i = 0; i < res.rows.length; i++) {
           // Agrego los registros a mi lista
           items.push({
-            cantidad: res.rows.item(i).cantidad,
-            tipohabitacion: res.rows.item(i).tipohabitacion
+            idhabitacion: res.rows.item(i).idhabitacion,
+            nombre: res.rows.item(i).nombre
 
           });
         }
@@ -328,51 +309,26 @@ BuscarUsu(idusuario: number){
       });
 
     }
-
-  ListarHabi() {
-    return this.database.executeSql('SELECT idtipo, nombre, imagen, precio, descripcion FROM tipo WHERE precio = ?', ['$20.000']).then(res => {
-      // Variable para almacenar el resultado de la consulta
-      let items: Tipo[] = [];
-      // Valido si trae al menos un registro
-      if (res.rows.length > 0) {
-        // Recorro mi resultado
-        for (let i = 0; i < res.rows.length; i++) {
-          // Agrego los registros a mi lista
-          items.push({
-            idtipo: res.rows.item(i).idtipo,
-            nombre: res.rows.item(i).nombre,
-            imagen: res.rows.item(i).imagen,
-            precio: res.rows.item(i).precio,
-            descripcion: res.rows.item(i).descripcion
-          });
-        }
-      }
-      // Actualizar el observable
-      this.listadoTipo.next(items as any);
-    });
-  }
-  
-  insertahabi(nombre:string, imagen:string, precio:string, descripcion:string){
-    return this.database.executeSql('INSERT INTO tipo(nombre, imagen, precio, descripcion) VALUES (?,?,?,?)',[nombre, imagen,precio,descripcion]).then(res=>{
+  insertahabi(tipoidtipo: number){
+    return this.database.executeSql('INSERT INTO habitacion(tipoidtipo) VALUES (?)',[tipoidtipo]).then(res=>{
       this.presentAlert("Insertar","Habitacion Registrada");
-      this.ListarHabi();
-      this.ListarHabip();
-      this.ListarHabis();
+      this.seleccionarHabitaciones();
     }).catch(e=>{
       this.presentAlert('Insertar', 'Error: ' + JSON.stringify(e));
     })
   }
 
-  ListarHabip() {
-    return this.database.executeSql('SELECT idtipo, nombre, imagen, precio, descripcion FROM tipo WHERE precio = ?', ['$60.000']).then(res => {
+  ListarHabi() {
+    return this.database.executeSql('SELECT h.idhabitacion, t.idtipo, t.nombre, t.imagen, t.precio, t.descripcion FROM habitacion h INNER JOIN tipo t ON h.tipoidtipo = t.idtipo WHERE t.idtipo = ?', ['1']).then(res => {
       // Variable para almacenar el resultado de la consulta
-      let items: Tipo[] = [];
+      let items: Habitacion[] = [];
       // Valido si trae al menos un registro
       if (res.rows.length > 0) {
         // Recorro mi resultado
         for (let i = 0; i < res.rows.length; i++) {
           // Agrego los registros a mi lista
           items.push({
+            idhabitacion : res.rows.item(i).idhabitacion,
             idtipo: res.rows.item(i).idtipo,
             nombre: res.rows.item(i).nombre,
             imagen: res.rows.item(i).imagen,
@@ -382,20 +338,22 @@ BuscarUsu(idusuario: number){
         }
       }
       // Actualizar el observable
-      this.listadoTipo.next(items as any);
+      this.listadoHabitacion.next(items as any);
     });
   }
-  
-  ListarHabis() {
-    return this.database.executeSql('SELECT idtipo, nombre, imagen, precio, descripcion FROM tipo WHERE precio = ?', ['$40.000']).then(res => {
+
+
+  ListarHabip() {
+    return this.database.executeSql('SELECT h.idhabitacion, t.idtipo, t.nombre, t.imagen, t.precio, t.descripcion FROM habitacion h INNER JOIN tipo t ON h.tipoidtipo = t.idtipo WHERE t.idtipo = ?', ['2']).then(res => {
       // Variable para almacenar el resultado de la consulta
-      let items: Tipo[] = [];
+      let items: Habitacion[] = [];
       // Valido si trae al menos un registro
       if (res.rows.length > 0) {
         // Recorro mi resultado
         for (let i = 0; i < res.rows.length; i++) {
           // Agrego los registros a mi lista
           items.push({
+            idhabitacion : res.rows.item(i).idhabitacion,
             idtipo: res.rows.item(i).idtipo,
             nombre: res.rows.item(i).nombre,
             imagen: res.rows.item(i).imagen,
@@ -405,7 +363,32 @@ BuscarUsu(idusuario: number){
         }
       }
       // Actualizar el observable
-      this.listadoTipo.next(items as any);
+      this.listadoHabitacion.next(items as any);
+    });
+  }
+
+  
+  ListarHabis() {
+    return this.database.executeSql('SELECT h.idhabitacion, t.idtipo, t.nombre, t.imagen, t.precio, t.descripcion FROM habitacion h INNER JOIN tipo t ON h.tipoidtipo = t.idtipo WHERE t.idtipo = ?', ['3']).then(res => {
+      // Variable para almacenar el resultado de la consulta
+      let items: Habitacion[] = [];
+      // Valido si trae al menos un registro
+      if (res.rows.length > 0) {
+        // Recorro mi resultado
+        for (let i = 0; i < res.rows.length; i++) {
+          // Agrego los registros a mi lista
+          items.push({
+            idhabitacion : res.rows.item(i).idhabitacion,
+            idtipo: res.rows.item(i).idtipo,
+            nombre: res.rows.item(i).nombre,
+            imagen: res.rows.item(i).imagen,
+            precio: res.rows.item(i).precio,
+            descripcion: res.rows.item(i).descripcion
+          });
+        }
+      }
+      // Actualizar el observable
+      this.listadoHabitacion.next(items as any);
     });
   }
 
@@ -421,16 +404,16 @@ insertarUsuario(nombreusuario: string,rutusuario: string , correo: string, contr
 }
 
   //RESERVA
-  insertarReserva(fecha: string,noches:number ,total:string,usuarioidusuario:string){
-    return this.database.executeSql('INSERT INTO reserva(fecha,noches,total,usuarioidusuario) VALUES (?,?,?,?)',[fecha,noches,total,usuarioidusuario]).then(res=>{
+  insertarReserva(fecha: string,noches:number ,total:string,usuarioidusuario:string,idhabitacion: number){
+    return this.database.executeSql('INSERT INTO reserva(fecha,noches,total,usuarioidusuario,idhabitacion) VALUES (?,?,?,?,?)',[fecha,noches,total,usuarioidusuario,idhabitacion]).then(res=>{
       this.presentAlert("Insertar","Reserva Registrada");
       this.ListarReservas();
     }).catch(e=>{
       this.presentAlert('Insertar', 'Error: ' + JSON.stringify(e)); 
     })
   }
-  insertarReservas(fecha: string,noches:number ,total:string,usuarioidusuario:string){
-    return this.database.executeSql('INSERT INTO reserva(fecha,noches,total,usuarioidusuario) VALUES (?,?,?,?)',[fecha,noches,total,usuarioidusuario]).then(res=>{
+  insertarReservas(fecha: string,noches:number ,total:string,usuarioidusuario:string, idhabitacion: number){
+    return this.database.executeSql('INSERT INTO reserva(fecha,noches,total,usuarioidusuario,idhabitacion) VALUES (?,?,?,?,?)',[fecha,noches,total,usuarioidusuario,idhabitacion]).then(res=>{
       this.presentAlert("Insertar","Reserva Registrada");
       this.ListarReservas();
     }).catch(e=>{
@@ -438,8 +421,8 @@ insertarUsuario(nombreusuario: string,rutusuario: string , correo: string, contr
     })
   }
 
-  insertarReservap(fecha: string,noches:number ,total:string,usuarioidusuario:string){
-    return this.database.executeSql('INSERT INTO reserva(fecha,noches,total,usuarioidusuario) VALUES (?,?,?,?)',[fecha,noches,total,usuarioidusuario]).then(res=>{
+  insertarReservap(fecha: string,noches:number ,total:string,usuarioidusuario:string,idhabitacion: number){
+    return this.database.executeSql('INSERT INTO reserva(fecha,noches,total,usuarioidusuario,idhabitacion) VALUES (?,?,?,?,?)',[fecha,noches,total,usuarioidusuario,idhabitacion]).then(res=>{
       this.presentAlert("Insertar","Reserva Registrada");
       this.ListarReservas();
     }).catch(e=>{
@@ -477,6 +460,11 @@ insertarUsuario(nombreusuario: string,rutusuario: string , correo: string, contr
       this.seleccionarUsuarios();
     }).catch(e => {
       this.presentAlert('Modificar', 'Error: ' + JSON.stringify(e));
+    });
+  }
+
+  llamarid(idhabitacion: number){
+    return this.database.executeSql('SELECT idhabitacion FROM habitacion WHERE idhabitacion = ?', [idhabitacion]).then(res => {
     });
   }
 

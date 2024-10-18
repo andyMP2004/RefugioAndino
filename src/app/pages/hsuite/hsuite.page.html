@@ -14,10 +14,10 @@
       <ion-card-title>{{ x.nombre }}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <p>Id: {{x.idtipo}}</p>
+      <p>Id: {{x.idhabitacion}}</p>
       <p>Descripción: {{ x.descripcion }}</p>
       <p>Precio: {{ x.precio }}</p>
-      <ion-button color="warning" expand="block" [routerLink]="'/reserva-suite'">Reserva</ion-button>
+      <ion-button color="warning" expand="block" (click)="irReservar(x.idhabitacion)">Reserva</ion-button>
     </ion-card-content>
   </ion-card>
 </ion-content>

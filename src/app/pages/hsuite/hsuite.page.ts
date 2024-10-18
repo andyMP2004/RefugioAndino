@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { AlertController, MenuController, ModalController } from '@ionic/angular';
 import { BdService } from 'src/app/service/servicios/bd.service';
 
@@ -43,12 +43,23 @@ export class HsuitePage implements OnInit {
   // Método para cargar las habitaciones desde la base de datos
   loadHabitaciones() {
     this.bd.ListarHabis().then(() => {
-      this.bd.fetchTipo().subscribe(habitacions => {
+      this.bd.fetchHabitacion().subscribe(habitacions => {
         // Asignamos las habitaciones obtenidas desde el observable
         this.habitacions = habitacions;
       });
     }).catch(error => {
       console.error("Error al cargar las habitaciones:", error);
     });
+  }
+
+  irReservar(idhabitacion: number) {
+    let navigationExtras: NavigationExtras = {
+      state: {
+        id: idhabitacion
+      }
+    };
+    this.router.navigate(['/reserva-suite'], navigationExtras);
+
+
   }
 }

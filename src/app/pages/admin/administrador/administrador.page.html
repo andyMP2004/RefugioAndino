@@ -71,30 +71,27 @@
     <table class="responsive-table">
       <thead>
         <tr>
-          <th>Camas</th>
-          <th>Nombre</th>
+          <th>id habitacion</th>
+          <th>tipo habitacion</th>
           <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let x of arreglohabitacion; let i = index">
+        <tr *ngFor="let x of arreglohabitacion">
           <td>
             <ng-container>
-              {{ x.cantidad }}
+              {{ x.idhabitacion }}
             </ng-container>
           </td>
           <td>
             <ng-container>
-              {{ x.tipohabitacion }}
+              {{ x.nombre }}
             </ng-container>
           </td>
           <td>
             <ng-container>
-              <button mat-icon-button color="primary" (click)="navigate(i)">
+              <button mat-icon-button color="primary" [routerLink]="['/agregar']">
                 <ion-icon name="add"></ion-icon>
-              </button>
-              <button mat-icon-button color="accent">
-                <ion-icon name="create"></ion-icon>
               </button>
             </ng-container>
           </td>

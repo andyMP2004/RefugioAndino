@@ -32,8 +32,8 @@ export class AdministradorPage implements OnInit {
 
   arreglohabitacion: any = [
     {
-      cantidad: '',
-      tipohabitacion: ''
+      idhabitacion: '',
+      nombre: ''
     }
   ];
 
@@ -49,6 +49,9 @@ export class AdministradorPage implements OnInit {
 
   ngOnInit() {
     this.menu.enable(false);
+
+    this.listarHabitaciones();
+
     this.bd.dbState().subscribe(res => {
       this.arreglousuario = res;
       if (res) {
@@ -58,14 +61,6 @@ export class AdministradorPage implements OnInit {
       }
     });
 
-    this.bd.dbState().subscribe(res => {
-      this.arreglohabitacion = res;
-      if (res) {
-        this.bd.fetchHabitacion().subscribe(users => {
-          this.arreglohabitacion = users;
-        });
-      }
-    });
     this.bd.dbState().subscribe(res => {
       this.arregloreserva = res;
       if (res) {
@@ -81,17 +76,12 @@ export class AdministradorPage implements OnInit {
     this.bd.eliminarUsuario(x.idusuario);
   }
 
-
-
-
-  navigate(index: number) {
-    if (index == 0) {
-      this.router.navigate(['/agregar']);
-    } else if (index == 1) {
-      this.router.navigate(['/agregarp']);
-    } else if (index == 2) {
-      this.router.navigate(['/agregars']);
-    }
+  listarHabitaciones() {
+    this.bd.seleccionarHabitaciones().then(() => {
+      this.bd.fetchHabitacion().subscribe((habitaciones) => {
+        this.arreglohabitacion = habitaciones;
+      });
+    });
   }
 
 

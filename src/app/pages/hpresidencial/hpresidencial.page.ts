@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { BdService } from 'src/app/service/servicios/bd.service';
 
@@ -17,6 +17,7 @@ export class HpresidencialPage implements OnInit {
 
   habitaciones: any = [
     {
+      idhabitacion: '',
       idtipo: '',
       nombre: '',
       imagen: '',
@@ -25,21 +26,34 @@ export class HpresidencialPage implements OnInit {
     }
   ];
 
-  constructor(private menu: MenuController, private bd: BdService, private router: Router) {}
-
-  ngOnInit() {
+  constructor(private menu: MenuController, private bd: BdService, private router: Router) {
     this.bd.dbState().subscribe(res => {
       if (res) {
         // Llamar a ListarHabip para obtener las habitaciones de tipo "Suite Presidencial"
         this.bd.ListarHabip().then(() => {
-          this.bd.fetchTipo().subscribe(habitaciones => {
+          this.bd.fetchHabitacion().subscribe(habitaciones => {
             this.habitaciones = habitaciones;
           });
         });
       }
     });
   }
+
+  ngOnInit() {
+    
+  }
   ionViewWillEnter() {
     this.menu.enable(true);
+  }
+
+  irReservar(idhabitacion: number) {
+    let navigationExtras: NavigationExtras = {
+      state: {
+        id: idhabitacion
+      }
+    };
+    this.router.navigate(['/reserva-presidencial'], navigationExtras);
+
+
   }
 }

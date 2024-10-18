@@ -9,24 +9,15 @@
     <ion-card-title class="titulo">Añada La habitacion</ion-card-title>
     <img class="room" src="assets/icon/logo.png" alt="Logo Refugio Andino"/>
   <form class="agregar">
-    <div class="avatar-container">
-        <img alt="Silhouette of a person's head" *ngIf="imagen" [src]="imagen" />
-      <ion-button class="camara" size="small" color="dark" (click)="tomarFoto()">
-        <ion-icon name="camera-outline"></ion-icon>
-      </ion-button>
-    </div>
     <ion-item>
       <ion-icon name="bed" slot="start"></ion-icon> 
-      <ion-input label="Nombre Habitacion" labelPlacement="floating" placeholder="ingrese nombre de habitacion"  [(ngModel)]="nombre" name="nombre"></ion-input>
+      <ion-select label="ingrese tipo de habitacion" placeholder="seleccione" [(ngModel)]="idtipo" >
+        <ion-select-option value="1">habitacion familiar</ion-select-option>
+        <ion-select-option value="2">suite Presidencial</ion-select-option>
+        <ion-select-option value="3">suite de lujo</ion-select-option>
+      </ion-select>
     </ion-item>
-      <ion-item>
-        <ion-icon name="bed" slot="start"></ion-icon> 
-        <ion-input label="Descripcion Habitacion" labelPlacement="floating" placeholder="ingrese la descripcion"  [(ngModel)]="descripcion" name="descipcion"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-icon name="cash" slot="start"></ion-icon>
-        <ion-input label="Precio Habitacion" labelPlacement="floating" placeholder="Ingrese el precio" [(ngModel)]="precio" name="precio"></ion-input>
-      </ion-item>      
+
     <ion-button expand="full" color="primary" class="ion-margin-top boton"(click)="agregar()">
       Añadir
     </ion-button>

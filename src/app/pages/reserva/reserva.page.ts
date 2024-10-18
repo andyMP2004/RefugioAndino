@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, MenuController } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BdService } from 'src/app/service/servicios/bd.service';
 import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
 import { LocalNotifications } from '@capacitor/local-notifications';
@@ -26,17 +26,18 @@ export class ReservaPage implements OnInit {
   today = new Date(); // Fecha actual
   diamin: Date;
   minDate: Date = new Date();
-  constructor(
-    
-    private router: Router, 
-    private menu: MenuController, 
-    private alertController: AlertController, 
-    private bd: BdService, 
-    private storage: NativeStorage,
-    private divisaService: DivisaService  
-    
-  ) { this.diamin = this.today 
-    this.fecha = new Date();}
+  idhabitacion! : number ;
+
+  constructor(private router: Router, private menu: MenuController, private alertController: AlertController, private bd: BdService, private storage: NativeStorage,private divisaService: DivisaService, private activatedrouter: ActivatedRoute) { 
+    { this.diamin = this.today 
+      this.fecha = new Date();
+      this.activatedrouter.queryParams.subscribe(res=>{
+        if(this.router.getCurrentNavigation()?.extras.state){
+          this.idhabitacion = this.router.getCurrentNavigation()?.extras?.state?.['id'];
+
+        }
+      })
+      }}
 
     private valor(value: number): string {
       return `$${value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}`;
@@ -60,7 +61,7 @@ export class ReservaPage implements OnInit {
           this.totalConvertido = totalConvertido; 
           console.log(`Total convertido a ${this.monedaSeleccionada}: ${totalConvertido}`);
   
-          this.bd.insertarReserva(this.fecha.toString(),this.noches, totalEnPesos, this.idusuario); 
+          this.bd.insertarReserva(this.fecha.toString(),this.noches, totalEnPesos, this.idusuario, this.idhabitacion); 
         } catch (error) {
           console.error('Error al convertir la moneda:', error);
           const alert = await this.alertController.create({

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { BdService } from 'src/app/service/servicios/bd.service';
 
@@ -16,6 +16,7 @@ export class HfamiliarPage implements OnInit {
   descripcion: string = '';
 
   habitacion: any[] = [];
+  
 
   constructor(private menu: MenuController, private bd: BdService, private router: Router) {}
 
@@ -33,11 +34,22 @@ export class HfamiliarPage implements OnInit {
 
   loadHabitaciones() {
     this.bd.ListarHabi().then(() => {
-      this.bd.fetchTipo().subscribe(habitaciones => {
+      this.bd.fetchHabitacion().subscribe(habitaciones => {
         this.habitacion = habitaciones;
       });
     }).catch(error => {
       console.error("Error al cargar las habitaciones:", error);
     });
   }
+  irReservar(idhabitacion: number) {
+    let navigationExtras: NavigationExtras = {
+      state: {
+        id: idhabitacion
+      }
+    };
+    this.router.navigate(['/reserva'], navigationExtras);
+
+
+  }
+
 }

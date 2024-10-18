@@ -11,12 +11,17 @@
   </ion-card-header>
 </ion-card>
 
-<ion-label>Selecciona la fecha</ion-label>
-    <mat-card class="demo-inline-calendar-card" name="fecha">
-      <mat-calendar class="cal" [(selected)]="fecha"[minDate]="minDate"></mat-calendar>
-    </mat-card>
-    <p>Selected date: {{fecha}}</p>
-
+<ion-label>Selecciona la fecha {{idhabitacion}}</ion-label>
+  <mat-card class="demo-inline-calendar-card" name="fecha">
+    <mat-calendar 
+      [(selected)]="fecha" 
+      [minDate]="minDate" 
+      [dateFilter]="desactivarFechas"
+      class="cal">
+    </mat-calendar>
+  </mat-card>
+  <p>Fecha seleccionada: {{fecha | date: 'shortDate'}}</p>
+  
 <ion-item>
   <ion-select label="Noches Que Se Hospedarán" placeholder="Seleccione" [(ngModel)]="noches" (ionChange)="calculartotal()">
     <ion-select-option value="2">2 Noches</ion-select-option>

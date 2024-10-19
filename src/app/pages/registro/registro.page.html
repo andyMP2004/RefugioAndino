@@ -41,10 +41,14 @@
             </ion-item>
             <ion-item>
               <ion-icon name="lock-closed" slot="start"></ion-icon>
-              <ion-input type="password" placeholder="Repetir Contraseña" required>
+              <ion-input type="password" placeholder="Repetir Contraseña" [(ngModel)]="repetirContrasena" name="repetirContrasena" required>
                 <ion-input-password-toggle slot="end"></ion-input-password-toggle>
               </ion-input>
             </ion-item>
+            <ion-text color="danger" *ngIf="contrasena && repetirContrasena && contrasena !== repetirContrasena">
+              Las contraseñas no coinciden
+            </ion-text>
+            
             <ion-button expand="full" color="primary" class="ion-margin-top"  (click)="irPagina()">Acceder</ion-button>
             <ion-button expand="full" color="primary" class="ion-margin-top" [routerLink]="['/home']" type="button">Volver</ion-button>
           </form>

@@ -5,10 +5,25 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-item>
-    <ion-label>Selecciona la fecha</ion-label>
-    <ion-datetime presentation="date" [(ngModel)]="fecha" name="fecha"></ion-datetime>
-  </ion-item>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Tu Reserva Actual</ion-card-title>
+      <p>Habitación: {{habitacion}}</p>
+      <p>Fecha Actual: {{fecha | date: 'shortDate'}}</p>
+    </ion-card-header>
+  </ion-card>
+
+  <ion-label>Selecciona la nueva fecha</ion-label>
+  <mat-card class="demo-inline-calendar-card" name="fecha">
+    <mat-calendar 
+      [(selected)]="fecha" 
+      [minDate]="minDate" 
+      [dateFilter]="desactivarFechas"
+      class="cal">
+    </mat-calendar>
+  </mat-card>
+  
+  <p>Fecha seleccionada: {{fecha | date: 'shortDate'}}</p>
   
   <div class="ion-text-center">
     <ion-button id="trigger-button" (click)="reservar()">Guardar</ion-button>

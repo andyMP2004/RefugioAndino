@@ -9,7 +9,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 })
 export class AuthService {
 
-  constructor(private AFauth: AngularFireAuth, private reouter : Router, private db : AngularFirestore,) { }
+  constructor(private AFauth: AngularFireAuth, private reouter : Router, private db : AngularFirestore)   { }
 
 
 resetAuth(correo: string) {
@@ -25,6 +25,17 @@ resetAuth(correo: string) {
 inicioSesion(correo: string, contrasena: string) {
   return this.AFauth.signInWithEmailAndPassword(correo, contrasena)
     
+}
+
+eliminarUsuario(idusuario: string){
+  return this.AFauth.currentUser.then(user => {
+    if (user) {
+      // Requiere que el usuario esté autenticado
+      return user.delete();
+    } else {
+      return null;
+    }
+  });
 }
 
 }

@@ -419,7 +419,7 @@ BuscarUsu(idusuario: number){
   //RESERVA
   insertarReserva(fecha: string,noches:number ,total:string,usuarioidusuario:string,idhabitacion: number){
     return this.database.executeSql('INSERT INTO reserva(fecha,noches,total,usuarioidusuario,idhabitacion) VALUES (?,?,?,?,?)',[fecha,noches,total,usuarioidusuario,idhabitacion]).then(res=>{
-      this.presentAlert("Insertar","Reserva Registrada");
+      this.presentAlert("Reserva Registrada","Gracias por reservar con nosotros");
       this.ListarReservas();
     }).catch(e=>{
       this.presentAlert('Insertar', 'Error: ' + JSON.stringify(e)); 
@@ -427,7 +427,7 @@ BuscarUsu(idusuario: number){
   }
   insertarReservas(fecha: string,noches:number ,total:string,usuarioidusuario:string, idhabitacion: number){
     return this.database.executeSql('INSERT INTO reserva(fecha,noches,total,usuarioidusuario,idhabitacion) VALUES (?,?,?,?,?)',[fecha,noches,total,usuarioidusuario,idhabitacion]).then(res=>{
-      this.presentAlert("Insertar","Reserva Registrada");
+      this.presentAlert("Reserva Registrada","Gracias por reservar con nosotros");
       this.ListarReservas();
     }).catch(e=>{
       this.presentAlert('Insertar', 'Error: ' + JSON.stringify(e));
@@ -436,7 +436,7 @@ BuscarUsu(idusuario: number){
 
   insertarReservap(fecha: string,noches:number ,total:string,usuarioidusuario:string,idhabitacion: number){
     return this.database.executeSql('INSERT INTO reserva(fecha,noches,total,usuarioidusuario,idhabitacion) VALUES (?,?,?,?,?)',[fecha,noches,total,usuarioidusuario,idhabitacion]).then(res=>{
-      this.presentAlert("Insertar","Reserva Registrada");
+      this.presentAlert("Reserva Registrada","Gracias por reservar con nosotros");
       this.ListarReservas();
     }).catch(e=>{
       this.presentAlert('Insertar', 'Error: ' + JSON.stringify(e));
@@ -454,10 +454,8 @@ BuscarUsu(idusuario: number){
   
 
   modificarReserva(idreserva: string, fecha: string) {
-    this.presentAlert("service", "ID: " + idreserva);
     return this.database.executeSql('UPDATE reserva SET fecha = ? WHERE idreserva = ?', [fecha, idreserva])
       .then(res => {
-        this.presentAlert("Modificar", "RESERVA Modificada");
         return res;
       })
       .catch(e => {

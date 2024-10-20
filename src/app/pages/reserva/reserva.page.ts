@@ -12,9 +12,9 @@ import { DivisaService } from 'src/app/service/servicios/divisa.service';
   styleUrls: ['./reserva.page.scss'],
 })
 export class ReservaPage implements OnInit {
-  monedaSeleccionada: string = 'USD'; 
-  totalConvertido: number = 0; 
-  total: number = 20000; 
+  monedaSeleccionada: string = 'USD';
+  totalConvertido: number = 0;
+  total: number = 20000;
   idusuario: string = "";
   nombreusuario: string = "";
   fecha: Date;
@@ -56,10 +56,14 @@ export class ReservaPage implements OnInit {
       await alert.present();
       return;
     }
-
+  
+    // Eliminar la hora antes de guardar la fecha
+    const fechaSinHora = new Date(this.fecha);
+    fechaSinHora.setHours(0, 0, 0, 0); // Configura la hora en 00:00:00
+  
     // Verificar que la fecha y noches no caigan en fechas reservadas
     const fechasReservadas = this.fechasDesactivadas.filter(fechaOcupada => {
-      const fechaComparar = new Date(this.fecha);
+      const fechaComparar = new Date(fechaSinHora);
       for (let i = 0; i < this.noches; i++) {
         if (fechaOcupada.getTime() === fechaComparar.getTime()) {
           return true;
@@ -68,7 +72,7 @@ export class ReservaPage implements OnInit {
       }
       return false;
     });
-
+  
     if (fechasReservadas.length > 0) {
       const alert = await this.alertController.create({
         header: 'Fecha no disponible',
@@ -78,29 +82,33 @@ export class ReservaPage implements OnInit {
       await alert.present();
       return;
     }
-
-    const totalEnPesos = this.valor(this.total);
+  
+    // Conversión de moneda
+    const totalEnPesos = this.valor(this.total); // Asegúrate de que esto sigue siendo correcto
     try {
       const totalConvertido = await this.divisaService.convertCurrency(this.total, this.monedaSeleccionada);
       this.totalConvertido = totalConvertido; 
-      await this.bd.insertarReserva(this.fecha.toString(), this.noches, totalEnPesos, this.idusuario, this.idhabitacion); 
-
+  
+      // Guardar la fecha en el formato ISO sin la hora
+      await this.bd.insertarReserva(fechaSinHora.toISOString().split('T')[0], this.noches, totalEnPesos, this.idusuario, this.idhabitacion);
+      
+  
       const notificationId = Math.floor(Math.random() * 1000); 
       const notificationDate = new Date(Date.now() + 10000);
-
+  
       if (notificationDate.getTime() > Date.now()) {
         await LocalNotifications.schedule({
           notifications: [
             {
               title: 'Reserva Confirmada',
-              body: `Tu reserva ha sido realizada para el ${this.fecha}.`,
+              body: `Tu reserva ha sido realizada para el ${fechaSinHora.toLocaleDateString()}.`,
               id: notificationId,
               schedule: { at: notificationDate },
             }
           ]
         });
       }
-
+  
       this.router.navigate(['/habitaciones']);
     } catch (error) {
       const alert = await this.alertController.create({
@@ -111,7 +119,7 @@ export class ReservaPage implements OnInit {
       await alert.present();
     }
   }
-
+  
   async calculartotal() {
     const precio = 20000;
     this.total = this.noches * precio;
@@ -128,29 +136,41 @@ export class ReservaPage implements OnInit {
     this.fechasDesactivadas = []; // Reiniciar para evitar duplicados
   
     this.reservas.forEach(reserva => {
-      const fechaInicio = new Date(reserva.fecha); // Fecha de inicio de la reserva
-      const noches = reserva.noches;
+      const fechaInicio = new Date(reserva.fecha); 
+      fechaInicio.setHours(0, 0, 0, 0); // Eliminar la hora
   
+      const noches = reserva.noches;
+      
       // Iteramos por el número de noches reservadas
       for (let i = 0; i < noches; i++) {
         const fechaOcupada = new Date(fechaInicio);
-        fechaOcupada.setDate(fechaOcupada.getDate() + i); // Sumamos los días reservados
-        this.fechasDesactivadas.push(fechaOcupada); // Añadimos la fecha al array de fechas desactivadas
+        fechaOcupada.setDate(fechaOcupada.getDate() + i); // Añadir los días reservados
+        fechaOcupada.setHours(0, 0, 0, 0); // Asegurarse de que no haya horas
+        this.fechasDesactivadas.push(fechaOcupada); // Guardar la fecha sin horas
       }
     });
   }
+  
 
   desactivarFechas = (d: Date | null): boolean => {
-    const fecha = (d || new Date());
+    if (!d) return true; // Permitir selección si no hay fecha
   
-    // Compara solo año, mes y día de cada fecha
-    return !this.fechasDesactivadas.some(desactivada => 
-      desactivada.getFullYear() === fecha.getFullYear() &&
-      desactivada.getMonth() === fecha.getMonth() &&
-      desactivada.getDate() === fecha.getDate()
-    );
-  }
-
+    // Normalizamos la fecha seleccionada eliminando la hora
+    const fechaSeleccionada = new Date(d);
+    fechaSeleccionada.setHours(0, 0, 0, 0);
+  
+    // Comparamos solo la fecha (sin hora) con las fechas desactivadas
+    const fechaOcupada = this.fechasDesactivadas.some(fecha => {
+      const fechaNormalizada = new Date(fecha);
+      fechaNormalizada.setHours(0, 0, 0, 0);
+      return fechaNormalizada.getTime() === fechaSeleccionada.getTime();
+    });
+  
+    return !fechaOcupada; // Si está ocupada, la deshabilitamos
+  };
+  
+  
+  
   fechaOcupada(): boolean {
     const fechaComparar = new Date(this.fecha);
     
@@ -160,12 +180,12 @@ export class ReservaPage implements OnInit {
         fechaOcupada.getMonth() === fechaComparar.getMonth() &&
         fechaOcupada.getDate() === fechaComparar.getDate()
       )) {
-        return true; // Hay al menos una fecha ocupada
+        return true; 
       }
-      fechaComparar.setDate(fechaComparar.getDate() + 1); // Avanza a la siguiente noche
+      fechaComparar.setDate(fechaComparar.getDate() + 1);
     }
   
-    return false; // Ninguna fecha está ocupada
+    return false;
   }
 
   async ngOnInit() {
@@ -182,7 +202,8 @@ export class ReservaPage implements OnInit {
         this.idusuario = usuario.idusuario;
         this.nombreusuario = usuario.nombreusuario;
       }
-    });    
-    await this.cargarFechasReservadas(); // Cargar fechas reservadas
+    });
+
+    await this.cargarFechasReservadas();
   }
 }

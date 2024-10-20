@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
+import { AuthService } from 'src/app/service/servicios/auth.service';
 import { BdService } from 'src/app/service/servicios/bd.service';
 
 @Component({
@@ -8,7 +9,9 @@ import { BdService } from 'src/app/service/servicios/bd.service';
   templateUrl: './administrador.page.html',
   styleUrls: ['./administrador.page.scss'],
 })
-export class AdministradorPage implements OnInit {
+export class AdministradorPage implements OnInit { 
+  
+  constructor(private menu: MenuController, private bd: BdService, private router: Router,private authFireBase: AuthService) { }
   idusuario: string = "";
   nombreusuario: string = "";
   rutusuario: string = "";
@@ -45,7 +48,7 @@ export class AdministradorPage implements OnInit {
       usuarioidusuario: ''
     }
   ];
-  constructor(private menu: MenuController, private bd: BdService, private router: Router) { }
+ 
 
   ngOnInit() {
     this.menu.enable(false);
@@ -73,6 +76,7 @@ export class AdministradorPage implements OnInit {
 
 
   eliminar(x: any) {
+    this.authFireBase.eliminarUsuario(x.idusuario)
     this.bd.eliminarUsuario(x.idusuario);
   }
   eliminarh(x: any) {

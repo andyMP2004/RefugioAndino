@@ -28,6 +28,14 @@ ion-content {
   font-size: 25px;
   
   }
+  .cal{
+    width: 100%;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 25px;
+    background: linear-gradient(145deg, #f3f4f6, #e2e4e8);
+  }
   
   ion-item{
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);

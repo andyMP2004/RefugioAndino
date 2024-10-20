@@ -70,7 +70,6 @@ export class RegistroPage implements OnInit {
 
     // Si las validaciones pasan, inserta en la base de datos
     await this.insertar(); 
-    await this.presentAlert('Cuenta Creada Correctamente', '');
     this.router.navigate(['/home']);
   }
 

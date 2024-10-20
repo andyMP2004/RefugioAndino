@@ -20,7 +20,9 @@
       [minDate]="minDate" 
       [dateFilter]="desactivarFechas"
       class="cal">
-    </mat-calendar>
+    </mat-calendar><ion-text color="danger" *ngIf="fechaOcupada()">
+      La Fecha Seleccionada Esta Ocupada
+    </ion-text>
   </mat-card>
   
   <p>Fecha seleccionada: {{fecha | date: 'shortDate'}}</p>

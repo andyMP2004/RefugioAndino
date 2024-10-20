@@ -115,6 +115,24 @@ export class ModificarPage implements OnInit {
     );
   }
 
+  fechaOcupada(): boolean {
+    const fechaComparar = new Date(this.fecha);
+    
+    for (let i = 0; i < this.noches; i++) {
+      if (this.fechasDesactivadas.some(fechaOcupada =>
+        fechaOcupada.getFullYear() === fechaComparar.getFullYear() &&
+        fechaOcupada.getMonth() === fechaComparar.getMonth() &&
+        fechaOcupada.getDate() === fechaComparar.getDate()
+      )) {
+        return true; // Hay al menos una fecha ocupada
+      }
+      fechaComparar.setDate(fechaComparar.getDate() + 1); // Avanza a la siguiente noche
+    }
+  
+    return false; // Ninguna fecha está ocupada
+  }
+
+
   ngOnInit() {    
     this.menu.enable(false);
     this.cargarFechasReservadas(); // Cargar fechas reservadas

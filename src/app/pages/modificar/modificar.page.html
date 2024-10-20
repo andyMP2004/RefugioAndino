@@ -14,14 +14,15 @@
   </ion-card>
 
   <ion-label>Selecciona la nueva fecha</ion-label>
-  <mat-card  class="demo-inline-calendar-card" name="fecha">
+  <mat-card class="demo-inline-calendar-card" name="fecha">
     <mat-calendar 
       [(selected)]="fecha" 
       [minDate]="minDate" 
       [dateFilter]="desactivarFechas"
       class="cal">
-    </mat-calendar><ion-text color="danger" *ngIf="fechaOcupada()">
-      La Fecha Seleccionada Esta Ocupada
+    </mat-calendar>
+    <ion-text color="danger" *ngIf="fechaOcupada()">
+      La Fecha Seleccionada Está Ocupada
     </ion-text>
   </mat-card>
   

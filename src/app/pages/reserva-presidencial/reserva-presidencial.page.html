@@ -26,11 +26,11 @@
   
 <ion-item>
   <ion-select label="Noches Que Se Hospedarán" placeholder="Seleccione" [(ngModel)]="noches" (ionChange)="calculartotal()">
-    <ion-select-option value="2">2 Noches</ion-select-option>
-    <ion-select-option value="3">3 Noches</ion-select-option>
-    <ion-select-option value="4">4 Noches</ion-select-option>
-    <ion-select-option value="5">5 Noches</ion-select-option>
-    <ion-select-option value="6">6 Noches</ion-select-option>
+    <ion-select-option value="2">1 Noches</ion-select-option>
+    <ion-select-option value="3">2 Noches</ion-select-option>
+    <ion-select-option value="4">3 Noches</ion-select-option>
+    <ion-select-option value="5">4 Noches</ion-select-option>
+    <ion-select-option value="6">5 Noches</ion-select-option>
   </ion-select>
 </ion-item>
 
@@ -57,7 +57,7 @@
 <div class="ion-text-center">
   <ion-button id="trigger-button" (click)="reservar()">Reservar</ion-button>
   <br>
-  <ion-button color="danger" id="trigger-button" [routerLink]="['/hfamiliar']">Volver</ion-button>
+  <ion-button color="danger" id="trigger-button" [routerLink]="['/hpresidencial']">Volver</ion-button>
 </div>
 
 </ion-content>

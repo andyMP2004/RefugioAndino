@@ -495,6 +495,7 @@ BuscarUsu(idusuario: number){
       return reservas;
     });
   }
+  
 
   eliminarHabi(idhabitacion: string) {
     return this.database.executeSql('DELETE FROM habitacion WHERE idhabitacion = ?', [idhabitacion]).then(res => {
@@ -504,5 +505,7 @@ BuscarUsu(idusuario: number){
       this.presentAlert('Eliminar', 'Error: ' + JSON.stringify(e));
     });
   }
+
+  
   
 }

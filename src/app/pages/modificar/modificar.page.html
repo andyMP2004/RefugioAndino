@@ -29,7 +29,7 @@
   <p>Fecha seleccionada: {{fecha | date: 'shortDate'}}</p>
   
   <div class="ion-text-center">
-    <ion-button id="trigger-button" (click)="reservar()">Guardar</ion-button>
+    <ion-button id="trigger-button" (click)="reservar()" [disabled]="fechaOcupada()">Guardar</ion-button>
     <br>
     <ion-button color="danger" id="trigger-button" [routerLink]="['/reservas']" class="slide-up">Volver</ion-button>
   </div>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, MenuController } from '@ionic/angular';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { BdService } from 'src/app/service/servicios/bd.service';
 import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
 import { LocalNotifications } from '@capacitor/local-notifications';
@@ -92,7 +92,6 @@ export class ReservaPage implements OnInit {
       // Guardar la fecha en el formato ISO sin la hora
       await this.bd.insertarReserva(fechaSinHora.toISOString().split('T')[0], this.noches, totalEnPesos, this.idusuario, this.idhabitacion);
       
-  
       const notificationId = Math.floor(Math.random() * 1000); 
       const notificationDate = new Date(Date.now() + 10000);
   

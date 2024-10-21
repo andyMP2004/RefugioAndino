@@ -8,29 +8,44 @@
   <ion-card>
     <ion-card-header>
       <ion-card-title>Tu Reserva Actual</ion-card-title>
-      <p>Habitación: {{habitacion}}</p>
-      <p>Fecha Actual: {{fecha | date: 'shortDate'}}</p>
+      <!-- Mostrar el ID de la habitación -->
+      <p><strong>Habitación:</strong> {{idhabitacion}}</p>
+      <p><strong>Fecha Actual:</strong> {{fecha | date: 'shortDate'}}</p>
     </ion-card-header>
   </ion-card>
 
-  <ion-label>Selecciona la nueva fecha</ion-label>
+  <ion-item>
+    <ion-label>Selecciona la nueva fecha</ion-label>
+  </ion-item>
+
+  <!-- Calendario para seleccionar la nueva fecha -->
   <mat-card class="demo-inline-calendar-card" name="fecha">
     <mat-calendar 
       [(selected)]="fecha" 
       [minDate]="minDate" 
       [dateFilter]="desactivarFechas"
       class="cal">
-    </mat-calendar>
-    <ion-text color="danger" *ngIf="fechaOcupada()">
-      La Fecha Seleccionada Está Ocupada
+    </mat-calendar><ion-text color="danger" *ngIf="fechaOcupada()">
+      La Fecha Seleccionada Esta Ocupada
     </ion-text>
   </mat-card>
-  
   <p>Fecha seleccionada: {{fecha | date: 'shortDate'}}</p>
+
+  <ion-item>
+    <ion-select label="Noches Que Se Hospedarán" placeholder="seleccione" [(ngModel)]="noches">
+      <ion-select-option value="2">1 Noches</ion-select-option>
+      <ion-select-option value="3">2 Noches</ion-select-option>
+      <ion-select-option value="4">3 Noches</ion-select-option>
+      <ion-select-option value="5">4 Noches</ion-select-option>
+      <ion-select-option value="6">5 Noches</ion-select-option>
+    </ion-select>
+  </ion-item>
   
   <div class="ion-text-center">
-    <ion-button id="trigger-button" (click)="reservar()" [disabled]="fechaOcupada()">Guardar</ion-button>
+    <!-- Botón para guardar la reserva -->
+    <ion-button id="trigger-button" (click)="reservar()">Guardar</ion-button>
     <br>
+    <!-- Botón para volver a la lista de reservas -->
     <ion-button color="danger" id="trigger-button" [routerLink]="['/reservas']" class="slide-up">Volver</ion-button>
   </div>
 </ion-content>

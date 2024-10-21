@@ -275,7 +275,7 @@ BuscarUsu(idusuario: number){
   }
 
   ReservaPorUsuario(idusuario: string) {
-    return this.database.executeSql('SELECT r.idreserva, r.fecha, r.total, r.usuarioidusuario, u.nombreusuario AS nombreusuario FROM reserva r JOIN usuario u ON r.usuarioidusuario = u.idusuario WHERE r.usuarioidusuario = ?', [idusuario]).then(res => {
+    return this.database.executeSql('SELECT r.idreserva, r.fecha, r.total, r.usuarioidusuario, r.idhabitacion, u.nombreusuario AS nombreusuario FROM reserva r JOIN usuario u ON r.usuarioidusuario = u.idusuario WHERE r.usuarioidusuario = ?', [idusuario]).then(res => {
         let reservas: any[] = [];
         for (let i = 0; i < res.rows.length; i++) {
           reservas.push(res.rows.item(i));
@@ -453,8 +453,8 @@ BuscarUsu(idusuario: number){
   }
   
 
-  modificarReserva(idreserva: string, fecha: string) {
-    return this.database.executeSql('UPDATE reserva SET fecha = ? WHERE idreserva = ?', [fecha, idreserva])
+  modificarReserva(idreserva: number, fecha: string , noches :number) {
+    return this.database.executeSql('UPDATE reserva SET fecha = ? , noches = ? WHERE idreserva = ?', [fecha,noches,idreserva])
       .then(res => {
         return res;
       })
@@ -463,6 +463,7 @@ BuscarUsu(idusuario: number){
       });
   }
   
+
   modificarContra(contrasena: string, idusuario: number){
     return this.database.executeSql(
       'UPDATE usuario SET contrasena = ? WHERE idusuario = ?',

@@ -48,8 +48,6 @@ export class HfamiliarPage implements OnInit {
       }
     };
     this.router.navigate(['/reserva'], navigationExtras);
-
-
   }
 
 }

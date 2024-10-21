@@ -48,6 +48,7 @@ export class ReservasPage implements OnInit {
     const navigationExtras: NavigationExtras = {
       state: {
         reserva: {
+          idhabitacion: reserva.idhabitacion,
           idreserva: reserva.idreserva,
           fecha: reserva.fecha
         }
@@ -55,6 +56,5 @@ export class ReservasPage implements OnInit {
     };
     this.router.navigate(['/modificar'], navigationExtras);
   }
-  
   
 }

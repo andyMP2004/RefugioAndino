@@ -5,6 +5,7 @@ import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
 import { BdService } from 'src/app/service/servicios/bd.service';
 import { Camera, CameraResultType } from '@capacitor/camera';
 import { ChangeDetectorRef } from '@angular/core';
+import { AuthService } from 'src/app/service/servicios/auth.service';
 
 @Component({
   selector: 'app-miperfil',
@@ -12,7 +13,7 @@ import { ChangeDetectorRef } from '@angular/core';
   styleUrls: ['./miperfil.page.scss'],
 })
 export class MiperfilPage implements OnInit {
-  idusuario: string = "";
+  idusuario!: number;
   nombreusuario: string = "";
   rutusuario: string = "";
   correo: string = "";
@@ -20,6 +21,7 @@ export class MiperfilPage implements OnInit {
   imagenp: any = "";
   contrasena: string = "";
   arreglousuario: any = []; 
+  editando: boolean = false; 
 
   constructor(
     private router: Router,
@@ -28,30 +30,46 @@ export class MiperfilPage implements OnInit {
     private storage: NativeStorage,
     private alertController: AlertController,
     private bd: BdService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef, 
+    private auth: AuthService
   ) {}
 
   ngOnInit() {
     this.menu.enable(false);
-
+  
     this.storage.getItem('usuario').then((data) => {
       const idusuario = data; 
-      this.bd.BuscarUsu(idusuario).then((usuario) => {
-        if (usuario) {
-          this.arreglousuario = [usuario]; 
-          this.idusuario = usuario.idusuario;
-          this.nombreusuario = usuario.nombreusuario;
-          this.rutusuario = usuario.rutusuario;
-          this.correo = usuario.correo;
-          this.telefono = usuario.telefono;
-          this.imagenp = usuario.imagen || '';
+      this.cargarUsuario(idusuario);{
 
-          this.cdr.detectChanges();
-        }
-      })
-    })
+      }
+    });
+  }
+  
+  cargarUsuario(idusuario: number) {
+    this.bd.BuscarUsu(idusuario).then((usuario) => {
+      if (usuario) {
+        this.arreglousuario = [usuario]; 
+        this.idusuario = usuario.idusuario;
+        this.nombreusuario = usuario.nombreusuario;
+        this.rutusuario = usuario.rutusuario;
+        this.correo = usuario.correo;
+        this.telefono = usuario.telefono;
+        this.imagenp = usuario.imagenp || '';
+  
+        this.cdr.detectChanges();
+      }
+    });
   }
 
+  guardarCambios() {
+    if (this.editando) {
+      this.bd.ModificarUsuario(this.idusuario, this.nombreusuario, this.correo, this.telefono, this.imagenp).then(() => {
+        this.cargarUsuario(this.idusuario);
+      });
+    }
+    this.editando = !this.editando;
+  }
+  
   tomarFoto = async () => {
     const image = await Camera.getPhoto({
       quality: 90,
@@ -60,7 +78,7 @@ export class MiperfilPage implements OnInit {
     });
 
     this.imagenp = 'data:image/jpeg;base64,' + image.base64String;
-    this.bd.ModificarUsuario(this.idusuario, this.nombreusuario, this.correo, this.contrasena, this.telefono, this.imagenp);
+    this.bd.ModificarUsuario(this.idusuario, this.nombreusuario, this.correo, this.telefono, this.imagenp);
 
     this.cdr.detectChanges();
   };

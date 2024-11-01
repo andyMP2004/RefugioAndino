@@ -24,7 +24,6 @@ export class BdService {
   registrorol: string = "INSERT or IGNORE INTO rol (idrol, nombrerol) VALUES (1, 'admin');";
 
   TablaReserva: string = "CREATE TABLE IF NOT EXISTS reserva(idreserva INTEGER PRIMARY KEY AUTOINCREMENT, fecha DATE NOT NULL,noches INTEGER, total VARCHAR(50) NOT NULL, usuarioidusuario VARCHAR(200) NOT NULL,idhabitacion INTEGER, FOREIGN KEY (usuarioidusuario) REFERENCES usuario(idusuario), FOREIGN KEY (idhabitacion) REFERENCES habitacion(idhabitacion));";
-  registroreserva: string = "INSERT or IGNORE INTO reserva (idreserva, fecha,noches, total, usuarioidusuario,idhabitacion) VALUES (1, '30/03/2024',3, '$20.000', 2,1);";
 
   TablaTipo: string = "CREATE TABLE IF NOT EXISTS tipo(idtipo INTEGER PRIMARY KEY, nombre VARCHAR(50) NOT NULL, imagen VARCHAR(100) NOT NULL, precio VARCHAR(50) NOT NULL, descripcion VARCHAR(200) NOT NULL);";
   registrotipo: string = "INSERT or IGNORE INTO tipo (idtipo, nombre, imagen, precio, descripcion) VALUES (1, 'Habitacion Familiar', 'assets/familiar/familiar.3.jpg', '$20.000', 'Habitación acogedora con varias camas, ideal para familias. Ofrece TV, iluminación suave y decoración sencilla.');";
@@ -131,7 +130,6 @@ export class BdService {
 
       await this.database.executeSql(this.registroUsuario, []);
       await this.database.executeSql(this.registrorol,[]);
-      await this.database.executeSql(this.registroreserva,[]);
       await this.database.executeSql(this.registrotipo,[]);
       await this.database.executeSql(this.registrotipo2,[]);
       await this.database.executeSql(this.registrotipo3,[]);
@@ -181,13 +179,14 @@ export class BdService {
   
 
   //idusuario, nombreusuario, correo, rutusuario, contrasena, fechan, telefono, idrol
-  ModificarUsuario(idusuario: string, nombreusuario: string, correo: string,contrasena: string, telefono: string,imagenp: string)  {{
-    return this.database.executeSql('UPDATE usuario SET idusuario = ?,nombreusuario =?, correo =?,contrasena =?, telefono =?, imagenp = ? WHERE idusuario =?', []).then(res => {
-      this.presentAlert("Modificar", "USUARIO MODIFICADO");
-      this.seleccionarUsuarios(); // Actualiza la lista de usuarios después de
+  ModificarUsuario(idusuario: number, nombreusuario: string, correo: string, telefono: string, imagenp: string) {
+    return this.database.executeSql('UPDATE usuario SET nombreusuario = ?, correo = ?, telefono = ?, imagenp = ? WHERE idusuario = ?', [nombreusuario, correo, telefono, imagenp, idusuario]).then(res => {
+       this.presentAlert("Modificar", "USUARIO MODIFICADO");
+       this.seleccionarUsuarios(); 
     });
-  }
-}
+ }
+
+
 BuscarUsu(idusuario: number){
     return this.database.executeSql('SELECT idusuario ,nombreusuario, correo ,rutusuario, telefono, imagenp FROM usuario WHERE idusuario = ?', [idusuario]).then(res =>{
       if (res.rows.length > 0) {

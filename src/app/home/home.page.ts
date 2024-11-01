@@ -57,8 +57,8 @@ export class HomePage {
   }
   ionViewWillEnter() {
     this.menu.enable(false);
+    this.correo = "";
+    this.contrasena = "";
   }
-
-
 
 }

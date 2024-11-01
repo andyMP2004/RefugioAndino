@@ -26,32 +26,45 @@
               </ion-button>
             </div>
 
-            <ion-card-title class="titulo">{{nombreusuario}}</ion-card-title>
-
+            <ion-card-title class="titulo">{{ arreglousuario[0]?.nombreusuario }}</ion-card-title>
             <p class="location">Chile, Santiago</p>
 
-            <form class="perfil-form" *ngFor="let x of arreglousuario">
-              <ion-item>
-                <ion-icon name="person" slot="start"></ion-icon>
-                <ion-input type="text" readonly>{{x.nombreusuario}}</ion-input>
-              </ion-item>
+            <ion-button color="primary" (click)="guardarCambios()">
+              <ion-icon name="create-outline" slot="start"></ion-icon>
+              {{ editando ? 'Guardar' : 'Modificar Perfil' }}
+            </ion-button>
+            
 
-              <ion-item>
-                <ion-icon name="mail" slot="start"></ion-icon>
-                <ion-input type="text" readonly>{{x.correo}}</ion-input>
-              </ion-item>
+            <form class="perfil-form">
+              <div *ngFor="let x of arreglousuario">
+                <ion-item>
+                  <ion-icon name="person" slot="start"></ion-icon>
+                  <ion-input type="text" [readonly]="!editando" [(ngModel)]="x.nombreusuario" name="nombreusuario"></ion-input>
+                </ion-item>
 
-              <ion-item>
-                <ion-icon name="person" slot="start"></ion-icon>
-                <ion-input type="text" readonly>{{x.rutusuario}}</ion-input>
-              </ion-item>
+                <ion-item>
+                  <ion-icon name="mail" slot="start"></ion-icon>
+                  <ion-input type="text" [readonly]="!editando" [(ngModel)]="x.correo" name="correo"></ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-icon name="call" slot="start"></ion-icon>
+                  <ion-input type="text" [readonly]="!editando" [(ngModel)]="x.telefono" name="telefono"></ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-icon name="person" slot="start"></ion-icon>
+                  <ion-input type="text" readonly value="{{ x.rutusuario }}"></ion-input>
+                </ion-item>
+              </div>
 
               <div class="buttons-row">
                 <ion-button class="log" color="danger" expand="full" [routerLink]="['/home']">
                   <ion-icon name="log-out-outline" slot="start"></ion-icon>
                   Cerrar Sesión
                 </ion-button>
-              </div><br>
+              </div>
+              <br>
 
               <ion-button [routerLink]="['/ayuda']">
                 <ion-icon name="information-circle-outline"></ion-icon>

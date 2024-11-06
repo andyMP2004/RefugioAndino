@@ -84,7 +84,10 @@ const routes: Routes = [
     path: 'modificar',
     loadChildren: () => import('./pages/modificar/modificar.module').then( m => m.ModificarPageModule)
   },
-
+  {
+    path: 'editar-perfil',
+    loadChildren: () => import('./pages/editar-perfil/editar-perfil.module').then( m => m.EditarPerfilPageModule)
+  },
   {
     path: '**',
     loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)

@@ -29,27 +29,27 @@
             <ion-card-title class="titulo">{{ arreglousuario[0]?.nombreusuario }}</ion-card-title>
             <p class="location">Chile, Santiago</p>
 
-            <ion-button color="primary" (click)="guardarCambios()">
+            <ion-button color="primary" (click)="editarPerfil()">
               <ion-icon name="create-outline" slot="start"></ion-icon>
-              {{ editando ? 'Guardar' : 'Modificar Perfil' }}
+              Editar Perfil
             </ion-button>
             
-
+            
             <form class="perfil-form">
               <div *ngFor="let x of arreglousuario">
                 <ion-item>
                   <ion-icon name="person" slot="start"></ion-icon>
-                  <ion-input type="text" [readonly]="!editando" [(ngModel)]="x.nombreusuario" name="nombreusuario"></ion-input>
+                  <ion-input type="text" [(ngModel)]="x.nombreusuario" name="nombreusuario"readonly ></ion-input>
                 </ion-item>
 
                 <ion-item>
                   <ion-icon name="mail" slot="start"></ion-icon>
-                  <ion-input type="text" [readonly]="!editando" [(ngModel)]="x.correo" name="correo"></ion-input>
+                  <ion-input type="text"  [(ngModel)]="x.correo" name="correo"readonly></ion-input>
                 </ion-item>
 
                 <ion-item>
                   <ion-icon name="call" slot="start"></ion-icon>
-                  <ion-input type="text" [readonly]="!editando" [(ngModel)]="x.telefono" name="telefono"></ion-input>
+                  <ion-input type="text" [(ngModel)]="x.telefono" name="telefono" readonly ></ion-input>
                 </ion-item>
 
                 <ion-item>

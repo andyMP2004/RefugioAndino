@@ -179,12 +179,19 @@ export class BdService {
   
 
   //idusuario, nombreusuario, correo, rutusuario, contrasena, fechan, telefono, idrol
-  ModificarUsuario(idusuario: number, nombreusuario: string, correo: string, telefono: string, imagenp: string) {
-    return this.database.executeSql('UPDATE usuario SET nombreusuario = ?, correo = ?, telefono = ?, imagenp = ? WHERE idusuario = ?', [nombreusuario, correo, telefono, imagenp, idusuario]).then(res => {
+  ModificarUsuario(idusuario: number, nombreusuario: string, correo: string, telefono: string) {
+    return this.database.executeSql('UPDATE usuario SET nombreusuario = ?, correo = ?, telefono = ? WHERE idusuario = ?', [nombreusuario, correo, telefono,idusuario]).then(res => {
        this.presentAlert("Modificar", "USUARIO MODIFICADO");
-       this.seleccionarUsuarios(); 
-    });
+       this.seleccionarUsuarios();
+      });
  }
+
+ ModificarImg(idusuario: number,imagenp: string) {
+  return this.database.executeSql('UPDATE usuario SET imagenp = ? WHERE idusuario = ?', [imagenp, idusuario]).then(res => {
+     this.presentAlert("Modificar", "USUARIO MODIFICADO");
+     this.seleccionarUsuarios(); 
+  });
+}
 
 
 BuscarUsu(idusuario: number){
@@ -506,6 +513,5 @@ BuscarUsu(idusuario: number){
     });
   }
 
-  
-  
+
 }

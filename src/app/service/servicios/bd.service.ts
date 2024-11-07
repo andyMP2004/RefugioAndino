@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SQLite, SQLiteObject } from '@awesome-cordova-plugins/sqlite/ngx';
 import { AlertController, Platform } from '@ionic/angular';
-import { BehaviorSubject, identity, Observable } from 'rxjs';
+import { BehaviorSubject, from, identity, map, Observable } from 'rxjs';
 import { Rol } from './rol';
 import { Usuario } from './usuario';
 import { Reserva } from './reserva';
@@ -17,30 +17,31 @@ import { Imagen } from './imagen';
 export class BdService {
   public database!: SQLiteObject;
 
-  TablaUsuario: string = "CREATE TABLE IF NOT EXISTS usuario(idusuario INTEGER PRIMARY KEY AUTOINCREMENT, nombreusuario VARCHAR(100) NOT NULL, correo VARCHAR(100) NOT NULL, idrol INTEGER , rutusuario VARCHAR(15) NOT NULL, contrasena VARCHAR(20) NOT NULL, fechan VARCHAR(20) NOT NULL, telefono VARCHAR(30) NOT NULL,imagenp TEXT, FOREIGN KEY (idrol) REFERENCES rol(idrol));";
-  registroUsuario: string = "INSERT or IGNORE INTO usuario (idusuario, nombreusuario, correo, rutusuario, contrasena, fechan, telefono,imagenp, idrol) VALUES (1, 'andy madrid', 'madridpolancoa@gmail.com', '21687221-5', 'Andymadrid12', '02/12/2004', '954341221','', 1);";
+  TablaUsuario: string = "CREATE TABLE IF NOT EXISTS usuario(idusuario INTEGER PRIMARY KEY AUTOINCREMENT, nombreusuario VARCHAR(100) NOT NULL, correo VARCHAR(100) NOT NULL, idrol INTEGER , rutusuario VARCHAR(15) NOT NULL, contrasena VARCHAR(20) NOT NULL, fechan VARCHAR(20) NOT NULL, telefono VARCHAR(30) NOT NULL,imagenp TEXT,estadoidestado INTEGER, FOREIGN KEY (idrol) REFERENCES rol(idrol),FOREIGN KEY (estadoidestado) REFERENCES estado(idestado));";
+  registroUsuario: string = "INSERT or IGNORE INTO usuario (idusuario, nombreusuario, correo, rutusuario, contrasena, fechan, telefono,imagenp, idrol,estadoidestado) VALUES (1, 'andy madrid', 'madridpolancoa@gmail.com', '21687221-5', 'Andymadrid12', '02/12/2004', '954341221','', 1,1);";
 
   TablaRol: string = "CREATE TABLE IF NOT EXISTS rol(idrol INTEGER PRIMARY KEY AUTOINCREMENT, nombrerol VARCHAR(50));"; 
   registrorol: string = "INSERT or IGNORE INTO rol (idrol, nombrerol) VALUES (1, 'admin');";
 
-  TablaReserva: string = "CREATE TABLE IF NOT EXISTS reserva(idreserva INTEGER PRIMARY KEY AUTOINCREMENT, fecha DATE NOT NULL,noches INTEGER, total VARCHAR(50) NOT NULL, usuarioidusuario VARCHAR(200) NOT NULL,idhabitacion INTEGER, FOREIGN KEY (usuarioidusuario) REFERENCES usuario(idusuario), FOREIGN KEY (idhabitacion) REFERENCES habitacion(idhabitacion));";
+  TablaReserva: string = "CREATE TABLE IF NOT EXISTS reserva(idreserva INTEGER PRIMARY KEY AUTOINCREMENT, fecha DATE NOT NULL,noches INTEGER, total VARCHAR(50) NOT NULL, usuarioidusuario VARCHAR(200) NOT NULL,idhabitacion INTEGER,estadoidestado INTEGER, FOREIGN KEY (usuarioidusuario) REFERENCES usuario(idusuario), FOREIGN KEY (idhabitacion) REFERENCES habitacion(idhabitacion),FOREIGN KEY (estadoidestado) REFERENCES estado(idestado) );";
 
   TablaTipo: string = "CREATE TABLE IF NOT EXISTS tipo(idtipo INTEGER PRIMARY KEY, nombre VARCHAR(50) NOT NULL, imagen VARCHAR(100) NOT NULL, precio VARCHAR(50) NOT NULL, descripcion VARCHAR(200) NOT NULL);";
   registrotipo: string = "INSERT or IGNORE INTO tipo (idtipo, nombre, imagen, precio, descripcion) VALUES (1, 'Habitacion Familiar', 'assets/familiar/familiar.3.jpg', '$20.000', 'Habitación acogedora con varias camas, ideal para familias. Ofrece TV, iluminación suave y decoración sencilla.');";
   registrotipo2: string = "INSERT or IGNORE INTO tipo (idtipo, nombre, imagen, precio, descripcion) VALUES (2, 'Suite Presidencial', 'assets/precidencial/precidencial1.jpg', '$60.000', 'Espacio lujoso con vistas panorámicas, chimenea, cama king size y diseño moderno. Perfecta para una experiencia exclusiva. ');";
   registrotipo3: string = "INSERT or IGNORE INTO tipo (idtipo, nombre, imagen, precio, descripcion) VALUES (3, 'Habitacion Suite', 'assets/suite/suite4.webp', '$40.000', 'Suite moderna y lujosa con cama amplia, cabecero acolchado, tonos azul suave y muebles minimalistas. Grandes ventanales ofrecen luz natural, creando un ambiente acogedor y sofisticado ');";
-
-
-
+  
+  TablaEstado: string = "CREATE TABLE IF NOT EXISTS estado(idestado INTEGER PRIMARY KEY , nombreestado VARCHAR(50) NOT NULL);";
+  registroEstado: string = "INSERT or IGNORE INTO estado(idestado, nombreestado) VALUES (1,'activado');";
+  registroEstado1: string = "INSERT or IGNORE INTO estado(idestado, nombreestado) VALUES (2,'desactivado');";
 
   TablaDetalle: string = "CREATE TABLE IF NOT EXISTS detalle(iddetalle INTEGER PRIMARY KEY AUTOINCREMENT, idreserva INTEGER NOT NULL, habitacionidhabitacion INTEGER NOT NULL, cantidad INTEGER NOT NULL, finicio VARCHAR(50) NOT NULL, subtotal VARCHAR(50) NOT NULL, FOREIGN KEY (idreserva) REFERENCES reserva(idreserva), FOREIGN KEY (habitacionidhabitacion) REFERENCES habitacion(idhabitacion));";
   registrodetalle: string = "INSERT or IGNORE INTO detalle (iddetalle, idreserva, habitacionidhabitacion, cantidad, finicio, subtotal) VALUES (1, 2, 3, 4, '10/04/2024', '$54.000');";
 
-  TablaHabitacion: string = "CREATE TABLE IF NOT EXISTS habitacion(idhabitacion INTEGER PRIMARY KEY AUTOINCREMENT, tipoidtipo INTEGER NOT NULL, estadoidestado INTEGER, FOREIGN KEY (tipoidtipo) REFERENCES tipo(idtipo));";
-  registrohabitacion1: string = "INSERT or IGNORE INTO habitacion (idhabitacion, tipoidtipo) VALUES (1, 1);";
-  registrohabitacion2: string = "INSERT or IGNORE INTO habitacion (idhabitacion, tipoidtipo) VALUES (2, 3);";
-  registrohabitacion3: string = "INSERT or IGNORE INTO habitacion (idhabitacion, tipoidtipo) VALUES (3, 2);";
-  registrohabitacion4: string = "INSERT or IGNORE INTO habitacion (idhabitacion, tipoidtipo) VALUES (4, 2);";
+  TablaHabitacion: string = "CREATE TABLE IF NOT EXISTS habitacion(idhabitacion INTEGER PRIMARY KEY AUTOINCREMENT, tipoidtipo INTEGER NOT NULL, estadoidestado INTEGER, FOREIGN KEY (tipoidtipo) REFERENCES tipo(idtipo),FOREIGN KEY (estadoidestado) REFERENCES estado(idestado) );";
+  registrohabitacion1: string = "INSERT or IGNORE INTO habitacion (idhabitacion, tipoidtipo,estadoidestado) VALUES (1, 1, 1);";
+  registrohabitacion2: string = "INSERT or IGNORE INTO habitacion (idhabitacion, tipoidtipo,estadoidestado) VALUES (2, 3, 1);";
+  registrohabitacion3: string = "INSERT or IGNORE INTO habitacion (idhabitacion, tipoidtipo,estadoidestado) VALUES (3, 2, 1);";
+  registrohabitacion4: string = "INSERT or IGNORE INTO habitacion (idhabitacion, tipoidtipo,estadoidestado) VALUES (4, 2, 1);";
 
 
 
@@ -126,8 +127,10 @@ export class BdService {
       await this.database.executeSql(this.TablaTipo,[]);
       await this.database.executeSql(this.TablaDetalle,[]); 
       await this.database.executeSql(this.TablaHabitacion,[]);
+      await this.database.executeSql(this.TablaEstado,[]);
 
-
+      await this.database.executeSql(this.registroEstado, []);
+      await this.database.executeSql(this.registroEstado1, []);
       await this.database.executeSql(this.registroUsuario, []);
       await this.database.executeSql(this.registrorol,[]);
       await this.database.executeSql(this.registrotipo,[]);
@@ -401,12 +404,18 @@ BuscarUsu(idusuario: number){
 
 
   insertarUsuario(nombreusuario: string, rutusuario: string, correo: string, contrasena: string, fechan: string, telefono: string, imagenp: string, idrol: string) {
+    // Validación de la edad
     if (!this.validarEdad(fechan)) {
       this.presentAlert("Error", "Debes ser mayor de 18 años para registrarte.");
       return; 
     }
-      return this.database.executeSql('INSERT INTO usuario(nombreusuario, correo, rutusuario, contrasena, fechan, telefono, imagenp, idrol) VALUES (?,?,?,?,?,?,?,?)', 
-      [nombreusuario, correo, rutusuario, contrasena, fechan, telefono, imagenp, idrol])
+    
+    // El valor del estado activo es 1, según la tabla "estado"
+    const estadoidestado = 1;
+  
+    // Consulta de inserción incluyendo el estado
+    return this.database.executeSql('INSERT INTO usuario(nombreusuario, correo, rutusuario, contrasena, fechan, telefono, imagenp, idrol, estadoidestado) VALUES (?,?,?,?,?,?,?,?,?)', 
+      [nombreusuario, correo, rutusuario, contrasena, fechan, telefono, imagenp, idrol, estadoidestado])
       .then(res => {
         this.presentAlert("Insertar", "Usuario Registrado");
         this.seleccionarUsuarios();
@@ -415,6 +424,7 @@ BuscarUsu(idusuario: number){
         this.presentAlert('Insertar', 'Error: ' + JSON.stringify(e));
       });
   }
+  
   
   validarEdad(fecha: string): boolean {
     const fechaNacimiento = new Date(fecha);
@@ -513,5 +523,49 @@ BuscarUsu(idusuario: number){
     });
   }
 
+
+
+  actualizarEstadoUsuario(idusuario: number, estado: number): Promise<any> {
+    const query = `UPDATE usuario SET estadoidestado = ? WHERE idusuario = ?`;
+    return this.database.executeSql(query, [estado, idusuario]);
+  }
+  
+  
+  actualizarEstadoHabitacion(idhabitacion: number, estadoidestado: number) {
+    const query = `UPDATE habitacion SET estadoidestado = ? WHERE idhabitacion = ?`;
+    return this.database.executeSql(query, [estadoidestado, idhabitacion]);
+  }
+  
+  actualizarEstadoReserva(idreserva: number, estadoidestado: number) {
+    const query = `UPDATE reserva SET estadoidestado = ? WHERE idreserva = ?`;
+    return this.database.executeSql(query, [estadoidestado, idreserva]);
+  }
+  
+  fetchUsuariosPorEstado(estado: number): Observable<any[]> {
+    const query = `SELECT * FROM usuario WHERE estadoidestado = ?`;
+    return from(this.database.executeSql(query, [estado])).pipe(
+      map(data => {
+        let usuarios: any[] = [];
+        for (let i = 0; i < data.rows.length; i++) {
+          usuarios.push(data.rows.item(i));
+        }
+        return usuarios;
+      })
+    );
+  }
+  fetchHabitacionesPorEstado(estado: number): Observable<any[]> {
+    const query = 'SELECT * FROM habitacion WHERE estadoidestado = ?';
+    return from(this.database.executeSql(query, [estado])).pipe(
+      map(data => {
+        let habitaciones: any[] = [];
+        for (let i = 0; i < data.rows.length; i++) {
+          habitaciones.push(data.rows.item(i));
+        }
+        return habitaciones;
+      })
+    );
+  }
+  
+  
 
 }

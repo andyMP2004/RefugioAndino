@@ -25,6 +25,12 @@ export class AdministradorPage implements OnInit {
   total: string = "";
   usuarioidusuario: string = "";
 
+  arreglousuarioActivo: any[] = [];
+  arreglousuarioDesactivado: any[] = [];
+
+  arregloHabitacionesActivas: any[] = [];
+  arregloHabitacionesDesactivadas: any[] = [];
+
   arreglousuario: any = [
     {
       idusuario: '',
@@ -52,7 +58,10 @@ export class AdministradorPage implements OnInit {
 
   ngOnInit() {
     this.menu.enable(false);
-
+  this.listarUsuariosActivos();
+  this.listarUsuariosDesactivados();
+  this.listarHabitacionesActivas();
+    this.listarHabitacionesDesactivadas();
     this.listarHabitaciones();
 
     this.bd.dbState().subscribe(res => {
@@ -72,23 +81,57 @@ export class AdministradorPage implements OnInit {
           });
       }
     });
+
   }
 
 
-  eliminar(x: any) {
-    this.authFireBase.eliminarUsuario(x.idusuario)
-    this.bd.eliminarUsuario(x.idusuario);
+  desactivarUsuario(idusuario: number) {
+    this.bd.actualizarEstadoUsuario(idusuario, 2).then(() => {
+      // Recargar las listas de usuarios después de la desactivación
+      this.listarUsuariosActivos();
+      this.listarUsuariosDesactivados();
+    }).catch(error => {
+      console.log('Error al desactivar usuario', error);
+    });
   }
-  eliminarh(x: any) {
-    this.bd.eliminarHabi(x.idhabitacion);
-    this.listarHabitaciones();
+  
+  
+  desactivarHabitacion(idhabitacion: number) {
+    this.bd.actualizarEstadoHabitacion(idhabitacion, 2).then(() => {
+      // Recargar las listas de habitaciones después de la desactivación
+      this.listarHabitacionesActivas();
+      this.listarHabitacionesDesactivadas();
+    }).catch(error => {
+      console.log('Error al desactivar habitación', error);
+    });
+  }
+  activarHabitacion(idhabitacion: number) {
+    this.bd.actualizarEstadoHabitacion(idhabitacion, 1).then(() => {
+      // Recargar las listas de habitaciones después de la activación
+      this.listarHabitacionesActivas();
+      this.listarHabitacionesDesactivadas();
+    }).catch(error => {
+      console.log('Error al activar habitación', error);
+    });
+  }
+  listarHabitacionesActivas() {
+    this.bd.fetchHabitacionesPorEstado(1).subscribe((habitaciones) => {
+      this.arregloHabitacionesActivas = habitaciones;
+    });
   }
 
-  eliminarr(x: any) {
-    this.bd.eliminarReserva(x.idreserva).then(() => {
-      this.listarReservas(); 
-    })
+  // Listar habitaciones desactivadas
+  listarHabitacionesDesactivadas() {
+    this.bd.fetchHabitacionesPorEstado(2).subscribe((habitaciones) => {
+      this.arregloHabitacionesDesactivadas = habitaciones;
+    });
   }
+
+
+  desactivarReserva(reserva: any) {
+    this.bd.actualizarEstadoReserva(reserva.idreserva, 2); // Cambia el estado a 'desactivado'
+  }
+  
   
   listarReservas() {
     this.bd.fetchReserva().subscribe((reservas) => {
@@ -104,5 +147,24 @@ export class AdministradorPage implements OnInit {
     });
   }
 
+  listarUsuariosActivos() {
+    this.bd.fetchUsuariosPorEstado(1).subscribe((usuarios) => {
+      this.arreglousuarioActivo = usuarios;
+    });
+  }
+  
+  listarUsuariosDesactivados() {
+    this.bd.fetchUsuariosPorEstado(2).subscribe((usuarios) => {
+      this.arreglousuarioDesactivado = usuarios;
+    });
+  }
+
+  activarUsuario(idusuario: number) {
+    this.bd.actualizarEstadoUsuario(idusuario, 1).then(() => {
+      this.listarUsuariosActivos();
+      this.listarUsuariosDesactivados();
+    });
+  }
+  
 
 }

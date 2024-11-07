@@ -216,22 +216,16 @@ BuscarUsu(idusuario: number){
   
   }
   BuscarUsuC(correo: string){
-    return this.database.executeSql('SELECT idusuario ,nombreusuario, correo ,rutusuario, telefono, imagenp FROM usuario WHERE correo = ?', [correo]).then(res =>{
+    return this.database.executeSql('SELECT idusuario ,nombreusuario, correo ,rutusuario, telefono, imagenp, estadoidestado FROM usuario WHERE correo = ?', [correo]).then(res =>{
       if (res.rows.length > 0) {
         return res.rows.item(0);
-
       }else {
         return null;
-
       } 
-
-
     }).catch(e =>{
       this.presentAlert('Usuario', 'Error: ' + JSON.stringify(e));
       return null;
-
     });
-  
   }
 
   ListarReservas() {
@@ -578,4 +572,5 @@ BuscarUsu(idusuario: number){
     );
   }
 
+  
 }

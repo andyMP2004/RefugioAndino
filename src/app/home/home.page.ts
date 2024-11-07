@@ -26,32 +26,47 @@ export class HomePage {
 
 
   async irPagina() {
-
-    if (this.correo == "" , this.contrasena == "") {
+    if (this.correo === "" && this.contrasena === "") { 
       const alert = await this.alertController.create({
-        header: 'Campos Vacios',
+        header: 'Campos Vacíos',
         message: 'Por favor intente de nuevo',
         buttons: ['OK'],
-
       });
       await alert.present();
     } else {
-      if (this.correo == "admin@gmail.com" , this.contrasena == "Admin123") {
-      this.router.navigate(['/administrador']);
-    }
+
+      if (this.correo === "admin@gmail.com" && this.contrasena === "Admin123") { 
+        this.router.navigate(['/administrador']);
+        return;
+      }
+  
       let ValidarUsuario = await this.authService.inicioSesion(this.correo, this.contrasena);
       let Validarcorreo = await this.bd.BuscarUsuC(this.correo);
-          if (ValidarUsuario) {
-            await this.bd.modificarContra(this.correo,Validarcorreo.idusuario);
-
-            // Guardar los datos del usuario en el NativeStorage
-            await this.storage.setItem('usuario', Validarcorreo.idusuario);
-            
-
+  
+      if (Validarcorreo && Validarcorreo.estadoidestado === 2) {
+        const alert = await this.alertController.create({
+          header: 'Usuario Desactivado',
+          message: 'Su cuenta está desactivada',
+          buttons: ['OK'],
+        });
+        await alert.present();
+        return;
+      } else if (ValidarUsuario) {
+        await this.bd.modificarContra(this.correo, Validarcorreo.idusuario);
+        // Guardar los datos del usuario en el NativeStorage
+        await this.storage.setItem('usuario', Validarcorreo.idusuario);
         this.router.navigate(['/habitaciones']);
+      } else {
+        const alert = await this.alertController.create({
+          header: 'Inicio de Sesión Fallido',
+          message: 'Correo o contraseña incorrectos.',
+          buttons: ['OK'],
+        });
+        await alert.present();
       }
-    } 
-   }
+    }
+  }
+  
 
   ngOnInit() {
   }

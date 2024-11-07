@@ -21,44 +21,65 @@
     </ion-button>
   </div>
 
-  <!-- Tabla de Reservas -->
-  <div *ngIf="seleccion === 'gestion1'" class="table-wrapper">
-    <table class="responsive-table">
-      <thead>
-        <tr>
-          <th>Id Reserva</th>
-          <th>Fecha</th>
-          <th>Nombre Usuario</th>
-          <th>total</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let x of arregloreserva">
-          <td>
-              {{x.idreserva}}
-          </td>
+<!-- Tabla de Reservas -->
+<div *ngIf="seleccion === 'gestion1'" class="table-wrapper">
+  <h3>Reservas</h3>
+  <table class="responsive-table">
+    <thead>
+      <tr>
+        <th>Id Reserva</th>
+        <th>Fecha</th>
+        <th>Nombre Usuario</th>
+        <th>Total</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let x of arregloReservasActivas">
+        <td>{{ x.idreserva }}</td>
+        <td>{{ x.fecha }}</td>
+        <td>{{ x.nombreusuario }}</td>
+        <td>{{ x.total }}</td>
+        <td>
+          <button mat-icon-button color="warn" (click)="desactivarReserva(x)">
+            <ion-icon name="close-circle"></ion-icon> <!-- Icono de desactivar -->
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
-          <td>
-              {{x.fecha}}
-          </td>
-          <td>
-             {{x.nombreusuario}}
-          </td>
-          <td>
-              {{x.total}}
-          </td>
-          <td>
-            <button mat-icon-button color="warm" >
-              <ion-icon name="trash"></ion-icon>
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  
-  
+  <!-- Tabla de Reservas Desactivadas -->
+<div class="table-wrapper">
+  <h3>Reservas Desactivadas</h3>
+  <table class="responsive-table">
+    <thead>
+      <tr>
+        <th>Id Reserva</th>
+        <th>Fecha</th>
+        <th>Nombre Usuario</th>
+        <th>Total</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let x of arregloReservasDesactivadas">
+        <td>{{ x.idreserva }}</td>
+        <td>{{ x.fecha }}</td>
+        <td>{{ x.nombreusuario }}</td>
+        <td>{{ x.total }}</td>
+        <td>
+          <button mat-icon-button color="primary" (click)="activarReserva(x.idreserva)">
+            <ion-icon name="checkmark-circle"></ion-icon> <!-- Icono de activar -->
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</div>
+
 
   <!-- Tabla de Habitaciones -->
   <div *ngIf="seleccion === 'gestion2'" class="table-wrapper">
@@ -67,7 +88,7 @@
     </div>
     
     <!-- Habitaciones Activas -->
-    <div *ngIf="arregloHabitacionesActivas.length > 0" class="table-wrapper">
+    <div  class="table-wrapper">
       <h3>Habitaciones Activas</h3>
       <table class="responsive-table">
         <thead>
@@ -86,7 +107,7 @@
             </td>
             <td>
               <ng-container>
-                {{ x.nombre }}
+                {{x.nombre }}
               </ng-container>
             </td>
             <td>
@@ -100,7 +121,7 @@
     </div>
 
     <!-- Habitaciones Desactivadas -->
-    <div *ngIf="arregloHabitacionesDesactivadas.length > 0" class="table-wrapper">
+    <div class="table-wrapper">
       <h3>Habitaciones Desactivadas</h3>
       <table class="responsive-table">
         <thead>
@@ -136,7 +157,7 @@
 <!-- Tabla de Usuarios -->
 <!-- Tabla de Usuarios Activos -->
 <div *ngIf="seleccion === 'gestion3'" class="table-wrapper">
-<div *ngIf="arreglousuarioActivo.length > 0" class="table-wrapper">
+<div class="table-wrapper">
   <h3>Usuarios Activos</h3>
   <table class="responsive-table">
     <thead>

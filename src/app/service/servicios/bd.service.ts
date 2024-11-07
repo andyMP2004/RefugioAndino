@@ -523,24 +523,12 @@ BuscarUsu(idusuario: number){
     });
   }
 
-
-
+  //USUARIOS DESACTIVADOS 
   actualizarEstadoUsuario(idusuario: number, estado: number): Promise<any> {
     const query = `UPDATE usuario SET estadoidestado = ? WHERE idusuario = ?`;
     return this.database.executeSql(query, [estado, idusuario]);
   }
-  
-  
-  actualizarEstadoHabitacion(idhabitacion: number, estadoidestado: number) {
-    const query = `UPDATE habitacion SET estadoidestado = ? WHERE idhabitacion = ?`;
-    return this.database.executeSql(query, [estadoidestado, idhabitacion]);
-  }
-  
-  actualizarEstadoReserva(idreserva: number, estadoidestado: number) {
-    const query = `UPDATE reserva SET estadoidestado = ? WHERE idreserva = ?`;
-    return this.database.executeSql(query, [estadoidestado, idreserva]);
-  }
-  
+
   fetchUsuariosPorEstado(estado: number): Observable<any[]> {
     const query = `SELECT * FROM usuario WHERE estadoidestado = ?`;
     return from(this.database.executeSql(query, [estado])).pipe(
@@ -552,9 +540,15 @@ BuscarUsu(idusuario: number){
         return usuarios;
       })
     );
+  }  
+   
+  //HABITACIONES DESACTIVADAS
+  actualizarEstadoHabitacion(idhabitacion: number, estadoidestado: number) {
+    const query = `UPDATE habitacion SET estadoidestado = ? WHERE idhabitacion = ?`;
+    return this.database.executeSql(query, [estadoidestado, idhabitacion]);
   }
   fetchHabitacionesPorEstado(estado: number): Observable<any[]> {
-    const query = 'SELECT * FROM habitacion WHERE estadoidestado = ?';
+    const query = 'SELECT h.idhabitacion, h.tipoidtipo, h.estadoidestado, t.nombre FROM habitacion h JOIN tipo t ON h.tipoidtipo = t.idtipo WHERE estadoidestado = ?';
     return from(this.database.executeSql(query, [estado])).pipe(
       map(data => {
         let habitaciones: any[] = [];
@@ -565,7 +559,23 @@ BuscarUsu(idusuario: number){
       })
     );
   }
-  
-  
+  //RESERVAS DESACTIVADAS
+  actualizarEstadoReserva(idreserva: number, estadoidestado: number) {
+    const query = `UPDATE reserva SET estadoidestado = ? WHERE idreserva = ?`;
+    return this.database.executeSql(query, [estadoidestado, idreserva]);
+  }
+
+  fetchReservaPorEstado(estado: number): Observable<any[]> {
+    const query = 'SELECT r.idreserva, r.fecha, r.total, r.usuarioidusuario, r.idhabitacion, u.nombreusuario AS nombreusuario, r.estadoidestado FROM reserva r JOIN usuario u ON r.usuarioidusuario = u.idusuario WHERE r.estadoidestado = ?';
+    return from(this.database.executeSql(query, [estado])).pipe(
+      map(data => {
+        let reservas: any[] = [];
+        for (let i = 0; i < data.rows.length; i++) {
+          reservas.push(data.rows.item(i));
+        }
+        return reservas;
+      })
+    );
+  }
 
 }

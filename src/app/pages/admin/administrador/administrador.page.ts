@@ -31,6 +31,8 @@ export class AdministradorPage implements OnInit {
   arregloHabitacionesActivas: any[] = [];
   arregloHabitacionesDesactivadas: any[] = [];
 
+  arregloReservasDesactivadas:any[]=[];
+  arregloReservasActivas:any[]=[];
   arreglousuario: any = [
     {
       idusuario: '',
@@ -58,12 +60,16 @@ export class AdministradorPage implements OnInit {
 
   ngOnInit() {
     this.menu.enable(false);
-  this.listarUsuariosActivos();
-  this.listarUsuariosDesactivados();
-  this.listarHabitacionesActivas();
+    this.listarUsuariosActivos();
+    this.listarUsuariosDesactivados();
+    this.listarHabitacionesActivas();
     this.listarHabitacionesDesactivadas();
     this.listarHabitaciones();
+    this.listarReservas();
+    this.listarReservasActivas();
+    this.listarReservasDesactivadas();
 
+    
     this.bd.dbState().subscribe(res => {
       this.arreglousuario = res;
       if (res) {
@@ -114,30 +120,55 @@ export class AdministradorPage implements OnInit {
       console.log('Error al activar habitación', error);
     });
   }
+
   listarHabitacionesActivas() {
     this.bd.fetchHabitacionesPorEstado(1).subscribe((habitaciones) => {
       this.arregloHabitacionesActivas = habitaciones;
     });
   }
-
-  // Listar habitaciones desactivadas
+  
   listarHabitacionesDesactivadas() {
     this.bd.fetchHabitacionesPorEstado(2).subscribe((habitaciones) => {
       this.arregloHabitacionesDesactivadas = habitaciones;
     });
   }
-
-
+  
   desactivarReserva(reserva: any) {
-    this.bd.actualizarEstadoReserva(reserva.idreserva, 2); // Cambia el estado a 'desactivado'
+    this.bd.actualizarEstadoReserva(reserva.idreserva, 2).then(() => {
+      this.listarReservasActivas();
+      this.listarReservasDesactivadas();
+    }).catch(error => {
+      console.log('Error al desactivar reserva', error);
+    });
   }
   
-  
+  listarReservasActivas() {
+    this.bd.fetchReservaPorEstado(1).subscribe((reservas) => {
+      this.arregloReservasActivas = reservas;
+    });
+  }
+
   listarReservas() {
     this.bd.fetchReserva().subscribe((reservas) => {
       this.arregloreserva = reservas;
     });
   }
+
+  listarReservasDesactivadas() {
+    this.bd.fetchReservaPorEstado(2).subscribe((reservas) => {
+      this.arregloReservasDesactivadas = reservas;
+    });
+  }
+
+  activarReserva(idreserva: number) {
+    this.bd.actualizarEstadoReserva(idreserva, 1).then(() => {
+      this.listarReservasActivas();
+      this.listarReservasDesactivadas();
+    }).catch(error => {
+      console.log('Error al activar reserva', error);
+    });
+  }
+  
   
   listarHabitaciones() {
     this.bd.seleccionarHabitaciones().then(() => {

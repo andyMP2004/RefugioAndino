@@ -88,6 +88,15 @@ export class AdministradorPage implements OnInit {
       }
     });
 
+    this.bd.dbState().subscribe(res => {
+      this.arreglohabitacion = res;
+      if (res) {
+          this.bd.fetchHabitacion().subscribe(users => {
+            this.arreglohabitacion = users;
+          });
+      }
+    });
+    
   }
 
 

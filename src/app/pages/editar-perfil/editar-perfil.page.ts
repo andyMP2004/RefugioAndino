@@ -25,7 +25,6 @@ export class EditarPerfilPage implements OnInit {
         const state = this.router.getCurrentNavigation()?.extras?.state;
         this.idusuario = state?.['idusuario'];
         this.nombreusuario = state?.['nombreusuario'];
-        this.correo = state?.['correo'];
         this.telefono = state?.['telefono'];
       }
     });
@@ -36,7 +35,7 @@ export class EditarPerfilPage implements OnInit {
 
   async guardarCambios() {
     try {
-      await this.bd.ModificarUsuario(this.idusuario, this.nombreusuario, this.correo, this.telefono);
+      await this.bd.ModificarUsuario(this.idusuario, this.nombreusuario, this.telefono);
       const alert = await this.alertController.create({
         header: 'Éxito',
         message: 'Perfil actualizado correctamente',

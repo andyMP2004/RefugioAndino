@@ -78,7 +78,6 @@ export class MiperfilPage implements OnInit {
       state: {
         idusuario: this.idusuario,
         nombreusuario: this.nombreusuario,
-        correo: this.correo,
         telefono: this.telefono
       }
     };

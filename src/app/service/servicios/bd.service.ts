@@ -182,8 +182,8 @@ export class BdService {
   
 
   //idusuario, nombreusuario, correo, rutusuario, contrasena, fechan, telefono, idrol
-  ModificarUsuario(idusuario: number, nombreusuario: string, correo: string, telefono: string) {
-    return this.database.executeSql('UPDATE usuario SET nombreusuario = ?, correo = ?, telefono = ? WHERE idusuario = ?', [nombreusuario, correo, telefono,idusuario]).then(res => {
+  ModificarUsuario(idusuario: number, nombreusuario: string,telefono: string) {
+    return this.database.executeSql('UPDATE usuario SET nombreusuario = ?, telefono = ? WHERE idusuario = ?', [nombreusuario,telefono,idusuario]).then(res => {
        this.presentAlert("Modificar", "USUARIO MODIFICADO");
        this.seleccionarUsuarios();
       });
@@ -229,8 +229,8 @@ BuscarUsu(idusuario: number){
   }
 
   ListarReservas() {
-    const query = 'SELECT r.idreserva, r.fecha, r.total, r.usuarioidusuario, u.nombreusuario FROM reserva r INNER JOIN usuario u ON r.usuarioidusuario = u.idusuario';
-    return this.database.executeSql(query, []).then(res => {
+    const query = 'SELECT r.idreserva, r.fecha, r.total, r.usuarioidusuario, u.nombreusuario,estadoidestado FROM reserva r INNER JOIN usuario u ON r.usuarioidusuario = u.idusuario h.estadoidestado = ? ';
+    return this.database.executeSql(query, ['1']).then(res => {
       let items: any[] = [];
       if (res.rows.length > 0) {
         for (var i = 0; i < res.rows.length; i++) {
@@ -278,7 +278,7 @@ BuscarUsu(idusuario: number){
   }
 
   ReservaPorUsuario(idusuario: string) {
-    return this.database.executeSql('SELECT r.idreserva, r.fecha, r.total, r.usuarioidusuario, r.idhabitacion, u.nombreusuario AS nombreusuario FROM reserva r JOIN usuario u ON r.usuarioidusuario = u.idusuario WHERE r.usuarioidusuario = ?', [idusuario]).then(res => {
+    return this.database.executeSql('SELECT r.idreserva, r.fecha, r.total, r.usuarioidusuario, r.idhabitacion, u.nombreusuario AS nombreusuario,r.estadoidestado FROM reserva r JOIN usuario u ON r.usuarioidusuario = u.idusuario WHERE r.usuarioidusuario = ? AND r.estadoidestado = ?', [idusuario,'1']).then(res => {
         let reservas: any[] = [];
         for (let i = 0; i < res.rows.length; i++) {
           reservas.push(res.rows.item(i));
@@ -313,7 +313,7 @@ BuscarUsu(idusuario: number){
 
     }
   insertahabi(tipoidtipo: number){
-    return this.database.executeSql('INSERT INTO habitacion(tipoidtipo) VALUES (?)',[tipoidtipo]).then(res=>{
+    return this.database.executeSql('INSERT INTO habitacion(tipoidtipo,estadoidestado) VALUES (?,1)',[tipoidtipo]).then(res=>{
       this.presentAlert("Insertar","Habitacion Registrada");
       this.seleccionarHabitaciones();
     }).catch(e=>{
@@ -322,7 +322,7 @@ BuscarUsu(idusuario: number){
   }
 
   ListarHabi() {
-    return this.database.executeSql('SELECT h.idhabitacion, t.idtipo, t.nombre, t.imagen, t.precio, t.descripcion FROM habitacion h INNER JOIN tipo t ON h.tipoidtipo = t.idtipo WHERE t.idtipo = ?', ['1']).then(res => {
+    return this.database.executeSql('SELECT h.idhabitacion, t.idtipo, t.nombre, t.imagen, t.precio,h.estadoidestado, t.descripcion FROM habitacion h INNER JOIN tipo t ON h.tipoidtipo = t.idtipo WHERE t.idtipo = ? AND h.estadoidestado = ?', ['1','1']).then(res => {
       // Variable para almacenar el resultado de la consulta
       let items: Habitacion[] = [];
       // Valido si trae al menos un registro
@@ -347,7 +347,7 @@ BuscarUsu(idusuario: number){
 
 
   ListarHabip() {
-    return this.database.executeSql('SELECT h.idhabitacion, t.idtipo, t.nombre, t.imagen, t.precio, t.descripcion FROM habitacion h INNER JOIN tipo t ON h.tipoidtipo = t.idtipo WHERE t.idtipo = ?', ['2']).then(res => {
+    return this.database.executeSql('SELECT h.idhabitacion, t.idtipo, t.nombre, t.imagen, t.precio, t.descripcion FROM habitacion h INNER JOIN tipo t ON h.tipoidtipo = t.idtipo WHERE t.idtipo = ?  AND h.estadoidestado = ?', ['2','1']).then(res => {
       // Variable para almacenar el resultado de la consulta
       let items: Habitacion[] = [];
       // Valido si trae al menos un registro
@@ -372,7 +372,7 @@ BuscarUsu(idusuario: number){
 
   
   ListarHabis() {
-    return this.database.executeSql('SELECT h.idhabitacion, t.idtipo, t.nombre, t.imagen, t.precio, t.descripcion FROM habitacion h INNER JOIN tipo t ON h.tipoidtipo = t.idtipo WHERE t.idtipo = ?', ['3']).then(res => {
+    return this.database.executeSql('SELECT h.idhabitacion, t.idtipo, t.nombre, t.imagen, t.precio, t.descripcion FROM habitacion h INNER JOIN tipo t ON h.tipoidtipo = t.idtipo WHERE t.idtipo = ?  AND h.estadoidestado = ?', ['3','1']).then(res => {
       // Variable para almacenar el resultado de la consulta
       let items: Habitacion[] = [];
       // Valido si trae al menos un registro

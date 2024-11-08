@@ -57,14 +57,14 @@ export class AdministradorPage implements OnInit {
     }
   ];
  
-
+  ionViewWillEnter() {
+    this.listarHabitacionesActivas();
+  }
   ngOnInit() {
     this.menu.enable(false);
     this.listarUsuariosActivos();
     this.listarUsuariosDesactivados();
-    this.listarHabitacionesActivas();
     this.listarHabitacionesDesactivadas();
-    this.listarHabitaciones();
     this.listarReservas();
     this.listarReservasActivas();
     this.listarReservasDesactivadas();

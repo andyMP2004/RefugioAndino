@@ -257,7 +257,7 @@ BuscarUsu(idusuario: number){
   }
   //HABITACIONES
   seleccionarHabitaciones() {
-    return this.database.executeSql('SELECT h.idhabitacion, t.nombre FROM habitacion h INNER JOIN tipo t ON h.tipoidtipo = t.idtipo ', []).then(res => {
+    return this.database.executeSql('SELECT h.idhabitacion, t.nombre, h.estadoidestado FROM habitacion h INNER JOIN tipo t ON h.tipoidtipo = t.idtipo ', []).then(res => {
       // Variable para almacenar el resultado de la consulta
       let items: Habitacion[] = [];
       // Valido si trae al menos un registro
@@ -428,7 +428,7 @@ BuscarUsu(idusuario: number){
 
   //RESERVA
   insertarReserva(fecha: string,noches:number ,total:string,usuarioidusuario:string,idhabitacion: number){
-    return this.database.executeSql('INSERT INTO reserva(fecha,noches,total,usuarioidusuario,idhabitacion) VALUES (?,?,?,?,?)',[fecha,noches,total,usuarioidusuario,idhabitacion]).then(res=>{
+    return this.database.executeSql('INSERT INTO reserva(fecha,noches,total,usuarioidusuario,idhabitacion,estadoidestado) VALUES (?,?,?,?,?,1)',[fecha,noches,total,usuarioidusuario,idhabitacion]).then(res=>{
       this.presentAlert("Reserva Registrada","Gracias por reservar con nosotros");
       this.ListarReservas();
     }).catch(e=>{
@@ -436,7 +436,7 @@ BuscarUsu(idusuario: number){
     })
   }
   insertarReservas(fecha: string,noches:number ,total:string,usuarioidusuario:string, idhabitacion: number){
-    return this.database.executeSql('INSERT INTO reserva(fecha,noches,total,usuarioidusuario,idhabitacion) VALUES (?,?,?,?,?)',[fecha,noches,total,usuarioidusuario,idhabitacion]).then(res=>{
+    return this.database.executeSql('INSERT INTO reserva(fecha,noches,total,usuarioidusuario,idhabitacion,estadoidestado) VALUES (?,?,?,?,?,1)',[fecha,noches,total,usuarioidusuario,idhabitacion]).then(res=>{
       this.presentAlert("Reserva Registrada","Gracias por reservar con nosotros");
       this.ListarReservas();
     }).catch(e=>{
@@ -445,7 +445,7 @@ BuscarUsu(idusuario: number){
   }
 
   insertarReservap(fecha: string,noches:number ,total:string,usuarioidusuario:string,idhabitacion: number){
-    return this.database.executeSql('INSERT INTO reserva(fecha,noches,total,usuarioidusuario,idhabitacion) VALUES (?,?,?,?,?)',[fecha,noches,total,usuarioidusuario,idhabitacion]).then(res=>{
+    return this.database.executeSql('INSERT INTO reserva(fecha,noches,total,usuarioidusuario,idhabitacion,estadoidestado) VALUES (?,?,?,?,?,1)',[fecha,noches,total,usuarioidusuario,idhabitacion]).then(res=>{
       this.presentAlert("Reserva Registrada","Gracias por reservar con nosotros");
       this.ListarReservas();
     }).catch(e=>{

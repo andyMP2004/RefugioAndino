@@ -49,7 +49,7 @@
     </tbody>
   </table>
 
-  <!-- Tabla de Reservas Desactivadas -->
+<!-- Tabla de Reservas Desactivadas -->
 <div class="table-wrapper">
   <h3>Reservas Desactivadas</h3>
   <table class="responsive-table">
@@ -59,6 +59,7 @@
         <th>Fecha</th>
         <th>Nombre Usuario</th>
         <th>Total</th>
+        <th>Motivo</th> <!-- Nueva columna para mostrar el motivo -->
         <th>Acciones</th>
       </tr>
     </thead>
@@ -68,6 +69,7 @@
         <td>{{ x.fecha }}</td>
         <td>{{ x.nombreusuario }}</td>
         <td>{{ x.total }}</td>
+        <td>{{ x.motivo }}</td> <!-- Muestra el motivo aquí -->
         <td>
           <button mat-icon-button color="primary" (click)="activarReserva(x.idreserva)">
             <ion-icon name="checkmark-circle"></ion-icon> <!-- Icono de activar -->
@@ -77,6 +79,7 @@
     </tbody>
   </table>
 </div>
+
 
 </div>
 

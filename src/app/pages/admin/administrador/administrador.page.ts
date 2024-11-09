@@ -11,7 +11,7 @@ import { BdService } from 'src/app/service/servicios/bd.service';
 })
 export class AdministradorPage implements OnInit { 
   
-  constructor(private menu: MenuController, private bd: BdService, private router: Router,private authFireBase: AuthService) { }
+  constructor(private menu: MenuController, private bd: BdService,private alertController: AlertController, private router: Router,private authFireBase: AuthService) { }
   idusuario: string = "";
   nombreusuario: string = "";
   rutusuario: string = "";
@@ -59,6 +59,7 @@ export class AdministradorPage implements OnInit {
  
   ionViewWillEnter() {
     this.listarHabitacionesActivas();
+     this.listarReservasDesactivadas();
   }
   ngOnInit() {
     this.menu.enable(false);
@@ -142,14 +143,40 @@ export class AdministradorPage implements OnInit {
     });
   }
   
-  desactivarReserva(reserva: any) {
-    this.bd.actualizarEstadoReserva(reserva.idreserva, 2).then(() => {
-      this.listarReservasActivas();
-      this.listarReservasDesactivadas();
-    }).catch(error => {
-      console.log('Error al desactivar reserva', error);
+  async desactivarReserva(reserva: any) {
+    const alert = await this.alertController.create({
+      header: 'Desactivar Reserva',
+      message: 'Ingrese el motivo de desactivación:',
+      inputs: [
+        {
+          name: 'motivo',
+          type: 'text',
+          placeholder: 'Motivo de desactivación'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+        },
+        {
+          text: 'Desactivar',
+          handler: (data) => {
+            const motivo = data.motivo;
+            this.bd.actualizarEstadoReserva(reserva.idreserva, 2, motivo).then(() => {
+              this.listarReservasActivas();
+              this.listarReservasDesactivadas();
+            }).catch(error => {
+              console.log('Error al desactivar reserva:', error);
+            });
+          }
+        }
+      ]
     });
+  
+    await alert.present();
   }
+  
   
   listarReservasActivas() {
     this.bd.fetchReservaPorEstado(1).subscribe((reservas) => {
@@ -170,13 +197,14 @@ export class AdministradorPage implements OnInit {
   }
 
   activarReserva(idreserva: number) {
-    this.bd.actualizarEstadoReserva(idreserva, 1).then(() => {
+    this.bd.activarReserva(idreserva).then(() => {
       this.listarReservasActivas();
       this.listarReservasDesactivadas();
     }).catch(error => {
       console.log('Error al activar reserva', error);
     });
   }
+  
   
   
   listarHabitaciones() {

@@ -11,6 +11,7 @@ import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
 })
 export class ReservasPage implements OnInit {
   arregloreserva: any[] = []; 
+  arregloReservasDesactivadas:any[]=[];
 
   constructor(private menu: MenuController, private bd: BdService, private router: Router, private storage: NativeStorage) {}
 
@@ -35,7 +36,8 @@ export class ReservasPage implements OnInit {
   
 
   ionViewWillEnter() {
-    this.cargarReservas();  
+    this.cargarReservas(); 
+    this.listarReservasDesactivadas(); 
   }
 
   eliminar(reserva: any) {
@@ -55,6 +57,12 @@ export class ReservasPage implements OnInit {
       }
     };
     this.router.navigate(['/modificar'], navigationExtras);
+  }
+
+  listarReservasDesactivadas() {
+    this.bd.fetchReservaPorEstado(2).subscribe((reservas) => {
+      this.arregloReservasDesactivadas = reservas;
+    });
   }
   
 }

@@ -47,4 +47,23 @@
       </tbody>
     </table>
   </div>
+    <div *ngIf="arregloReservasDesactivadas.length > 0">
+      <table class="responsive-table">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Fecha</th>
+            <th>motivo de cancelacion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let reserva of arregloReservasDesactivadas">
+            <td>{{reserva.idhabitacion}}</td>
+            <td>{{reserva.fecha}}</td>
+            <td>{{reserva.motivo}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
 </ion-content>

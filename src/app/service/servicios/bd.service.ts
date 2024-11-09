@@ -23,7 +23,7 @@ export class BdService {
   TablaRol: string = "CREATE TABLE IF NOT EXISTS rol(idrol INTEGER PRIMARY KEY AUTOINCREMENT, nombrerol VARCHAR(50));"; 
   registrorol: string = "INSERT or IGNORE INTO rol (idrol, nombrerol) VALUES (1, 'admin');";
 
-  TablaReserva: string = "CREATE TABLE IF NOT EXISTS reserva(idreserva INTEGER PRIMARY KEY AUTOINCREMENT, fecha DATE NOT NULL,noches INTEGER, total VARCHAR(50) NOT NULL, usuarioidusuario VARCHAR(200) NOT NULL,idhabitacion INTEGER,estadoidestado INTEGER, FOREIGN KEY (usuarioidusuario) REFERENCES usuario(idusuario), FOREIGN KEY (idhabitacion) REFERENCES habitacion(idhabitacion),FOREIGN KEY (estadoidestado) REFERENCES estado(idestado) );";
+  TablaReserva: string = "CREATE TABLE IF NOT EXISTS reserva(idreserva INTEGER PRIMARY KEY AUTOINCREMENT, fecha DATE NOT NULL,noches INTEGER, total VARCHAR(50) NOT NULL,motivo VARCHAR(500), usuarioidusuario VARCHAR(200) NOT NULL,idhabitacion INTEGER,estadoidestado INTEGER, FOREIGN KEY (usuarioidusuario) REFERENCES usuario(idusuario), FOREIGN KEY (idhabitacion) REFERENCES habitacion(idhabitacion),FOREIGN KEY (estadoidestado) REFERENCES estado(idestado) );";
 
   TablaTipo: string = "CREATE TABLE IF NOT EXISTS tipo(idtipo INTEGER PRIMARY KEY, nombre VARCHAR(50) NOT NULL, imagen VARCHAR(100) NOT NULL, precio VARCHAR(50) NOT NULL, descripcion VARCHAR(200) NOT NULL);";
   registrotipo: string = "INSERT or IGNORE INTO tipo (idtipo, nombre, imagen, precio, descripcion) VALUES (1, 'Habitacion Familiar', 'assets/familiar/familiar.3.jpg', '$20.000', 'Habitación acogedora con varias camas, ideal para familias. Ofrece TV, iluminación suave y decoración sencilla.');";
@@ -427,8 +427,8 @@ BuscarUsu(idusuario: number){
   }
 
   //RESERVA
-  insertarReserva(fecha: string,noches:number ,total:string,usuarioidusuario:string,idhabitacion: number){
-    return this.database.executeSql('INSERT INTO reserva(fecha,noches,total,usuarioidusuario,idhabitacion,estadoidestado) VALUES (?,?,?,?,?,1)',[fecha,noches,total,usuarioidusuario,idhabitacion]).then(res=>{
+  insertarReserva(fecha: string,noches:number ,total:string,motivo: string,usuarioidusuario:string,idhabitacion: number,){
+    return this.database.executeSql('INSERT INTO reserva(fecha,noches,total,motivo,usuarioidusuario,idhabitacion,estadoidestado) VALUES (?,?,?,?,?,?,1)',[fecha,noches,total,motivo,usuarioidusuario,idhabitacion]).then(res=>{
       this.presentAlert("Reserva Registrada","Gracias por reservar con nosotros");
       this.ListarReservas();
     }).catch(e=>{
@@ -554,13 +554,17 @@ BuscarUsu(idusuario: number){
     );
   }
   //RESERVAS DESACTIVADAS
-  actualizarEstadoReserva(idreserva: number, estadoidestado: number) {
-    const query = `UPDATE reserva SET estadoidestado = ? WHERE idreserva = ?`;
-    return this.database.executeSql(query, [estadoidestado, idreserva]);
-  }
+ // En BdService
+actualizarEstadoReserva(idreserva: number, estado: number, motivo: string): Promise<void> {
+  const query = `UPDATE reserva SET estadoidestado = ?, motivo = ? WHERE idreserva = ?`;
+  return this.database.executeSql(query, [estado, motivo, idreserva])
+    .then(() => console.log('Reserva desactivada con motivo guardado'))
+    .catch(e => console.log('Error al actualizar reserva:', e));
+}
+
 
   fetchReservaPorEstado(estado: number): Observable<any[]> {
-    const query = 'SELECT r.idreserva, r.fecha, r.total, r.usuarioidusuario, r.idhabitacion, u.nombreusuario AS nombreusuario, r.estadoidestado FROM reserva r JOIN usuario u ON r.usuarioidusuario = u.idusuario WHERE r.estadoidestado = ?';
+    const query = 'SELECT r.idreserva, r.fecha, r.total,r.motivo, r.usuarioidusuario, r.idhabitacion, u.nombreusuario AS nombreusuario, r.estadoidestado FROM reserva r JOIN usuario u ON r.usuarioidusuario = u.idusuario WHERE r.estadoidestado = ?';
     return from(this.database.executeSql(query, [estado])).pipe(
       map(data => {
         let reservas: any[] = [];
@@ -572,5 +576,12 @@ BuscarUsu(idusuario: number){
     );
   }
 
+  activarReserva(idreserva: number): Promise<void> {
+    const query = `UPDATE reserva SET estadoidestado = ? WHERE idreserva = ?`;
+    return this.database.executeSql(query, [1, idreserva])
+      .then(() => console.log('Reserva activada'))
+      .catch(e => console.log('Error al activar reserva:', e));
+  }
+  
   
 }

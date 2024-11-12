@@ -583,5 +583,17 @@ actualizarEstadoReserva(idreserva: number, estado: number, motivo: string): Prom
       .catch(e => console.log('Error al activar reserva:', e));
   }
   
+  fetchReservaPorUsuarioYEstado(idusuario: number, estado: number): Observable<any[]> {
+    const query = 'SELECT r.idreserva, r.fecha, r.total, r.motivo, r.usuarioidusuario, r.idhabitacion, u.nombreusuario AS nombreusuario, r.estadoidestado FROM reserva r JOIN usuario u ON r.usuarioidusuario = u.idusuario WHERE r.estadoidestado = ? AND r.usuarioidusuario = ?';
+    return from(this.database.executeSql(query, [estado, idusuario])).pipe(
+      map(data => {
+        let reservas: any[] = [];
+        for (let i = 0; i < data.rows.length; i++) {
+          reservas.push(data.rows.item(i));
+        }
+        return reservas;
+      })
+    );
+  }
   
 }

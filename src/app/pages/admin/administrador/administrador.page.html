@@ -58,7 +58,6 @@
         <th>Id Reserva</th>
         <th>Fecha</th>
         <th>Nombre Usuario</th>
-        <th>Total</th>
         <th>Motivo</th> <!-- Nueva columna para mostrar el motivo -->
         <th>Acciones</th>
       </tr>
@@ -68,7 +67,6 @@
         <td>{{ x.idreserva }}</td>
         <td>{{ x.fecha }}</td>
         <td>{{ x.nombreusuario }}</td>
-        <td>{{ x.total }}</td>
         <td>{{ x.motivo }}</td> <!-- Muestra el motivo aquí -->
         <td>
           <button mat-icon-button color="primary" (click)="activarReserva(x.idreserva)">

@@ -59,7 +59,7 @@ export class AdministradorPage implements OnInit {
  
   ionViewWillEnter() {
     this.listarHabitacionesActivas();
-     this.listarReservasDesactivadas();
+    this.listarReservasDesactivadas();
   }
   ngOnInit() {
     this.menu.enable(false);
@@ -103,6 +103,9 @@ export class AdministradorPage implements OnInit {
 
   desactivarUsuario(idusuario: number) {
     this.bd.actualizarEstadoUsuario(idusuario, 2).then(() => {
+      // Después de desactivar al usuario, desactivar todas sus reservas
+      this.desactivarReservasDeUsuario(idusuario);
+  
       // Recargar las listas de usuarios después de la desactivación
       this.listarUsuariosActivos();
       this.listarUsuariosDesactivados();
@@ -111,10 +114,41 @@ export class AdministradorPage implements OnInit {
     });
   }
   
+  desactivarReservasDeUsuario(idusuario: number) {
+    this.bd.fetchReservaPorUsuarioYEstado(idusuario, 1).subscribe((reservasActivas) => {
+      reservasActivas.forEach(reserva => {
+        this.bd.actualizarEstadoReserva(reserva.idreserva, 2, 'Usuario Desactivado');
+      });
+      this.listarReservasActivas();
+      this.listarReservasDesactivadas();
+    });
+  }
+  
+  activarUsuario(idusuario: number) {
+    this.bd.actualizarEstadoUsuario(idusuario, 1).then(() => {
+      // Cambiar el estado de todas las reservas del usuario a activas
+      this.activarReservasDeUsuario(idusuario);
+  
+      // Recargar las listas de usuarios
+      this.listarUsuariosActivos();
+      this.listarUsuariosDesactivados();
+    })
+  }
+  
+  activarReservasDeUsuario(idusuario: number) {
+    this.bd.fetchReservaPorUsuarioYEstado(idusuario, 2).subscribe((reservasDesactivadas) => {
+      reservasDesactivadas.forEach(reserva => {
+        this.bd.actualizarEstadoReserva(reserva.idreserva, 1, 'Usuario Activado');
+      });
+      this.listarReservasActivas();
+      this.listarReservasDesactivadas();
+    });
+  }
+  
+  
   
   desactivarHabitacion(idhabitacion: number) {
     this.bd.actualizarEstadoHabitacion(idhabitacion, 2).then(() => {
-      // Recargar las listas de habitaciones después de la desactivación
       this.listarHabitacionesActivas();
       this.listarHabitacionesDesactivadas();
     }).catch(error => {
@@ -123,7 +157,6 @@ export class AdministradorPage implements OnInit {
   }
   activarHabitacion(idhabitacion: number) {
     this.bd.actualizarEstadoHabitacion(idhabitacion, 1).then(() => {
-      // Recargar las listas de habitaciones después de la activación
       this.listarHabitacionesActivas();
       this.listarHabitacionesDesactivadas();
     }).catch(error => {
@@ -227,12 +260,6 @@ export class AdministradorPage implements OnInit {
     });
   }
 
-  activarUsuario(idusuario: number) {
-    this.bd.actualizarEstadoUsuario(idusuario, 1).then(() => {
-      this.listarUsuariosActivos();
-      this.listarUsuariosDesactivados();
-    });
-  }
-  
+
 
 }

@@ -1,38 +1,40 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReservaPresidencialPage } from './reserva-presidencial.page';
-import { IonicModule } from '@ionic/angular';
-import { RouterTestingModule } from '@angular/router/testing';
-import { BdService } from 'src/app/service/servicios/bd.service';
-import { DivisaService } from 'src/app/service/servicios/divisa.service';
 import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
-import { MenuController, AlertController } from '@ionic/angular';
-import { of } from 'rxjs'; // Para simular respuestas de servicios
+import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFireModule } from '@angular/fire/compat';
+import { environment } from 'src/environments/environment';
+import { HttpClientModule } from '@angular/common/http';
+import { IonicModule } from '@ionic/angular';
+import { RouterTestingModule } from '@angular/router/testing'; // Agregar RouterTestingModule aquí
 
 describe('ReservaPresidencialPage', () => {
   let component: ReservaPresidencialPage;
   let fixture: ComponentFixture<ReservaPresidencialPage>;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ReservaPresidencialPage],
       imports: [
         IonicModule.forRoot(),
-        RouterTestingModule
+        AngularFireModule.initializeApp(environment.firebaseConfig),
+        AngularFireAuthModule,
+        HttpClientModule,
+        RouterTestingModule // Esto importa RouterTestingModule, que proporciona ActivatedRoute para pruebas
       ],
       providers: [
-        BdService,
-        DivisaService,
         NativeStorage,
-        MenuController,
-        AlertController
+        SQLite
       ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(ReservaPresidencialPage);
     component = fixture.componentInstance;
-    fixture.detectChanges(); // Detecta cambios para actualizar la vista
+    fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy(); // Verifica que el componente se haya creado correctamente
+    expect(component).toBeTruthy(); // Verifica que el componente fue creado correctamente
   });
 });

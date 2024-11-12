@@ -254,6 +254,7 @@ export class AdministradorPage implements OnInit {
     });
   }
   
+  
   listarUsuariosDesactivados() {
     this.bd.fetchUsuariosPorEstado(2).subscribe((usuarios) => {
       this.arreglousuarioDesactivado = usuarios;

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SQLite, SQLiteObject } from '@awesome-cordova-plugins/sqlite/ngx';
 import { AlertController, Platform } from '@ionic/angular';
-import { BehaviorSubject, from, identity, map, Observable } from 'rxjs';
+import { BehaviorSubject, from, identity, map, Observable, tap } from 'rxjs';
 import { Rol } from './rol';
 import { Usuario } from './usuario';
 import { Reserva } from './reserva';
@@ -524,18 +524,18 @@ BuscarUsu(idusuario: number){
   }
 
   fetchUsuariosPorEstado(estado: number): Observable<any[]> {
-    const query = `SELECT * FROM usuario WHERE estadoidestado = ?`;
-    return from(this.database.executeSql(query, [estado])).pipe(
-      map(data => {
-        let usuarios: any[] = [];
-        for (let i = 0; i < data.rows.length; i++) {
-          usuarios.push(data.rows.item(i));
-        }
-        return usuarios;
-      })
-    );
-  }  
-   
+    return from (this.database.executeSql('SELECT * FROM usuario WHERE estadoidestado = ?', [estado]))
+      .pipe(
+        map((res: any) => {
+          let usuarios: any[] = [];
+          for (let i = 0; i < res.rows.length; i++) {
+            usuarios.push(res.rows.item(i));
+          }
+          return usuarios; // This will be returned as an observable array
+        })
+      );
+  }
+
   //HABITACIONES DESACTIVADAS
   actualizarEstadoHabitacion(idhabitacion: number, estadoidestado: number) {
     const query = `UPDATE habitacion SET estadoidestado = ? WHERE idhabitacion = ?`;

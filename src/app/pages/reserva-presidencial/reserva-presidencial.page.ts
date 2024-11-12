@@ -91,7 +91,7 @@ export class ReservaPresidencialPage implements OnInit {
       this.totalConvertido = totalConvertido; 
   
       // Guardar la fecha en el formato ISO sin la hora
-      await this.bd.insertarReservap(fechaSinHora.toISOString().split('T')[0], this.noches, totalEnPesos, this.idusuario, this.idhabitacion);
+      await this.bd.insertarReservap(fechaSinHora.toISOString().split('T')[0], this.noches, totalEnPesos,'', this.idusuario, this.idhabitacion);
   
       const notificationId = Math.floor(Math.random() * 1000); 
       const notificationDate = new Date(Date.now() + 10000);

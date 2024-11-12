@@ -435,21 +435,21 @@ BuscarUsu(idusuario: number){
       this.presentAlert('Insertar', 'Error: ' + JSON.stringify(e)); 
     })
   }
-  insertarReservas(fecha: string,noches:number ,total:string,usuarioidusuario:string, idhabitacion: number){
-    return this.database.executeSql('INSERT INTO reserva(fecha,noches,total,usuarioidusuario,idhabitacion,estadoidestado) VALUES (?,?,?,?,?,1)',[fecha,noches,total,usuarioidusuario,idhabitacion]).then(res=>{
+  insertarReservas(fecha: string,noches:number ,total:string,motivo: string,usuarioidusuario:string,idhabitacion: number,){
+    return this.database.executeSql('INSERT INTO reserva(fecha,noches,total,motivo,usuarioidusuario,idhabitacion,estadoidestado) VALUES (?,?,?,?,?,?,1)',[fecha,noches,total,motivo,usuarioidusuario,idhabitacion]).then(res=>{
       this.presentAlert("Reserva Registrada","Gracias por reservar con nosotros");
       this.ListarReservas();
     }).catch(e=>{
-      this.presentAlert('Insertar', 'Error: ' + JSON.stringify(e));
+      this.presentAlert('Insertar', 'Error: ' + JSON.stringify(e)); 
     })
   }
 
-  insertarReservap(fecha: string,noches:number ,total:string,usuarioidusuario:string,idhabitacion: number){
-    return this.database.executeSql('INSERT INTO reserva(fecha,noches,total,usuarioidusuario,idhabitacion,estadoidestado) VALUES (?,?,?,?,?,1)',[fecha,noches,total,usuarioidusuario,idhabitacion]).then(res=>{
+  insertarReservap(fecha: string,noches:number ,total:string,motivo: string,usuarioidusuario:string,idhabitacion: number,){
+    return this.database.executeSql('INSERT INTO reserva(fecha,noches,total,motivo,usuarioidusuario,idhabitacion,estadoidestado) VALUES (?,?,?,?,?,?,1)',[fecha,noches,total,motivo,usuarioidusuario,idhabitacion]).then(res=>{
       this.presentAlert("Reserva Registrada","Gracias por reservar con nosotros");
       this.ListarReservas();
     }).catch(e=>{
-      this.presentAlert('Insertar', 'Error: ' + JSON.stringify(e));
+      this.presentAlert('Insertar', 'Error: ' + JSON.stringify(e)); 
     })
   }
 

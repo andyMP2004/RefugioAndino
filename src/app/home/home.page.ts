@@ -3,8 +3,8 @@ import { NavigationExtras, Router } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
 import { BdService } from '../service/servicios/bd.service';
 import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
-import { LocalNotifications } from '@capacitor/local-notifications';
 import { AuthService } from 'src/app/service/servicios/auth.service';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -13,6 +13,7 @@ import { AuthService } from 'src/app/service/servicios/auth.service';
 export class HomePage {
   correo: string = "";
   contrasena: string = "";
+  errorMessage: string = ""; // Nueva propiedad para almacenar el mensaje de error
 
   constructor(
     private router: Router,
@@ -23,65 +24,40 @@ export class HomePage {
     private authService: AuthService
   ) { }
 
-
-
   async irPagina() {
-    if (this.correo === "" || this.contrasena === "") { 
+    if (this.correo == "" || this.contrasena == "") { 
+      this.errorMessage = "Debe rellenar todos los campos";
       const alert = await this.alertController.create({
-        header: 'Campos Vacíos',
+        header: 'Campos Vacios',
         message: 'Por favor intente de nuevo',
         buttons: ['OK'],
       });
       await alert.present();
     } else {
-
-    if (this.correo === "admin@gmail.com" && this.contrasena === "Admin123") { 
+      this.errorMessage = ""; 
+      if (this.correo == "admin@gmail.com" && this.contrasena == "Admin123") { 
         this.router.navigate(['/administrador']);
         return;
-    }
-    try {
-          let CredencialFireBase = await this.authService.inicioSesion(this.correo, this.contrasena);
-          
-          if (CredencialFireBase) {
-
-            // Verificamos el usuario en la base de datos
-            let ValidarUsuario = await this.bd.BuscarUsuC(this.correo);
-    
-            if (ValidarUsuario) {
-
-              if (ValidarUsuario.estadoidestado == '2') {
-                const alert = await this.alertController.create({
-                    header: 'Usuario Desactivado',
-                    message: 'Contacta con soporte',
-                    buttons: ['OK'],
-                    cssClass: 'estilo-alertas'
-                });
-                await alert.present();
-                return;
-              }
-
-              await this.bd.modificarContra(this.contrasena, ValidarUsuario.idusuario);
-
-              // Guardar los datos del usuario en el NativeStorage
-              await this.storage.setItem('usuario', ValidarUsuario.idusuario);
-
-              /* if (ValidarUsuario.id_rol_fk == "1") {
-                this.router.navigate(['/homeadmin']);
-              }else{
-                // Redirigir al home */
-                this.router.navigate(['/habitaciones']);
-              /* } */
-              
-            } else { 
+      }
+      try {
+        let CredencialFireBase = await this.authService.inicioSesion(this.correo, this.contrasena);
+        if (CredencialFireBase) {
+          let ValidarUsuario = await this.bd.BuscarUsuC(this.correo);
+          if (ValidarUsuario) {
+            if (ValidarUsuario.estadoidestado == '2') {
               const alert = await this.alertController.create({
-                header: 'Error al iniciar sesión',
-                message: 'Usuario o contraseña incorrectos, por favor intente de nuevo.',
-                buttons: ['OK'],
-                cssClass: 'estilo-alertas'
+                  header: 'Usuario Desactivado',
+                  message: 'Contacta con soporte',
+                  buttons: ['OK'],
+                  cssClass: 'estilo-alertas'
               });
               await alert.present();
+              return;
             }
-          } else{
+            await this.bd.modificarContra(this.contrasena, ValidarUsuario.idusuario);
+            await this.storage.setItem('usuario', ValidarUsuario.idusuario);
+            this.router.navigate(['/habitaciones']);
+          } else { 
             const alert = await this.alertController.create({
               header: 'Error al iniciar sesión',
               message: 'Usuario o contraseña incorrectos, por favor intente de nuevo.',
@@ -90,9 +66,7 @@ export class HomePage {
             });
             await alert.present();
           }
-        } catch (error) {
-
-          // Si ocurre algún error (en Firebase o en la base de datos)
+        } else{
           const alert = await this.alertController.create({
             header: 'Error al iniciar sesión',
             message: 'Usuario o contraseña incorrectos, por favor intente de nuevo.',
@@ -101,16 +75,24 @@ export class HomePage {
           });
           await alert.present();
         }
+      } catch (error) {
+        const alert = await this.alertController.create({
+          header: 'Error al iniciar sesión',
+          message: 'Usuario o contraseña incorrectos, por favor intente de nuevo.',
+          buttons: ['OK'],
+          cssClass: 'estilo-alertas'
+        });
+        await alert.present();
       }
+    }
   }
-  
 
   ngOnInit() {
   }
+
   ionViewWillEnter() {
     this.menu.enable(false);
     this.correo = "";
     this.contrasena = "";
   }
-
 }

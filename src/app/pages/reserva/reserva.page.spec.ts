@@ -21,7 +21,7 @@ describe('ReservaPage', () => {
         AngularFireModule.initializeApp(environment.firebaseConfig),
         AngularFireAuthModule,
         HttpClientModule,
-        RouterTestingModule // Esto importa RouterTestingModule, que proporciona ActivatedRoute para pruebas
+        RouterTestingModule 
       ],
       providers: [
         NativeStorage,
@@ -37,4 +37,19 @@ describe('ReservaPage', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('calcular total para las noches', async () => {
+    component.noches = 3;  
+    component.monedaSeleccionada = 'CLP'; 
+
+    spyOn(component.divisaService, 'convertCurrency').and.returnValue(Promise.resolve(60000));
+  
+    await component.calculartotal(); 
+  
+    expect(component.totalConvertido).toEqual(60000);
+  
+    expect(component.divisaService.convertCurrency).toHaveBeenCalledWith(60000, 'CLP');
+  });
+  
+  
 });

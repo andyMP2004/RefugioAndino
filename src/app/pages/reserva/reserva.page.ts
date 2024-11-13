@@ -31,7 +31,7 @@ export class ReservaPage implements OnInit {
     private alertController: AlertController,
     private bd: BdService,
     private storage: NativeStorage,
-    private divisaService: DivisaService,
+    public divisaService: DivisaService,
     private activatedrouter: ActivatedRoute
   ) {
     this.fecha = new Date();

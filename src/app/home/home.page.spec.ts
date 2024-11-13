@@ -29,4 +29,13 @@ describe('HomePage', () => {
     expect(component).toBeTruthy();
   });
 
+  it('Validación del campo correo cuando esta vacio', () => {
+    component.correo = ""; 
+    component.contrasena = "Admin123";  
+    
+    component.irPagina();
+
+    expect(component.errorMessage).toBe("Debe rellenar todos los campos");
+  });
+
 });

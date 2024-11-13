@@ -16,7 +16,15 @@ resetAuth(correo: string) {
   return this.AFauth.sendPasswordResetEmail(correo);
 
  }
-
+ verificarCorreoEnFirebase(correo: string): Promise<boolean> {
+  return this.AFauth.fetchSignInMethodsForEmail(correo)
+    .then((methods) => {
+      return methods.length > 0;
+    })
+    .catch(() => {
+      return false;
+    });
+}
  registro(correo: string, contrasena: string) {
   return this.AFauth.createUserWithEmailAndPassword(correo, contrasena)
     

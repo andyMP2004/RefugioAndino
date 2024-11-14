@@ -149,6 +149,8 @@ export class ReservaPage implements OnInit {
       }
     });
   }
+
+  
   
 
   desactivarFechas = (d: Date | null): boolean => {

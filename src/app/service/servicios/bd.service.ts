@@ -491,22 +491,17 @@ BuscarUsu(idusuario: number){
   }
 
 
-  getReservasPorHabitacion(idhabitacion: number) {
-    const query = "SELECT fecha, noches FROM reserva WHERE idhabitacion = ?";
-    return this.database.executeSql(query, [idhabitacion]).then((data) => {
-      let reservas = [];
-      for (let i = 0; i < data.rows.length; i++) {
-        // Asegúrate de convertir la fecha en un objeto Date
-        const reserva = {
-          fecha: new Date(data.rows.item(i).fecha), // Convertimos la fecha a un objeto Date
-          noches: data.rows.item(i).noches
-        };
-        reservas.push(reserva);
-      }
-      return reservas;
-    });
+  async getReservasPorHabitacion(idHabitacion: number): Promise<any[]> {
+    const query = `
+      SELECT * FROM reserva 
+      WHERE idhabitacion = ? AND estadoidestado = 1`; // Solo reservas activas
+    const result = await this.database.executeSql(query, [idHabitacion]);
+    const items = [];
+    for (let i = 0; i < result.rows.length; i++) {
+      items.push(result.rows.item(i));
+    }
+    return items;
   }
-  
 
   eliminarHabi(idhabitacion: string) {
     return this.database.executeSql('DELETE FROM habitacion WHERE idhabitacion = ?', [idhabitacion]).then(res => {

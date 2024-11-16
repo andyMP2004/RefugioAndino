@@ -369,7 +369,7 @@ BuscarUsu(idusuario: number){
       this.listadoHabitacion.next(items as any);
     });
   }
-
+  
   
   ListarHabis() {
     return this.database.executeSql('SELECT h.idhabitacion, t.idtipo, t.nombre, t.imagen, t.precio, t.descripcion FROM habitacion h INNER JOIN tipo t ON h.tipoidtipo = t.idtipo WHERE t.idtipo = ?  AND h.estadoidestado = ?', ['3','1']).then(res => {

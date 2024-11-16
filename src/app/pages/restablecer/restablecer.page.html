@@ -12,7 +12,8 @@
               <ion-input placeholder="Correo" type="text" [(ngModel)]="correo" name="correo"></ion-input>
             </ion-item>
 
-           
+            <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+
 
             <ion-button  type="submit"(click)="irPagina()">Enviar Correo de Recuperacion</ion-button>
           </form>

@@ -7,7 +7,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'src/environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicModule } from '@ionic/angular';
-import { RouterTestingModule } from '@angular/router/testing'; // Agregar RouterTestingModule aquí
+import { RouterTestingModule } from '@angular/router/testing'; 
 
 describe('ReservaPage', () => {
   let component: ReservaPage;

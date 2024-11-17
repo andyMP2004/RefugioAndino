@@ -15,7 +15,7 @@ class SQLiteMock {
       executeSql: (query: string, params: any[]) => Promise.resolve({
         rows: {
           length: 0,
-          item: (index: number) => null, // Simula una fila vacía
+          item: (index: number) => null, 
         }
       })
     });
@@ -23,10 +23,10 @@ class SQLiteMock {
 }
 class BdServiceMock {
   BuscarUsuC(correo: string) {
-    return of([]); // Devuelve un Observable vacío para usuarios
+    return of([]); 
   }
   dbState() {
-    return of(true); // Simula que la base de datos está en un estado "activo" o "conectado"
+    return of(true); 
   }
 }
 describe('RestablecerPage', () => {
@@ -53,13 +53,12 @@ describe('RestablecerPage', () => {
   });
 
   it('debe mostrar una alerta si el correo no contiene @gmail.com', async () => {
-    component.correo = 'usuario'; // Correo inválido
+    component.correo = 'usuario'; 
   
-    const alertaSpy = spyOn(component, 'alerta').and.callThrough(); // Espía la función alerta
+    const alertaSpy = spyOn(component, 'alerta').and.callThrough(); 
   
-    await component.irPagina(); // Ejecuta el método
+    await component.irPagina();
   
-    // Verifica que la alerta haya sido llamada con el mensaje esperado
     expect(alertaSpy).toHaveBeenCalledWith("El correo debe contener @gmail.com");
   });
   

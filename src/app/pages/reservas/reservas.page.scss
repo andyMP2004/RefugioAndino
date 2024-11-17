@@ -1,10 +1,7 @@
-
-
 ion-icon {
   font-size: 15px; 
   color: #0072ff; 
 }
-
 
 .action-button:hover ion-icon {
   color: #0056b3; 
@@ -13,6 +10,34 @@ ion-icon {
 input {
   border: none;
   outline: none;
+}
+h3 {
+  text-align: center;
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: bold;
+  padding: 15px;
+  margin: 0;
+  background-color: #004080; /* Fondo azul oscuro */
+  border-radius: 8px 8px 0 0; /* Esquinas redondeadas en la parte superior */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h3 + .table-wrapper {
+  margin-top: 20px; /* Separación entre el título y la tabla */
+}
+
+h3:hover {
+  background-color: #003366; /* Cambio de color de fondo al pasar el mouse */
+}
+
+h3:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #00c6ff, #0072ff); /* Línea decorativa */
+  margin-top: 10px;
 }
 
 .responsive-table tbody {
@@ -78,6 +103,4 @@ ion-input {
   .reservas-titulo {
     font-size: 2rem; 
   }
-
-
 }

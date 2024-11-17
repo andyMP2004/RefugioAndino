@@ -590,5 +590,16 @@ actualizarEstadoReserva(idreserva: number, estado: number, motivo: string): Prom
       })
     );
   }
+
+  fetchReservaPorHabitacionYEstado(idhabitacion: number, estadoidestado: number) {
+    return from(this.database.executeSql('SELECT * FROM reserva WHERE idhabitacion = ? AND estadoidestado = ?', [idhabitacion, estadoidestado]).then((data) => {
+        let reservas = [];
+        for (let i = 0; i < data.rows.length; i++) {
+          reservas.push(data.rows.item(i));
+        }
+        return reservas;
+      })
+    );
+  }
   
 }

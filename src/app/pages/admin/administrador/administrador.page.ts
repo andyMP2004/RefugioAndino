@@ -103,10 +103,8 @@ export class AdministradorPage implements OnInit {
 
   desactivarUsuario(idusuario: number) {
     this.bd.actualizarEstadoUsuario(idusuario, 2).then(() => {
-      // Después de desactivar al usuario, desactivar todas sus reservas
       this.desactivarReservasDeUsuario(idusuario);
   
-      // Recargar las listas de usuarios después de la desactivación
       this.listarUsuariosActivos();
       this.listarUsuariosDesactivados();
     }).catch(error => {
@@ -126,10 +124,8 @@ export class AdministradorPage implements OnInit {
   
   activarUsuario(idusuario: number) {
     this.bd.actualizarEstadoUsuario(idusuario, 1).then(() => {
-      // Cambiar el estado de todas las reservas del usuario a activas
       this.activarReservasDeUsuario(idusuario);
   
-      // Recargar las listas de usuarios
       this.listarUsuariosActivos();
       this.listarUsuariosDesactivados();
     })
@@ -138,7 +134,9 @@ export class AdministradorPage implements OnInit {
   activarReservasDeUsuario(idusuario: number) {
     this.bd.fetchReservaPorUsuarioYEstado(idusuario, 2).subscribe((reservasDesactivadas) => {
       reservasDesactivadas.forEach(reserva => {
-        this.bd.actualizarEstadoReserva(reserva.idreserva, 1, 'Usuario Activado');
+        if (reserva.motivo === 'Usuario Desactivado') {
+          this.bd.actualizarEstadoReserva(reserva.idreserva, 1, 'Usuario Activado');
+        }
       });
       this.listarReservasActivas();
       this.listarReservasDesactivadas();
@@ -149,20 +147,35 @@ export class AdministradorPage implements OnInit {
   
   desactivarHabitacion(idhabitacion: number) {
     this.bd.actualizarEstadoHabitacion(idhabitacion, 2).then(() => {
+      this.bd.fetchReservaPorHabitacionYEstado(idhabitacion, 1).subscribe((reservasActivas) => {
+        reservasActivas.forEach(reserva => {
+          this.bd.actualizarEstadoReserva(reserva.idreserva, 2, 'Habitación deshabilitada');
+        });
+        this.listarReservasActivas();
+        this.listarReservasDesactivadas();
+      });
+  
       this.listarHabitacionesActivas();
       this.listarHabitacionesDesactivadas();
-    }).catch(error => {
-      console.log('Error al desactivar habitación', error);
-    });
+    })
   }
+  
   activarHabitacion(idhabitacion: number) {
     this.bd.actualizarEstadoHabitacion(idhabitacion, 1).then(() => {
+      this.bd.fetchReservaPorHabitacionYEstado(idhabitacion, 2).subscribe((reservasDesactivadas) => {
+        reservasDesactivadas.forEach(reserva => {
+          if (reserva.motivo !== 'Habitación deshabilitada') return;
+          this.bd.actualizarEstadoReserva(reserva.idreserva, 1, 'Habitación habilitada');
+        });
+        this.listarReservasActivas();
+        this.listarReservasDesactivadas();
+      });
+  
       this.listarHabitacionesActivas();
       this.listarHabitacionesDesactivadas();
-    }).catch(error => {
-      console.log('Error al activar habitación', error);
-    });
+    })
   }
+  
 
   listarHabitacionesActivas() {
     this.bd.fetchHabitacionesPorEstado(1).subscribe((habitaciones) => {
@@ -229,7 +242,51 @@ export class AdministradorPage implements OnInit {
     });
   }
 
-  activarReserva(idreserva: number) {
+  async activarReserva(idreserva: number) {
+    const usuariosDesactivados = await this.bd.fetchUsuariosPorEstado(2).toPromise();
+    let usuarioDesactivado = false;
+    
+    if (usuariosDesactivados) {
+      for (let usuario of usuariosDesactivados) {
+        if (usuario.idusuario === idreserva) {
+          usuarioDesactivado = true;
+          break;
+        }
+      }
+    }
+  
+    if (usuarioDesactivado) {
+      const alert = await this.alertController.create({
+        header: 'Usuario Desactivado',
+        message: 'Este usuario está desactivado, no se puede activar la reserva.',
+        buttons: ['OK']
+      });
+      await alert.present();
+      return;
+    }
+  
+    const habitacionesDesactivadas = await this.bd.fetchHabitacionesPorEstado(2).toPromise();
+    let habitacionDesactivada = false;
+  
+    if (habitacionesDesactivadas) {
+      for (let habitacion of habitacionesDesactivadas) {
+        if (habitacion.idhabitacion === idreserva) {
+          habitacionDesactivada = true;
+          break;
+        }
+      }
+    }
+  
+    if (habitacionDesactivada) {
+      const alert = await this.alertController.create({
+        header: 'Habitación Desactivada',
+        message: 'Esta habitación está desactivada, no se puede activar la reserva.',
+        buttons: ['OK']
+      });
+      await alert.present();
+      return;
+    }
+  
     this.bd.activarReserva(idreserva).then(() => {
       this.listarReservasActivas();
       this.listarReservasDesactivadas();
@@ -237,7 +294,6 @@ export class AdministradorPage implements OnInit {
       console.log('Error al activar reserva', error);
     });
   }
-  
   
   
   listarHabitaciones() {
@@ -260,7 +316,5 @@ export class AdministradorPage implements OnInit {
       this.arreglousuarioDesactivado = usuarios;
     });
   }
-
-
 
 }

@@ -19,6 +19,8 @@
   </div>
 
   <div class="table-wrapper">
+    <!-- Tabla de reservas activas -->
+    <h3>Reservas Activas</h3>
     <table class="responsive-table">
       <thead>
         <tr>
@@ -31,10 +33,10 @@
       </thead>
       <tbody>
         <tr *ngFor="let reserva of arregloreserva">
-          <td>{{reserva.idhabitacion}}</td>
-          <td>{{reserva.fecha}}</td>
-          <td>{{reserva.nombreusuario}}</td>
-          <td>{{reserva.total}}</td>
+          <td>{{ reserva.idhabitacion }}</td>
+          <td>{{ reserva.fecha }}</td>
+          <td>{{ reserva.nombreusuario }}</td>
+          <td>{{ reserva.total }}</td>
           <td>
             <button (click)="modificar(reserva)">
               <ion-icon name="create" size="large"></ion-icon>
@@ -47,23 +49,28 @@
       </tbody>
     </table>
   </div>
-    <div *ngIf="arregloReservasDesactivadas.length > 0">
-      <table class="responsive-table">
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Fecha</th>
-            <th>motivo de cancelacion</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let reserva of arregloReservasDesactivadas">
-            <td>{{reserva.idhabitacion}}</td>
-            <td>{{reserva.fecha}}</td>
-            <td>{{reserva.motivo}}</td>
-          </tr>
-        </tbody>
-      </table>
 
-    </div>
+  <br>
+  <br>
+  <br>
+  <!-- Tabla de reservas desactivadas -->
+  <div class="table-wrapper" *ngIf="arregloReservasDesactivadas.length > 0">
+    <h3>Reservas Desactivadas</h3>
+    <table class="responsive-table">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Fecha</th>
+          <th>Motivo de Cancelación</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let reserva of arregloReservasDesactivadas">
+          <td>{{ reserva.idhabitacion }}</td>
+          <td>{{ reserva.fecha }}</td>
+          <td>{{ reserva.motivo }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </ion-content>

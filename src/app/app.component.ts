@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { LocalNotifications } from '@capacitor/local-notifications';
-
+import { SplashScreen } from '@capacitor/splash-screen';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -8,6 +8,7 @@ import { LocalNotifications } from '@capacitor/local-notifications';
 })
 export class AppComponent {
   constructor() {
+    this.showSplash();
     this.initializeApp();
   }
 
@@ -22,5 +23,11 @@ export class AppComponent {
     } else {
       console.log('Permiso de notificaciones otorgado');
     }
+  }
+  async showSplash(){
+    await SplashScreen.show({
+      autoHide:true,
+      showDuration:3000 
+    })
   }
 }

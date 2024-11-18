@@ -13,7 +13,7 @@ export class EditarPerfilPage implements OnInit {
   nombreusuario: string = "";
   correo: string = "";
   telefono: string = "";
-
+  errorMessage:string="";
   constructor(
     private router: Router,
     private activedrouter: ActivatedRoute,
@@ -34,8 +34,27 @@ export class EditarPerfilPage implements OnInit {
   ngOnInit() {}
 
   async guardarCambios() {
-    try {
-      await this.bd.ModificarUsuario(this.idusuario, this.nombreusuario, this.telefono);
+    if (!this.nombreusuario || !this.telefono) {
+      this.errorMessage = "Debe rellenar todos los campos";
+      const alert = await this.alertController.create({
+        header: 'Los Campos están vacíos',
+        message: 'Por favor, rellene todos los campos.',
+        buttons: ['OK']
+      });
+      await alert.present();
+      return;
+    }
+    
+    else if(!this.validarTelefono(this.telefono)) {
+      const alert = await this.alertController.create({
+        header: 'Error',
+        message: 'Solamente puede ingresar numeros',
+        buttons: ['OK']
+      });
+      await alert.present();      return;
+    }    
+    else{
+       this.bd.ModificarUsuario(this.idusuario, this.nombreusuario, this.telefono);
       const alert = await this.alertController.create({
         header: 'Éxito',
         message: 'Perfil actualizado correctamente',
@@ -44,13 +63,13 @@ export class EditarPerfilPage implements OnInit {
       await alert.present();
 
       this.router.navigate(['/miperfil']);
-    } catch (error) {
-      const alert = await this.alertController.create({
-        header: 'Error',
-        message: 'Hubo un problema al actualizar el perfil. Por favor, inténtelo de nuevo.',
-        buttons: ['OK']
-      });
-      await alert.present();
     }
   }
+
+  validarTelefono(telefono: string): boolean {
+    const soloNumeros = telefono.replace(/\D/g, '');
+    this.telefono = soloNumeros.slice(0, 9);
+    return soloNumeros.length == telefono.length; 
+  }
+  
 }

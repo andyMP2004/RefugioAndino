@@ -21,7 +21,7 @@ describe('EditarPerfilPage', () => {
         AngularFireModule.initializeApp(environment.firebaseConfig),
         AngularFireAuthModule,
         HttpClientModule,
-        RouterTestingModule // Esto importa RouterTestingModule, que proporciona ActivatedRoute para pruebas
+        RouterTestingModule 
       ],
       providers: [
         NativeStorage,
@@ -36,5 +36,12 @@ describe('EditarPerfilPage', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('Verificar que al cambiar el teléfono solamente acepte números y tenga un máximo de 9 caracteres', () => {
+    const inputTelefono = 'hola1234567890';
+    const esValido = component.validarTelefono(inputTelefono);
+    expect(component.telefono).toEqual('123456789');
+    expect(esValido).toBe(false); 
   });
 });

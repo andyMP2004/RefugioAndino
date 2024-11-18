@@ -91,12 +91,14 @@ export class RegistroPage implements OnInit {
       await this.presentAlert('Correo invalido', 'Por favor, ingrese un correo electronico valido');
       return;
     }
-
     if (!this.validarEdad(this.fechan)) {
       await this.presentAlert('Error', 'Debes ser mayor de 18 años para registrarte.');
       return;
     }
-
+    if (!this.validarTelefono(this.telefono)) {
+      await this.presentAlert('Error', 'Solamente se deben ingresar números');
+      return;
+    }    
     await this.insertar();
     this.router.navigate(['/home']);
   }
@@ -128,4 +130,12 @@ export class RegistroPage implements OnInit {
       this.rutusuario = '';
     }
   }
+
+  validarTelefono(telefono: string): boolean {
+    const soloNumeros = telefono.replace(/\D/g, '');
+    this.telefono = soloNumeros.slice(0, 9);
+    return soloNumeros.length == telefono.length; 
+  }
+  
+  
 }

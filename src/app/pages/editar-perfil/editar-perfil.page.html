@@ -13,7 +13,7 @@
     
     <ion-item>
       <ion-label position="floating">Teléfono</ion-label>
-      <ion-input [(ngModel)]="telefono" name="telefono" type="tel"></ion-input>
+      <ion-input [(ngModel)]="telefono" name="telefono" type="tel" maxlength="9"></ion-input>
     </ion-item>
   </form>
   <ion-button expand="full" color="primary" (click)="guardarCambios()">

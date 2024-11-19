@@ -50,7 +50,7 @@
   </table>
 
 <!-- Tabla de Reservas Desactivadas -->
-<div class="table-wrapper">
+<div class="table-wrapper" *ngIf="arregloReservasDesactivadas.length > 0">
   <h3>Reservas Desactivadas</h3>
   <table class="responsive-table">
     <thead>
@@ -122,7 +122,7 @@
     </div>
 
     <!-- Habitaciones Desactivadas -->
-    <div class="table-wrapper">
+    <div class="table-wrapper" *ngIf="arregloHabitacionesDesactivadas.length > 0" >
       <h3>Habitaciones Desactivadas</h3>
       <table class="responsive-table">
         <thead>
@@ -156,60 +156,79 @@
   </div>
   
 <!-- Tabla de Usuarios -->
-<!-- Tabla de Usuarios Activos -->
 <div *ngIf="seleccion === 'gestion3'" class="table-wrapper">
-<div class="table-wrapper">
-  <h3>Usuarios Activos</h3>
-  <table class="responsive-table">
-    <thead>
-      <tr>
-        <th>Id</th>
-        <th>RUT</th>
-        <th>Nombre</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let x of arreglousuarioActivo">
-        <td>{{ x.idusuario }}</td>
-        <td>{{ x.rutusuario }}</td>
-        <td>{{ x.nombreusuario }}</td>
-        <td>
-          <button mat-icon-button color="warm" (click)="desactivarUsuario(x.idusuario)">
-            <ion-icon name="close-circle"></ion-icon>
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-wrapper">
+    <h3>Administrador</h3>
+    <table class="responsive-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>RUT</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let x of arreglousuarioSuperAdmin">
+          <td>{{ x.nombreusuario }}</td>
+          <td>{{ x.rutusuario }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tabla de Usuarios Activos -->
+  <div class="table-wrapper">
+    <h3>Usuarios Activos</h3>
+    <table class="responsive-table">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>RUT</th>
+          <th>Nombre</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let x of arreglousuarioActivo">
+          <td>{{ x.idusuario }}</td>
+          <td>{{ x.rutusuario }}</td>
+          <td>{{ x.nombreusuario }}</td>
+          <td>
+            <button mat-icon-button color="warm" (click)="desactivarUsuario(x.idusuario)">
+              <ion-icon name="close-circle"></ion-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tabla de Usuarios Desactivados -->
+  <div *ngIf="arreglousuarioDesactivado.length > 0" class="table-wrapper">
+    <h3>Usuarios Desactivados</h3>
+    <table class="responsive-table">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>RUT</th>
+          <th>Nombre</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let x of arreglousuarioDesactivado">
+          <td>{{ x.idusuario }}</td>
+          <td>{{ x.rutusuario }}</td>
+          <td>{{ x.nombreusuario }}</td>
+          <td>
+            <button mat-icon-button color="primary" (click)="activarUsuario(x.idusuario)">
+              <ion-icon name="checkmark-circle"></ion-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
-<!-- Tabla de Usuarios Desactivados -->
-<div *ngIf="arreglousuarioDesactivado.length > 0" class="table-wrapper">
-  <h3>Usuarios Desactivados</h3>
-  <table class="responsive-table">
-    <thead>
-      <tr>
-        <th>Id</th>
-        <th>RUT</th>
-        <th>Nombre</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let x of arreglousuarioDesactivado">
-        <td>{{ x.idusuario }}</td>
-        <td>{{ x.rutusuario }}</td>
-        <td>{{ x.nombreusuario }}</td>
-        <td>
-          <button mat-icon-button color="primary" (click)="activarUsuario(x.idusuario)">
-            <ion-icon name="checkmark-circle"></ion-icon> <!-- Icono de activar -->
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-</div>
 
 </ion-content>

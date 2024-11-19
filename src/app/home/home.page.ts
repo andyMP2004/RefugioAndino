@@ -33,12 +33,11 @@ export class HomePage {
         buttons: ['OK'],
       });
       await alert.present();
-      return; // Salimos si los campos están vacíos
+      return; 
     }
   
     this.errorMessage = "";
     try {
-      // Intentar iniciar sesión con Firebase
       let CredencialFireBase = await this.authService.inicioSesion(this.correo, this.contrasena);
   
       if (CredencialFireBase) {
@@ -46,8 +45,7 @@ export class HomePage {
         let ValidarUsuario = await this.bd.BuscarUsuC(this.correo);
   
         if (ValidarUsuario) {
-          // Verificar si el usuario está desactivado
-          if (ValidarUsuario.estadoidestado == '2') {
+          if (ValidarUsuario.estadoidestado === 2) { 
             const alert = await this.alertController.create({
               header: 'Usuario Desactivado',
               message: 'Contacta con soporte',
@@ -55,23 +53,19 @@ export class HomePage {
               cssClass: 'estilo-alertas',
             });
             await alert.present();
-            return; // Salimos si el usuario está desactivado
+            return; 
           }
   
-          // Actualizar la contraseña en la base de datos local
           await this.bd.modificarContra(this.contrasena, ValidarUsuario.idusuario);
   
-          // Guardar el ID del usuario en el almacenamiento local
           await this.storage.setItem('usuario', ValidarUsuario.idusuario);
   
-          // Redirigir según el rol del usuario
-          if (ValidarUsuario.rolidrol == '2') { // Rol 2: Administrador
+          if (ValidarUsuario.rolidrol === '2') { 
             this.router.navigate(['/administrador']);
           } else { // Otros roles: Habitaciones
             this.router.navigate(['/habitaciones']);
           }
         } else {
-          // Usuario no encontrado en la base de datos local
           const alert = await this.alertController.create({
             header: 'Error al iniciar sesión',
             message: 'Usuario o contraseña incorrectos, por favor intente de nuevo.',
@@ -81,7 +75,6 @@ export class HomePage {
           await alert.present();
         }
       } else {
-        // Credenciales de Firebase no válidas
         const alert = await this.alertController.create({
           header: 'Error al iniciar sesión',
           message: 'Usuario o contraseña incorrectos, por favor intente de nuevo.',
@@ -91,17 +84,17 @@ export class HomePage {
         await alert.present();
       }
     } catch (error) {
-      // Capturar y manejar cualquier error inesperado
       console.error(error);
       const alert = await this.alertController.create({
         header: 'Error al iniciar sesión',
-        message: 'Ocurrió un error. Por favor, intente de nuevo.',
+        message: 'Usuario o contraseña incorrectos, por favor intente de nuevo.',
         buttons: ['OK'],
         cssClass: 'estilo-alertas',
       });
       await alert.present();
     }
   }
+  
   
 
   ngOnInit() {

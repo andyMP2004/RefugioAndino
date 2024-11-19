@@ -31,6 +31,8 @@ export class AdministradorPage implements OnInit {
   arregloHabitacionesActivas: any[] = [];
   arregloHabitacionesDesactivadas: any[] = [];
 
+  arreglousuarioSuperAdmin: any[] = [];
+
   arregloReservasDesactivadas:any[]=[];
   arregloReservasActivas:any[]=[];
   arreglousuario: any = [
@@ -58,6 +60,7 @@ export class AdministradorPage implements OnInit {
   ];
  
   ionViewWillEnter() {
+    this.listarUsuariosSuperAdmin();
     this.listarHabitacionesActivas();
     this.listarReservasDesactivadas();
   }
@@ -243,7 +246,7 @@ export class AdministradorPage implements OnInit {
   }
 
   async activarReserva(idreserva: number) {
-    const usuariosDesactivados = await this.bd.fetchUsuariosPorEstado(2).toPromise();
+    const usuariosDesactivados = await this.bd.fetchUsuariosPorEstado(2,'1').toPromise();
     let usuarioDesactivado = false;
     
     if (usuariosDesactivados) {
@@ -305,15 +308,20 @@ export class AdministradorPage implements OnInit {
   }
 
   listarUsuariosActivos() {
-    this.bd.fetchUsuariosPorEstado(1).subscribe((usuarios) => {
+    this.bd.fetchUsuariosPorEstado(1,'1').subscribe((usuarios) => {
       this.arreglousuarioActivo = usuarios;
     });
   }
   
   
   listarUsuariosDesactivados() {
-    this.bd.fetchUsuariosPorEstado(2).subscribe((usuarios) => {
+    this.bd.fetchUsuariosPorEstado(2,'1').subscribe((usuarios) => {
       this.arreglousuarioDesactivado = usuarios;
+    });
+  }
+  listarUsuariosSuperAdmin() {
+    this.bd.fetchUsuariosPorEstado(1,'2').subscribe((usuarios) => {
+      this.arreglousuarioSuperAdmin = usuarios.filter((usuario: any) => usuario.rolidrol == 2);
     });
   }
 

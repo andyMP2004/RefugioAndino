@@ -31,7 +31,8 @@ export class EditarPerfilPage implements OnInit {
 
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   async guardarCambios() {
     if (!this.nombreusuario || !this.telefono) {
@@ -43,6 +44,13 @@ export class EditarPerfilPage implements OnInit {
       });
       await alert.present();
       return;
+    }else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(this.correo)) {
+      const alert = await this.alertController.create({
+        header: 'Error',
+        message: 'Correo Invalido, Por favor ingrese un correo valido',
+        buttons: ['OK']
+      });
+      await alert.present();      return;
     }
     
     else if(!this.validarTelefono(this.telefono)) {

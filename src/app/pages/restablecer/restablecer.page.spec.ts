@@ -59,7 +59,7 @@ describe('RestablecerPage', () => {
   
     await component.irPagina();
   
-    expect(alertaSpy).toHaveBeenCalledWith("El correo debe contener @gmail.com");
+    expect(alertaSpy).toHaveBeenCalledWith("El correo debe contener @");
   });
   
 });

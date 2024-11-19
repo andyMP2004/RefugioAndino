@@ -21,6 +21,7 @@ export class HfamiliarPage implements OnInit {
   constructor(private menu: MenuController, private bd: BdService, private router: Router) {}
 
   ngOnInit() {
+    this.menu.enable(false);
     this.bd.dbState().subscribe(res => {
       if (res) {
         this.loadHabitaciones();
@@ -29,6 +30,7 @@ export class HfamiliarPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    this.menu.enable(false);
     this.loadHabitaciones();
   }
 

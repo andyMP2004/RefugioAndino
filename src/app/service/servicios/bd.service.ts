@@ -543,8 +543,8 @@ BuscarUsu(idusuario: number){
     return this.database.executeSql(query, [estado, idusuario]);
   }
 
-  fetchUsuariosPorEstado(estado: number): Observable<any[]> {
-    return from (this.database.executeSql('SELECT * FROM usuario WHERE estadoidestado = ?', [estado]))
+  fetchUsuariosPorEstado(estado: number,rolidrol:string): Observable<any[]> {
+    return from (this.database.executeSql('SELECT * FROM usuario WHERE estadoidestado = ? AND rolidrol = ?', [estado,rolidrol]))
       .pipe(
         map((res: any) => {
           let usuarios: any[] = [];

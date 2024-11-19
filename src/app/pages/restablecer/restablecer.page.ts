@@ -22,31 +22,37 @@ export class RestablecerPage implements OnInit {
 
   async irPagina() {
     if (!this.correo) {
+      // Verificar si el campo de correo está vacío
       const alert = await this.alertController.create({
         header: 'Los datos no pueden estar vacíos',
         message: 'Por favor, complete todos los datos',
         buttons: ['Aceptar'],
       });
       await alert.present();
-    } else if (!this.validarCorreoc(this.correo)) {
-      this.errorMessage = "El correo debe contener @gmail.com";
-      await this.alerta(this.errorMessage); // Asegúrate de que esto exista
-    } else {
-      this.errorMessage = "";
+      return; // Salir de la función si no hay correo
+    }
+  
+    if (!this.validarCorreoc(this.correo)) {
+      this.errorMessage = "El correo debe contener @";
+      await this.alerta(this.errorMessage);
+      return; 
+    }
+  
+    try {
       const usuario = await this.bd.BuscarUsuC(this.correo);
   
       if (!usuario) {
-        await this.alerta('El correo no está registrado en nuestro sistema.');
-        return;
+        await this.alerta('El correo no está registrado en nuestra base de datos.');
+        return; // Salir si no existe el correo en la base de datos
+      }else{
+        await this.auth.resetAuth(this.correo);
+        await this.alerta('Correo Enviado Correctamente');
+
       }
-  
-      const existeEnFirebase = await this.auth.verificarCorreoEnFirebase(this.correo);
-  
-      if (existeEnFirebase) {
-        await this.recuperarContrasena();
-      } else {
-        await this.alerta('El correo no está registrado en nuestro sistema.');
-      }
+    } catch (error) {
+      // Manejo de errores
+      console.error('Error en el proceso de recuperación:', error);
+      await this.alerta('Ocurrió un error al procesar su solicitud. Intente nuevamente más tarde.');
     }
   }
   
@@ -60,18 +66,8 @@ export class RestablecerPage implements OnInit {
   }
   
   validarCorreoc(correo: string): boolean {
-    const regex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return regex.test(correo);
-  }
-
-  async recuperarContrasena() {
-      await this.auth.resetAuth(this.correo);
-      const alert = await this.alertController.create({
-        header: 'Correo enviado',
-        message: 'Por favor, Siga las instrucciones que le enviamos al correo',
-        buttons: ['Aceptar'],
-      });
-      await alert.present();
   }
 
   ngOnInit() {

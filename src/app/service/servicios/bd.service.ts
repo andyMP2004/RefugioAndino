@@ -17,11 +17,14 @@ import { Imagen } from './imagen';
 export class BdService {
   public database!: SQLiteObject;
 
-  TablaUsuario: string = "CREATE TABLE IF NOT EXISTS usuario(idusuario INTEGER PRIMARY KEY AUTOINCREMENT, nombreusuario VARCHAR(100) NOT NULL, correo VARCHAR(100) NOT NULL, idrol INTEGER , rutusuario VARCHAR(15) NOT NULL, contrasena VARCHAR(20) NOT NULL, fechan VARCHAR(20) NOT NULL, telefono VARCHAR(30) NOT NULL,imagenp TEXT,estadoidestado INTEGER, FOREIGN KEY (idrol) REFERENCES rol(idrol),FOREIGN KEY (estadoidestado) REFERENCES estado(idestado));";
-  registroUsuario: string = "INSERT or IGNORE INTO usuario (idusuario, nombreusuario, correo, rutusuario, contrasena, fechan, telefono,imagenp, idrol,estadoidestado) VALUES (1, 'andy madrid', 'madridpolancoa@gmail.com', '21687221-5', 'Andymadrid12', '02/12/2004', '954341221','', 1,1);";
+  TablaUsuario: string = "CREATE TABLE IF NOT EXISTS usuario(idusuario INTEGER PRIMARY KEY AUTOINCREMENT, nombreusuario VARCHAR(100) NOT NULL, correo VARCHAR(100) NOT NULL, rutusuario VARCHAR(15) NOT NULL, contrasena VARCHAR(20) NOT NULL, fechan VARCHAR(20) NOT NULL, telefono VARCHAR(30) NOT NULL,imagenp TEXT,rolidrol VARCHAR(30), estadoidestado INTEGER, FOREIGN KEY (rolidrol) REFERENCES rol(idrol),FOREIGN KEY (estadoidestado) REFERENCES estado(idestado));";
+  registroUsuario: string = "INSERT or IGNORE INTO usuario (idusuario, nombreusuario, correo, rutusuario, contrasena, fechan, telefono,imagenp, rolidrol,estadoidestado) VALUES (1, 'andy madrid', 'madridpolancoa@gmail.com', '21687221-5', 'Andymadrid12', '02/12/2004', '954341221','', '1',1);";
+  registroAdmin: string = "INSERT or IGNORE INTO usuario (idusuario, nombreusuario,correo, rutusuario,contrasena, fechan, telefono, imagenp, rolidrol,estadoidestado) VALUES (2, 'admin', 'admin@gmail.com','12345678-0', 'Admin123','02/09/2000','987654321','', '2',1);";
 
-  TablaRol: string = "CREATE TABLE IF NOT EXISTS rol(idrol INTEGER PRIMARY KEY AUTOINCREMENT, nombrerol VARCHAR(50));"; 
-  registrorol: string = "INSERT or IGNORE INTO rol (idrol, nombrerol) VALUES (1, 'admin');";
+
+  TablaRol: string = "CREATE TABLE IF NOT EXISTS rol(idrol VARCHAR(30) PRIMARY KEY, nombrerol VARCHAR(50));";
+  registrorol: string = "INSERT or IGNORE INTO rol (idrol, nombrerol) VALUES ('1', 'usuario');";
+  registrorol2: string = "INSERT OR IGNORE INTO rol (idrol, nombrerol) VALUES ('2', 'admin');";
 
   TablaReserva: string = "CREATE TABLE IF NOT EXISTS reserva(idreserva INTEGER PRIMARY KEY AUTOINCREMENT, fecha DATE NOT NULL,noches INTEGER, total VARCHAR(50) NOT NULL,motivo VARCHAR(500), usuarioidusuario VARCHAR(200) NOT NULL,idhabitacion INTEGER,estadoidestado INTEGER, FOREIGN KEY (usuarioidusuario) REFERENCES usuario(idusuario), FOREIGN KEY (idhabitacion) REFERENCES habitacion(idhabitacion),FOREIGN KEY (estadoidestado) REFERENCES estado(idestado) );";
 
@@ -121,6 +124,7 @@ export class BdService {
 
   async crearTablas() {
     try {
+      
       await this.database.executeSql(this.TablaUsuario, []);
       await this.database.executeSql(this.TablaRol,[]);
       await this.database.executeSql(this.TablaReserva,[]);
@@ -128,7 +132,10 @@ export class BdService {
       await this.database.executeSql(this.TablaDetalle,[]); 
       await this.database.executeSql(this.TablaHabitacion,[]);
       await this.database.executeSql(this.TablaEstado,[]);
-
+      
+      
+      await this.database.executeSql(this.registrorol2,[]);
+      await this.database.executeSql(this.registroAdmin,[]);
       await this.database.executeSql(this.registroEstado, []);
       await this.database.executeSql(this.registroEstado1, []);
       await this.database.executeSql(this.registroUsuario, []);
@@ -141,7 +148,7 @@ export class BdService {
       await this.database.executeSql(this.registrohabitacion2,[]);
       await this.database.executeSql(this.registrohabitacion3,[]);
       await this.database.executeSql(this.registrohabitacion4,[]);
-
+      
 
       this.seleccionarHabitaciones();
       this.seleccionarUsuarios();
@@ -215,14 +222,32 @@ BuscarUsu(idusuario: number){
     });
   
   }
-  BuscarUsuC(correo: string){
-    return this.database.executeSql('SELECT idusuario ,nombreusuario, correo ,rutusuario, telefono, imagenp, estadoidestado FROM usuario WHERE correo = ?', [correo]).then(res =>{
+  async BuscarUsuCa(correo: string) {
+    const query = `SELECT * FROM usuario WHERE correo = ?`;
+    const resultado = await this.database.executeSql(query, [correo]);
+    if (resultado.rows.length > 0) {
+      return resultado.rows.item(0);
+    }
+    return null;
+  }
+  BuscarUsuC(correo: string) {
+    return this.database.executeSql(
+      'SELECT idusuario, correo, rolidrol, contrasena, estadoidestado FROM usuario WHERE correo = ?', [correo]
+    ).then(res => {
       if (res.rows.length > 0) {
-        return res.rows.item(0);
-      }else {
+         // Si las credenciales son correctas, retorna el usuario encontrado
+        return {
+          idusuario: res.rows.item(0).idusuario,
+          correo: res.rows.item(0).correo,
+          rolidrol: res.rows.item(0).rolidrol,
+          contrasena: res.rows.item(0).contrasena,
+          estadoidestado: res.rows.item(0).estadoidestado,
+        };
+      } else {
+        // Si no hay coincidencias, retorna null
         return null;
-      } 
-    }).catch(e =>{
+      }
+    }).catch(e => {
       this.presentAlert('Usuario', 'Error: ' + JSON.stringify(e));
       return null;
     });
@@ -397,7 +422,7 @@ BuscarUsu(idusuario: number){
 
 
 
-  insertarUsuario(nombreusuario: string, rutusuario: string, correo: string, contrasena: string, fechan: string, telefono: string, imagenp: string, idrol: string) {
+  insertarUsuario(nombreusuario: string, rutusuario: string, correo: string, contrasena: string, fechan: string, telefono: string, imagenp: string) {
     // Validación de la edad
     if (!this.validarEdad(fechan)) {
       this.presentAlert("Error", "Debes ser mayor de 18 años para registrarte.");
@@ -406,10 +431,10 @@ BuscarUsu(idusuario: number){
     
     // El valor del estado activo es 1, según la tabla "estado"
     const estadoidestado = 1;
-  
+    const rolidrol = 1;
     // Consulta de inserción incluyendo el estado
-    return this.database.executeSql('INSERT INTO usuario(nombreusuario, correo, rutusuario, contrasena, fechan, telefono, imagenp, idrol, estadoidestado) VALUES (?,?,?,?,?,?,?,?,?)', 
-      [nombreusuario, correo, rutusuario, contrasena, fechan, telefono, imagenp, idrol, estadoidestado])
+    return this.database.executeSql('INSERT INTO usuario(nombreusuario, correo, rutusuario, contrasena, fechan, telefono, imagenp, rolidrol, estadoidestado) VALUES (?,?,?,?,?,?,?,?,?)', 
+      [nombreusuario, correo, rutusuario, contrasena, fechan, telefono, imagenp, rolidrol, estadoidestado])
       .then(res => {
         this.presentAlert("Insertar", "Usuario Registrado");
         this.seleccionarUsuarios();
@@ -601,5 +626,50 @@ actualizarEstadoReserva(idreserva: number, estado: number, motivo: string): Prom
       })
     );
   }
+  async obtenerUsuarioPorCredenciales(correo: string, contrasena: string): Promise<Usuario | null> {
+    try {
+      const query = `SELECT * FROM usuario WHERE correo = ? AND contrasena = ?`;
+      const res = await this.database.executeSql(query, [correo, contrasena]);
+  
+      if (res.rows.length > 0) {
+        const usuario = res.rows.item(0);
+        return {
+          idusuario: usuario.idusuario,
+          nombreusuario: usuario.nombreusuario,
+          correo: usuario.correo,
+          rutusuario: usuario.rutusuario,
+          contrasena: usuario.contrasena,
+          fechan: usuario.fechan,
+          telefono: usuario.telefono,
+          imagenp: usuario.imagenp,
+          rolidrol: usuario.rolidrol,
+          estadoidestado: usuario.estadoidestado
+        };
+      } else {
+        return null; // Si no se encuentra el usuario
+      }
+    } catch (error) {
+      console.error('Error al obtener usuario por credenciales', error);
+      return null;
+    }
+  }
+  
+  async obtenerRolPorUsuario(idRol: number): Promise<Rol | null> {
+    try {
+      const query = `SELECT * FROM rol WHERE idrol = ?`;
+      const res = await this.database.executeSql(query, [idRol]);
+  
+      if (res.rows.length > 0) {
+        const rol = res.rows.item(0);
+        return { idrol: rol.idrol, nombrerol: rol.nombrerol };
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error('Error al obtener rol del usuario', error);
+      return null;
+    }
+  }
+  
   
 }

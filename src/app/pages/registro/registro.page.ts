@@ -19,7 +19,7 @@ export class RegistroPage implements OnInit {
   repetirContrasena: string = '';
   fechan: string = '';
   telefono: string = '';
-  idrol: string = '';
+  rolidrol: string = '';
   errorMessage: string = '';
 
   constructor(
@@ -87,10 +87,11 @@ export class RegistroPage implements OnInit {
       return;
     }
 
-    if (!/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(this.correo)) {
-      await this.presentAlert('Correo invalido', 'Por favor, ingrese un correo electronico valido');
+    if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(this.correo)) {
+      await this.presentAlert('Correo inválido', 'Por favor, ingrese un correo electrónico válido');
       return;
     }
+    
     if (!this.validarEdad(this.fechan)) {
       await this.presentAlert('Error', 'Debes ser mayor de 18 años para registrarte.');
       return;
@@ -115,7 +116,7 @@ export class RegistroPage implements OnInit {
   async insertar() {
     this.auth.registro(this.correo, this.contrasena);
     const fechaSinHora = this.fechan.split('T')[0];
-    await this.bd.insertarUsuario(this.nombre,this.rutusuario,this.correo,this.contrasena,fechaSinHora,this.telefono,'',this.idrol);
+    await this.bd.insertarUsuario(this.nombre,this.rutusuario,this.correo,this.contrasena,fechaSinHora,this.telefono,'');
   }
 
   validarEdad(fecha: string): boolean {

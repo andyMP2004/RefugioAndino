@@ -25,67 +25,84 @@ export class HomePage {
   ) { }
 
   async irPagina() {
-    if (this.correo == "" || this.contrasena == "") { 
+    if (this.correo == "" || this.contrasena == "") {
       this.errorMessage = "Debe rellenar todos los campos";
       const alert = await this.alertController.create({
-        header: 'Campos Vacios',
+        header: 'Campos Vacíos',
         message: 'Por favor intente de nuevo',
         buttons: ['OK'],
       });
       await alert.present();
-    } else {
-      this.errorMessage = ""; 
-      if (this.correo == "admin@gmail.com" && this.contrasena == "Admin123") { 
-        this.router.navigate(['/administrador']);
-        return;
-      }
-      try {
-        let CredencialFireBase = await this.authService.inicioSesion(this.correo, this.contrasena);
-        if (CredencialFireBase) {
-          let ValidarUsuario = await this.bd.BuscarUsuC(this.correo);
-          if (ValidarUsuario) {
-            if (ValidarUsuario.estadoidestado == '2') {
-              const alert = await this.alertController.create({
-                  header: 'Usuario Desactivado',
-                  message: 'Contacta con soporte',
-                  buttons: ['OK'],
-                  cssClass: 'estilo-alertas'
-              });
-              await alert.present();
-              return;
-            }
-            await this.bd.modificarContra(this.contrasena, ValidarUsuario.idusuario);
-            await this.storage.setItem('usuario', ValidarUsuario.idusuario);
-            this.router.navigate(['/habitaciones']);
-          } else { 
+      return; // Salimos si los campos están vacíos
+    }
+  
+    this.errorMessage = "";
+    try {
+      // Intentar iniciar sesión con Firebase
+      let CredencialFireBase = await this.authService.inicioSesion(this.correo, this.contrasena);
+  
+      if (CredencialFireBase) {
+        // Buscar usuario en la base de datos local
+        let ValidarUsuario = await this.bd.BuscarUsuC(this.correo);
+  
+        if (ValidarUsuario) {
+          // Verificar si el usuario está desactivado
+          if (ValidarUsuario.estadoidestado == '2') {
             const alert = await this.alertController.create({
-              header: 'Error al iniciar sesión',
-              message: 'Usuario o contraseña incorrectos, por favor intente de nuevo.',
+              header: 'Usuario Desactivado',
+              message: 'Contacta con soporte',
               buttons: ['OK'],
-              cssClass: 'estilo-alertas'
+              cssClass: 'estilo-alertas',
             });
             await alert.present();
+            return; // Salimos si el usuario está desactivado
           }
-        } else{
+  
+          // Actualizar la contraseña en la base de datos local
+          await this.bd.modificarContra(this.contrasena, ValidarUsuario.idusuario);
+  
+          // Guardar el ID del usuario en el almacenamiento local
+          await this.storage.setItem('usuario', ValidarUsuario.idusuario);
+  
+          // Redirigir según el rol del usuario
+          if (ValidarUsuario.rolidrol == '2') { // Rol 2: Administrador
+            this.router.navigate(['/administrador']);
+          } else { // Otros roles: Habitaciones
+            this.router.navigate(['/habitaciones']);
+          }
+        } else {
+          // Usuario no encontrado en la base de datos local
           const alert = await this.alertController.create({
             header: 'Error al iniciar sesión',
             message: 'Usuario o contraseña incorrectos, por favor intente de nuevo.',
             buttons: ['OK'],
-            cssClass: 'estilo-alertas'
+            cssClass: 'estilo-alertas',
           });
           await alert.present();
         }
-      } catch (error) {
+      } else {
+        // Credenciales de Firebase no válidas
         const alert = await this.alertController.create({
           header: 'Error al iniciar sesión',
           message: 'Usuario o contraseña incorrectos, por favor intente de nuevo.',
           buttons: ['OK'],
-          cssClass: 'estilo-alertas'
+          cssClass: 'estilo-alertas',
         });
         await alert.present();
       }
+    } catch (error) {
+      // Capturar y manejar cualquier error inesperado
+      console.error(error);
+      const alert = await this.alertController.create({
+        header: 'Error al iniciar sesión',
+        message: 'Ocurrió un error. Por favor, intente de nuevo.',
+        buttons: ['OK'],
+        cssClass: 'estilo-alertas',
+      });
+      await alert.present();
     }
   }
+  
 
   ngOnInit() {
   }

@@ -83,4 +83,13 @@ export class MiperfilPage implements OnInit {
     };
     this.router.navigate(['editar-perfil'], navigationExtras);
   }
+  cambiarContrasena() {
+    const navigationExtras: NavigationExtras = {
+      state: { idusuario: this.idusuario,
+              correo:this.correo
+       }
+    };
+    this.router.navigate(['cambiar-contrasena'], navigationExtras);
+  }
+  
 }

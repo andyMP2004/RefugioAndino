@@ -45,5 +45,10 @@ eliminarUsuario(idusuario: string){
     }
   });
 }
-
+async cambiarContrasena(contrasena: string,correo:string): Promise<void> {
+  const user = await this.AFauth.currentUser;
+  if (user) {
+    return user.updatePassword(contrasena);
+  }
+}
 }

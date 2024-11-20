@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
 import { AuthService } from 'src/app/service/servicios/auth.service';
 import { BdService } from 'src/app/service/servicios/bd.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-administrador',
@@ -118,12 +119,15 @@ export class AdministradorPage implements OnInit {
   desactivarReservasDeUsuario(idusuario: number) {
     this.bd.fetchReservaPorUsuarioYEstado(idusuario, 1).subscribe((reservasActivas) => {
       reservasActivas.forEach(reserva => {
-        this.bd.actualizarEstadoReserva(reserva.idreserva, 2, 'Usuario Desactivado');
+        this.bd.actualizarEstadoReserva(reserva.idreserva, 2, 'Usuario Desactivado').then(() => {
+          console.log(`Reserva ${reserva.idreserva} desactivada con motivo: Usuario Desactivado`);
+        });
       });
       this.listarReservasActivas();
       this.listarReservasDesactivadas();
     });
   }
+  
   
   activarUsuario(idusuario: number) {
     this.bd.actualizarEstadoUsuario(idusuario, 1).then(() => {
@@ -147,20 +151,20 @@ export class AdministradorPage implements OnInit {
   }
   
   
-  
   desactivarHabitacion(idhabitacion: number) {
     this.bd.actualizarEstadoHabitacion(idhabitacion, 2).then(() => {
       this.bd.fetchReservaPorHabitacionYEstado(idhabitacion, 1).subscribe((reservasActivas) => {
         reservasActivas.forEach(reserva => {
-          this.bd.actualizarEstadoReserva(reserva.idreserva, 2, 'Habitación deshabilitada');
+          this.bd.actualizarEstadoReserva(reserva.idreserva, 2, 'Habitación deshabilitada').then(() => {
+            console.log(`Reserva ${reserva.idreserva} desactivada con motivo: Habitación deshabilitada`);
+          });
         });
         this.listarReservasActivas();
         this.listarReservasDesactivadas();
       });
-  
       this.listarHabitacionesActivas();
       this.listarHabitacionesDesactivadas();
-    })
+    });
   }
   
   activarHabitacion(idhabitacion: number) {
@@ -178,7 +182,6 @@ export class AdministradorPage implements OnInit {
       this.listarHabitacionesDesactivadas();
     })
   }
-  
 
   listarHabitacionesActivas() {
     this.bd.fetchHabitacionesPorEstado(1).subscribe((habitaciones) => {
@@ -246,57 +249,68 @@ export class AdministradorPage implements OnInit {
   }
 
   async activarReserva(idreserva: number) {
-    const usuariosDesactivados = await this.bd.fetchUsuariosPorEstado(2,'1').toPromise();
-    let usuarioDesactivado = false;
-    
-    if (usuariosDesactivados) {
-      for (let usuario of usuariosDesactivados) {
-        if (usuario.idusuario === idreserva) {
-          usuarioDesactivado = true;
-          break;
-        }
-      }
-    }
+    try {
+      // Obtener la reserva directamente por su ID
+      const reserva = await firstValueFrom(this.bd.fetchReservaPorId(idreserva));
   
-    if (usuarioDesactivado) {
+      // Si no se encuentra la reserva, mostrar mensaje de error
+      if (!reserva) {
+        const alert = await this.alertController.create({
+          header: 'Reserva no encontrada',
+          message: 'La reserva solicitada no se encuentra.',
+          buttons: ['OK']
+        });
+        await alert.present();
+        return; 
+      }
+  
+      // Verificar si el usuario está activo
+      const usuario = await firstValueFrom(this.bd.fetchUsuarioPorId(reserva.usuarioidusuario));
+      if (usuario?.estadoidestado === 2) { // Usuario desactivado
+        const alert = await this.alertController.create({
+          header: 'Usuario Desactivado',
+          message: `El usuario asociado a la reserva ${reserva.idreserva} está desactivado, no se puede activar la reserva.`,
+          buttons: ['OK']
+        });
+        await alert.present();
+        return; // Salir sin activar la reserva
+      }
+  
+      // Verificar si la habitación asociada está activa
+      const habitacion = await firstValueFrom(this.bd.fetchHabitacionPorId(reserva.idhabitacion));
+      if (habitacion?.estadoidestado === 2) { // Habitación desactivada
+        const alert = await this.alertController.create({
+          header: 'Habitación Desactivada',
+          message: `La habitación asociada a la reserva ${reserva.idreserva} está desactivada, no se puede activar la reserva.`,
+          buttons: ['OK']
+        });
+        await alert.present();
+        return; // Salir sin activar la reserva
+      }
+  
+      // Si tanto el usuario como la habitación están activos, activar la reserva
+      await this.bd.activarReserva(reserva.idreserva);
+      this.listarReservasActivas();  // Actualizar listado de reservas activas
+      this.listarReservasDesactivadas();  // Actualizar listado de reservas desactivadas
+  
       const alert = await this.alertController.create({
-        header: 'Usuario Desactivado',
-        message: 'Este usuario está desactivado, no se puede activar la reserva.',
+        header: 'Reserva Activada',
+        message: `La reserva ${reserva.idreserva} ha sido activada correctamente.`,
         buttons: ['OK']
       });
       await alert.present();
-      return;
-    }
   
-    const habitacionesDesactivadas = await this.bd.fetchHabitacionesPorEstado(2).toPromise();
-    let habitacionDesactivada = false;
-  
-    if (habitacionesDesactivadas) {
-      for (let habitacion of habitacionesDesactivadas) {
-        if (habitacion.idhabitacion === idreserva) {
-          habitacionDesactivada = true;
-          break;
-        }
-      }
-    }
-  
-    if (habitacionDesactivada) {
-      const alert = await this.alertController.create({
-        header: 'Habitación Desactivada',
-        message: 'Esta habitación está desactivada, no se puede activar la reserva.',
-        buttons: ['OK']
-      });
-      await alert.present();
-      return;
-    }
-  
-    this.bd.activarReserva(idreserva).then(() => {
-      this.listarReservasActivas();
-      this.listarReservasDesactivadas();
-    }).catch(error => {
+    } catch (error) {
       console.log('Error al activar reserva', error);
-    });
+      const alert = await this.alertController.create({
+        header: 'Error',
+        message: 'Hubo un error al intentar activar la reserva.',
+        buttons: ['OK']
+      });
+      await alert.present();
+    }
   }
+  
   
   
   listarHabitaciones() {

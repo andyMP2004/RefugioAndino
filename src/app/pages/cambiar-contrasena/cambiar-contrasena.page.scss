@@ -1,0 +1,84 @@
+ion-content {
+    --background: linear-gradient(180deg, #00c6ff, #0072ff);
+}
+
+.perfil {
+    text-align: center;
+    padding: 20px;
+    color: white;
+}
+
+.avatar img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 5px solid white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+}
+
+.titulo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #ffffff;
+}
+
+.location {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+
+.editar {
+    max-width: 360px;
+    background-color: rgba(255, 255, 255, 0.85);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+}
+
+.editar ion-item {
+    margin-bottom: 15px;
+    --background: transparent;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+ion-label {
+    color: #0072ff;
+    font-weight: 600;
+}
+
+ion-input {
+    color: #0072ff;
+    font-size: 1.1rem;
+}
+
+.buttons-row {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+ion-button {
+    flex: 1;
+}
+
+ion-button.volver {
+    background: #ff6b6b;
+    --color: white;
+}
+
+@media (max-width: 768px) {
+    .titulo {
+        font-size: 1.5rem;
+    }
+
+    .avatar img {
+        width: 120px;
+        height: 120px;
+    }
+}

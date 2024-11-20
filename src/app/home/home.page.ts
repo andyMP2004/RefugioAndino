@@ -48,7 +48,7 @@ export class HomePage {
           if (ValidarUsuario.estadoidestado === 2) { 
             const alert = await this.alertController.create({
               header: 'Usuario Desactivado',
-              message: 'Contacta con soporte',
+              message: 'Contactate con este numero +56959808217',
               buttons: ['OK'],
               cssClass: 'estilo-alertas',
             });

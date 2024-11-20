@@ -205,7 +205,7 @@ export class BdService {
 
 
 BuscarUsu(idusuario: number){
-    return this.database.executeSql('SELECT idusuario ,nombreusuario, correo ,rutusuario, telefono, imagenp FROM usuario WHERE idusuario = ?', [idusuario]).then(res =>{
+    return this.database.executeSql('SELECT * FROM usuario WHERE idusuario = ?', [idusuario]).then(res =>{
       if (res.rows.length > 0) {
         return res.rows.item(0);
 
@@ -509,6 +509,13 @@ BuscarUsu(idusuario: number){
       this.presentAlert('Modificar', 'Error: ' + JSON.stringify(e));
     });
   }
+  modificarContrap(contrasena: string, idusuario: number) {
+    return this.database.executeSql(
+      'UPDATE usuario SET contrasena = ? WHERE idusuario = ?',
+      [contrasena, idusuario]
+    );
+  }
+  
 
   llamarid(idhabitacion: number){
     return this.database.executeSql('SELECT idhabitacion FROM habitacion WHERE idhabitacion = ?', [idhabitacion]).then(res => {
@@ -626,6 +633,44 @@ actualizarEstadoReserva(idreserva: number, estado: number, motivo: string): Prom
       })
     );
   }
+  
+  fetchHabitacionPorId(idhabitacion: number): Observable<any> {
+    const query = 'SELECT h.idhabitacion, h.tipoidtipo, h.estadoidestado, t.nombre, t.precio FROM habitacion h JOIN tipo t ON h.tipoidtipo = t.idtipo WHERE h.idhabitacion = ?';
+    return from(this.database.executeSql(query, [idhabitacion])).pipe(
+      map(data => {
+        let habitaciones: any[] = [];
+        for (let i = 0; i < data.rows.length; i++) {
+          habitaciones.push(data.rows.item(i));
+        }
+        return habitaciones.length > 0 ? habitaciones[0] : null;  // Retorna la habitación si existe, o null si no
+      })
+    );
+  }
+
+  fetchUsuarioPorId(idusuario: number): Observable<any> {
+    const query = 'SELECT * FROM usuario WHERE idusuario = ?';
+    return from(this.database.executeSql(query, [idusuario])).pipe(
+      map(data => {
+        if (data.rows.length > 0) {
+          return data.rows.item(0); // Retorna el primer usuario que coincide con el ID
+        }
+        return null; // Retorna null si no se encuentra el usuario
+      })
+    );
+  }
+  fetchReservaPorId(idreserva: number): Observable<any> {
+    const query = 'SELECT * FROM reserva WHERE idreserva = ?';
+    return from(this.database.executeSql(query, [idreserva])).pipe(
+      map(data => {
+        let reservas: any[] = [];
+        for (let i = 0; i < data.rows.length; i++) {
+          reservas.push(data.rows.item(i));
+        }
+        return reservas.length > 0 ? reservas[0] : null;  // Retorna la reserva si existe, o null si no
+      })
+    );
+  }
+  
   async obtenerUsuarioPorCredenciales(correo: string, contrasena: string): Promise<Usuario | null> {
     try {
       const query = `SELECT * FROM usuario WHERE correo = ? AND contrasena = ?`;

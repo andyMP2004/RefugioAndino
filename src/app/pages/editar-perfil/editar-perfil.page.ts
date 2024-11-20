@@ -44,13 +44,14 @@ export class EditarPerfilPage implements OnInit {
       });
       await alert.present();
       return;
-    }else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(this.correo)) {
+    }else if (this.nombreusuario.length < 6 || this.nombreusuario.length > 30) {
       const alert = await this.alertController.create({
         header: 'Error',
-        message: 'Correo Invalido, Por favor ingrese un correo valido',
+        message: 'El nombre no debe ser menor a 6 ni mayor a 30 caracteres',
         buttons: ['OK']
       });
-      await alert.present();      return;
+      await alert.present();
+      return;
     }
     
     else if(!this.validarTelefono(this.telefono)) {
